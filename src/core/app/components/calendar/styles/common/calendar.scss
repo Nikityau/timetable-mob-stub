@@ -1,0 +1,17 @@
+.calendar {
+  width: 100%;
+
+  background: var(--bg-header);
+}
+.calendar__container {
+  width: 100%;
+
+  padding-top: 50px;
+}
+.calendar__current-date {
+  width: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
