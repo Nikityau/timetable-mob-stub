@@ -1,5 +1,9 @@
 .current-date {
+  position: relative;
+
   width: 100%;
+
+  z-index: 1;
 }
 
 .current-date__container {
@@ -8,6 +12,8 @@
   display: flex;
   align-items: center;
   gap: 15px;
+
+  z-index: 1;
 }
 
 .current-date__day {
@@ -53,4 +59,29 @@
 
 .current-date__year {
 
+}
+
+.test {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  transform: translate(0, 10px);
+
+  //height: 0 !important;
+  //overflow: hidden;
+
+  pointer-events: none;
+
+  .ant-picker {
+    z-index: -1;
+
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    //backface-visibility: hidden;
+    pointer-events: none;
+    //font-size: 0 !important;
+  }
 }
