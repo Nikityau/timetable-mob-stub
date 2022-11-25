@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
+import {dateCurrent, dateInit, dateNow} from "../redux/reducers/date/date.actions";
+
 import Calendar from "./components/calendar/calendar";
 import Timetable from "./components/timetable/timetable";
 
@@ -14,6 +16,8 @@ import './style/common/app.scss'
 
 const App = () => {
 
+    const dispatch = useDispatch()
+
     const theme = useSelector(state => state['theme'])
 
     const getTheme = () => {
@@ -26,6 +30,10 @@ const App = () => {
                 return "theme_dark"
         }
     }
+
+    useEffect(() => {
+        dispatch(dateInit())
+    }, [])
 
     return (
         <div className={['app', getTheme()].join(' ')}>

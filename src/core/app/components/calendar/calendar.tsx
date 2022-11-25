@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import CurrentDate from "./components/current-date/current-date";
 import DateCarousel from "./components/date-carousel/date-carousel";

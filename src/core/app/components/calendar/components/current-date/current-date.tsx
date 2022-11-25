@@ -1,71 +1,33 @@
 import React, {useEffect} from 'react';
-import type { DatePickerProps } from 'antd'
-import {Space, DatePicker} from "antd";
+import {useSelector} from "react-redux";
 
-import {useToggler} from "../../../../../utils/hooks/useToggler";
+import {getDateNow} from "../../../../../redux/reducers/date/date.selector";
 
-import 'antd/dist/antd.css'
 import './styles/common/current-date.scss'
 
 const CurrentDate = () => {
 
-    const [isClndrOpen, setIsClndrOpen] = useToggler(false)
-
-    useEffect(() => {
-        window.addEventListener('click', onWindowClick)
-
-        console.log(isClndrOpen)
-
-        return () => {
-            window.removeEventListener('click', onWindowClick)
-        }
-    }, [isClndrOpen])
-
-    const onWindowClick = (e:MouseEvent) => {
-       /* const { target } = e
-        const targetClass = (target as HTMLElement).className
-        if(!targetClass.includes('ant') && isClndrOpen) {
-            setIsClndrOpen.off()
-        }*/
-    }
-
-    const onDateClick = () => {
-        console.log('click')
-        setIsClndrOpen.toggle()
-    }
-
-    const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-        console.log(date, dateString);
-
-        setIsClndrOpen.off()
-    };
+    const dateNow = useSelector(getDateNow)
 
     return (
         <div className={'current-date'}>
-            <div className={'current-date__container'} onClick={onDateClick}>
+            <div className={'current-date__container'}>
                 <div className={'current-date__day'}>
-                    <span>13</span>
+                    <span>{dateNow?.date || '00'}</span>
                 </div>
                 <div className={'current-date__remain-date'}>
                     <div className={'current-date__weekday'}>
-                        <span>чт</span>
+                        <span>{dateNow?.weekday || 'unk'}</span>
                     </div>
                     <div className={'current-date__month-year'}>
                         <div className={'current-date__month'}>
-                            <span>Октябрь</span>
+                            <span>{dateNow?.month || 'unk'}</span>
                         </div>
                         <div className={'current-date__year'}>
-                            <span>2022</span>
+                            <span>{dateNow?.year || 'unk'}</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={'current-date__date-picker'}>
-               <Space className={'test'} direction={'vertical'}>
-                   <DatePicker picker={'date'}
-                               open={isClndrOpen}
-                               onChange={onChange}/>
-               </Space>
             </div>
         </div>
     );

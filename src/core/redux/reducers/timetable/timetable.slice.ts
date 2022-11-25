@@ -1,6 +1,8 @@
 import {Action} from "redux";
 
-const timetableState: any | null = null
+import {timetableData} from "./timetable";
+
+const timetableState: any | null = timetableData
 
 export const timetable = (state = timetableState, action: Action) => {
     switch (action.type) {

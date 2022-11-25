@@ -1,0 +1,35 @@
+.date-card {
+  transition: background-color .3s linear;
+
+  border-radius: 5px;
+}
+.date-card__container {
+  padding: 2px 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.date-card__weekday,
+.date-card__day {
+  overflow: hidden;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: -0.3px;
+
+  color: var(--text-color);
+
+
+  transition: color .3s linear;
+}
+.date-card__weekday {
+
+}
+.date-card__day {
+  font-weight: 700;
+}

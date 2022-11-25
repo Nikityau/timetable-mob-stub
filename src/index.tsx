@@ -7,9 +7,7 @@ import App from "./core/app/app";
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <App></App>
-        </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+        <App></App>
+    </Provider>
 )

@@ -1,29 +1,77 @@
 import produce from "immer";
-import {Action} from "redux";
 
-const dateOptions: Intl.DateTimeFormatOptions = {
-    weekday: 'short',
-    year: 'numeric',
-    day: 'numeric',
-    month: 'long',
+import {IDateAction, IDatePayload} from "./interface/date.interface";
+
+export type WeekdayShort = 'вс' | 'сб' | 'пн' | 'вт' | 'ср' | 'чт' | 'пт'
+
+enum DayByNum {
+    'вс',
+    'пон',
+    'вт',
+    'ср',
+    'чт',
+    'пт',
+    'сб',
+}
+
+enum MonthByNum {
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+}
+
+function getDateNow(): IDatePayload {
+    const date = new Date(Date.now())
+
+    const dateNum = date.getDate()
+    const weekday = DayByNum[date.getDay()]
+    const month = MonthByNum[date.getMonth()]
+    const year = date.getFullYear()
+    const fullYear = `${dateNum}:${weekday}:${month}:${year}`
+
+    return {
+        date: dateNum,
+        weekday,
+        month,
+        year,
+        full: fullYear
+    }
 }
 
 export class DateReducer {
-    now(state, action: Action) {
+    init(state, action: IDateAction) {
         return produce(state, draft => {
+            const date = getDateNow()
 
+            draft.now = date
+            draft.current = date
         })
     }
 
-    setNow(state, action: Action) {
+    now(state, action: IDateAction) {
         return produce(state, draft => {
-
+            draft.now = getDateNow()
         })
     }
 
-    setCurrent(state, action: Action) {
+    setNow(state, action: IDateAction) {
         return produce(state, draft => {
+            draft.now = action.payload
+        })
+    }
 
+    setCurrent(state, action: IDateAction) {
+        return produce(state, draft => {
+            draft.current = action.payload
         })
     }
 }
