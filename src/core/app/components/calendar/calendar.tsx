@@ -1,4 +1,7 @@
 import React, {useEffect} from 'react';
+import {useDispatch} from "react-redux";
+
+import {dateCurrentByNow} from "../../../redux/reducers/date/date.actions";
 
 import CurrentDate from "./components/current-date/current-date";
 import DateCarousel from "./components/date-carousel/date-carousel";
@@ -10,8 +13,10 @@ import './styles/common/calendar.scss'
 
 const Calendar = () => {
 
+    const dispatch = useDispatch()
+
     const onTodayClick = () => {
-        console.log('now click')
+        dispatch(dateCurrentByNow())
     }
 
     return (

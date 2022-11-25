@@ -4,9 +4,9 @@ import {IDateAction, IDatePayload} from "./interface/date.interface";
 
 export type WeekdayShort = 'вс' | 'сб' | 'пн' | 'вт' | 'ср' | 'чт' | 'пт'
 
-enum DayByNum {
+export enum DayByNum {
     'вс',
-    'пон',
+    'пн',
     'вт',
     'ср',
     'чт',
@@ -14,7 +14,7 @@ enum DayByNum {
     'сб',
 }
 
-enum MonthByNum {
+export enum MonthByNum {
     'Январь',
     'Февраль',
     'Март',
@@ -72,6 +72,11 @@ export class DateReducer {
     setCurrent(state, action: IDateAction) {
         return produce(state, draft => {
             draft.current = action.payload
+        })
+    }
+    setCurrentAccordingNow(state, action:IDateAction) {
+        return produce(state, draft => {
+            draft.current = draft.now
         })
     }
 }

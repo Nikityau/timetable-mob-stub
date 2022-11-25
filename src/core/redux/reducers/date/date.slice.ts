@@ -32,6 +32,8 @@ export const date = (state = dateState, action:IDateAction) => {
             return dateReducer.setNow(state, action)
         case DateActions.SET_CURRENT:
             return dateReducer.setCurrent(state, action)
+        case DateActions.SET_CURRENT_ACCORDING_NOW:
+            return dateReducer.setCurrentAccordingNow(state, action)
         default:
             return state
     }
