@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {WeekdayShort} from "../../../../../../../redux/reducers/date/date.reducer";
 
@@ -14,6 +14,7 @@ import './style/common/date-card_weekend.scss'
 import './style/common/date-card_current.scss'
 
 const DateCard = ({ day, weekday, isCurrent, isWeekend }:IDateCard) => {
+
     return (
         <div className={[
             'date-card',
