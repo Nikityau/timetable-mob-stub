@@ -1,13 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
-import {WeekdayShort} from "../../../../../../../redux/reducers/date/date.reducer";
-
-interface IDateCard {
-    weekday: WeekdayShort,
-    day: string | number,
-    isCurrent?: boolean,
-    isWeekend?: boolean
-}
+import { IDateCard } from "./interface/date-card.interface";
 
 import './style/common/date-card.scss'
 import './style/common/date-card_weekend.scss'

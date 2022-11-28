@@ -5,7 +5,11 @@
 }
 .date-carousel__container {
   width: 100%;
-  .splide {
-    width: 100%;
-  }
+}
+.swiper__week {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

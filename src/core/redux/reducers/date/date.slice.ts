@@ -1,20 +1,21 @@
-import {DateActions} from "./date.actions";
+import {DateActions} from "./date-set.actions";
 import {DateReducer} from "./date.reducer";
 
 import {IDateAction} from "./interface/date.interface";
+import {DateState} from "./interface/date-state.interface";
 
-const dateState = {
+const dateState: DateState = {
     now: {
         weekday: '',
         date: 0,
-        month: 'sep',
+        month: '',
         year: 2022,
         full: ''
     },
     current: {
         weekday: '',
         date: 0,
-        month: 'sep',
+        month: '',
         year: 2022,
         full: ''
     }
@@ -22,7 +23,7 @@ const dateState = {
 
 const dateReducer = new DateReducer()
 
-export const date = (state = dateState, action:IDateAction) => {
+export const date = (state = dateState, action: IDateAction) => {
     switch (action.type) {
         case DateActions.INIT:
             return dateReducer.init(state, action)

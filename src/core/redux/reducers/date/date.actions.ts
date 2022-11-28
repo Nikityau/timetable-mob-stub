@@ -1,12 +1,8 @@
-import {IDateAction, IDatePayload} from "./interface/date.interface";
+import {IDateAction} from "./interface/date.interface";
 
-export enum DateActions {
-    INIT = 'date/init',
-    NOW = 'date/now',
-    SET_NOW = 'date/setNow',
-    SET_CURRENT = 'date/setCurrent',
-    SET_CURRENT_ACCORDING_NOW = 'date/setCurrentAccordingNow'
-}
+import {DateActions} from "./date-set.actions";
+
+import {Dates} from "../../../utils/namespaces/dates";
 
 export function dateInit(): IDateAction {
     return {
@@ -20,7 +16,7 @@ export function dateNow(): IDateAction {
     }
 }
 
-export function dateCurrent(payload: IDatePayload): IDateAction {
+export function dateCurrent(payload: Dates.DateObj): IDateAction {
     return {
         type: DateActions.SET_CURRENT,
         payload
