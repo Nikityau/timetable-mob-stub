@@ -31,13 +31,13 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
     }, [swiper])
 
     useEffect(() => {
-        if(!swiper) return
+       /* if(!swiper) return
         swiper.animating = false
-        toCurrentDate()
+        toCurrentDate()*/
     }, [weeksDates])
 
     const onSlideChange = (swiper: SwiperType) => {
-        console.log(swiper)
+        console.log('change',swiper)
       /*  const swiperDomEl = document.querySelector('.swiper')
         const activeSlide = swiperDomEl.querySelector('.swiper-slide-active')
         if(!activeSlide) return
@@ -57,21 +57,21 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
             if(!first) return
             const ff = first[0]
             if(!ff) return;
-            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec)
+            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec, swiper.activeIndex)
         }
         if(dateSpec == 'current') {
             const first = weeksDates[2]
             if(!first) return
             const ff = first[0]
             if(!ff) return;
-            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec)
+            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec, swiper.activeIndex)
         }
         if(dateSpec == 'prev') {
             const first = weeksDates[0]
             if(!first) return
             const ff = first[0]
             if(!ff) return;
-            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec)
+            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec, swiper.activeIndex)
         }
 
     }
@@ -84,8 +84,8 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
         <Swiper
             slidesPerView={1}
             spaceBetween={0}
-            loop={false}
-            initialSlide={1}
+            loop={true}
+            initialSlide={2}
             slidesPerGroup={1}
             onSlideChange={onSlideChange}
             onSwiper={onSwiperInit}

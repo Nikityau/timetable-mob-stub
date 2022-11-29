@@ -18,7 +18,8 @@ export interface WeeksDate {
 
 interface DateSpecState {
     dates: Date[][],
-    dateStart: 'prev' | 'current' | 'next'
+    dateStart: 'prev' | 'current' | 'next',
+    activeIndex: 'undef' | number
 }
 
 const DateCarousel = () => {
@@ -27,7 +28,7 @@ const DateCarousel = () => {
 
     const currentDate = useSelector(getDateCurrent)
 
-    const [weeksDates, setWeeksDates] = useState<DateSpecState>({ dateStart: 'current', dates: [] })
+    const [weeksDates, setWeeksDates] = useState<DateSpecState>({ dateStart: 'current', dates: [],activeIndex: 'undef' })
 
     useEffect(() => {
         (() => {
@@ -40,19 +41,23 @@ const DateCarousel = () => {
                     week,
                     nextWeek,
                 ],
-                dateStart: 'prev'
+                dateStart: 'prev',
+                activeIndex: 'undef'
             })
         })()
     }, [currentDate])
 
-    const changeDates = (y: number, m: number, d: number, spec: 'prev' | 'current' | 'next') => {
+    const changeDates = (y: number, m: number, d: number, spec: 'prev' | 'current' | 'next', activeIndexPrev: number | 'undef') => {
         const week = Dates.getDatesOfWeek(y, m, d)
         const prevWeek = Dates.getDatesOfPrevWeek(y, m, d)
         const nextWeek = Dates.getDatesOfNextWeek(y, m, d)
 
-        console.log('curr', week)
+      /*  console.log('curr', week)
         console.log('prev', prevWeek)
-        console.log('next', nextWeek)
+        console.log('next', nextWeek)*/
+
+        console.log(weeksDates.activeIndex, activeIndexPrev)
+        if(weeksDates.activeIndex == activeIndexPrev) return
 
         if(weeksDates.dateStart == 'current') {
             console.log('current')
@@ -62,7 +67,8 @@ const DateCarousel = () => {
                     prevWeek,
                     week,
                 ],
-                dateStart: 'next'
+                dateStart: 'next',
+                activeIndex: activeIndexPrev
             })
             console.log('next')
         }
@@ -74,7 +80,8 @@ const DateCarousel = () => {
                     prevWeek,
                     nextWeek,
                 ],
-                dateStart: 'current'
+                dateStart: 'current',
+                activeIndex: activeIndexPrev
             })
             console.log('current')
         }
@@ -82,11 +89,12 @@ const DateCarousel = () => {
             console.log('prev')
             setWeeksDates({
                 dates: [
-                    prevWeek,
                     week,
                     nextWeek,
+                    prevWeek,
                 ],
-                dateStart: 'current'
+                dateStart: 'current',
+                activeIndex: activeIndexPrev
             })
             console.log('current')
         }
@@ -99,6 +107,7 @@ const DateCarousel = () => {
                     weeksDates={weeksDates.dates}
                     currentDate={currentDate}
                     changeDates={changeDates}
+                    activeIndex={weeksDates.activeIndex}
                     dateSpec={weeksDates.dateStart}
                 />
             </div>
