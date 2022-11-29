@@ -12,7 +12,7 @@ import DateCard from "../date-card/date-card";
 
 import 'swiper/css'
 
-const SwiperDates = ({dates, currentDate, changeDates, weeksDates}: ISwiperDates) => {
+const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDates) => {
 
     const calendarContext = useContext(CalendarContext)
 
@@ -20,17 +20,7 @@ const SwiperDates = ({dates, currentDate, changeDates, weeksDates}: ISwiperDates
 
     const toCurrentDate = (additIndex: number = 0) => {
         swiper.slideToLoop(1)
-        /*setTimeout(() => {
-            //swiper.animating = true
-        }, 0)*/
     }
-
-    useEffect(() => {
-        console.log('dates change')
-        if (swiper) {
-            //toCurrentDate()
-        }
-    }, [dates, weeksDates])
 
     useEffect(() => {
         const unsub = calendarContext.co.subscribe(toCurrentDate)
@@ -40,20 +30,50 @@ const SwiperDates = ({dates, currentDate, changeDates, weeksDates}: ISwiperDates
         }
     }, [swiper])
 
+    useEffect(() => {
+        if(!swiper) return
+        swiper.animating = false
+        toCurrentDate()
+    }, [weeksDates])
+
     const onSlideChange = (swiper: SwiperType) => {
         console.log(swiper)
-        /* if(!dates[0]) return;
+      /*  const swiperDomEl = document.querySelector('.swiper')
+        const activeSlide = swiperDomEl.querySelector('.swiper-slide-active')
+        if(!activeSlide) return
+        const year = activeSlide.getAttribute('data-start-week-year')
+        const month = activeSlide.getAttribute('data-start-week-month')
+        const date = activeSlide.getAttribute('data-start-week-date')
+        changeDates(Number.parseInt(year), Number.parseInt(month), Number.parseInt(date))*/
+        /*
+        * ai 1 current = a[0]
+        * ai 0 prev = a[2]
+        * ai 2 next = a[1]
+        *
+        * */
 
-         if(swiper.isBeginning) {
-             changeDates(dates[0]?.getFullYear(), dates[0]?.getMonth(), dates[0]?.getDate())
-             return;
-         }
-         if(swiper.isEnd) {
-             const lastIndex = dates.length - 1
-             changeDates(dates[lastIndex]?.getFullYear(), dates[lastIndex]?.getMonth(), dates[lastIndex]?.getDate())
-         }
+        if(dateSpec == 'next') {
+            const first = weeksDates[1]
+            if(!first) return
+            const ff = first[0]
+            if(!ff) return;
+            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec)
+        }
+        if(dateSpec == 'current') {
+            const first = weeksDates[2]
+            if(!first) return
+            const ff = first[0]
+            if(!ff) return;
+            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec)
+        }
+        if(dateSpec == 'prev') {
+            const first = weeksDates[0]
+            if(!first) return
+            const ff = first[0]
+            if(!ff) return;
+            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec)
+        }
 
-         return*/
     }
 
     const onSwiperInit = (swiper: SwiperType) => {
@@ -64,89 +84,33 @@ const SwiperDates = ({dates, currentDate, changeDates, weeksDates}: ISwiperDates
         <Swiper
             slidesPerView={1}
             spaceBetween={0}
-            loop={true}
+            loop={false}
+            initialSlide={1}
             slidesPerGroup={1}
             onSlideChange={onSlideChange}
             onSwiper={onSwiperInit}
         >
             {
                 weeksDates.map((weeks, index) => (
-                   <SwiperSlide
-                    key={index}
-                   >
-                      <div className={'swiper__week'}>
-                          {
-                              weeks.map((date, index) => (
-                                  <DateCard
-                                      key={index}
-                                      weekday={Dates.castToWeekdayShort(Dates.Days[date.getDay()])}
-                                      day={date.getDate()}
-                                      isCurrent={currentDate.date == date.getDate()}
-                                      isWeekend={Dates.isWeekend(date.getDay())}
-                                  />
-                              ))
-                          }
-                      </div>
-                   </SwiperSlide>
-                ))
-            }
-            {/*<SwiperSlide>
-                <div className={'swiper__week'}>
-                    {
-                        weeks.prevWeek.map((date, index) => (
-                            <DateCard
-                                key={index}
-                                weekday={Dates.castToWeekdayShort(Dates.Days[date.getDay()])}
-                                day={date.getDate()}
-                                isCurrent={currentDate.date == date.getDate()}
-                                isWeekend={Dates.isWeekend(date.getDay())}
-                            />
-                        ))
-                    }
-                </div>
-            </SwiperSlide>
-            <SwiperSlide>
-                <div className={'swiper__week'}>
-                    {
-                        weeks.week.map((date, index) => (
-                            <DateCard
-                                key={index}
-                                weekday={Dates.castToWeekdayShort(Dates.Days[date.getDay()])}
-                                day={date.getDate()}
-                                isCurrent={currentDate.date == date.getDate()}
-                                isWeekend={Dates.isWeekend(date.getDay())}
-                            />
-                        ))
-                    }
-                </div>
-            </SwiperSlide>
-            <SwiperSlide>
-                <div className={'swiper__week'}>
-                    {
-                        weeks.nextWeek.map((date, index) => (
-                            <DateCard
-                                key={index}
-                                weekday={Dates.castToWeekdayShort(Dates.Days[date.getDay()])}
-                                day={date.getDate()}
-                                isCurrent={currentDate.date == date.getDate()}
-                                isWeekend={Dates.isWeekend(date.getDay())}
-                            />
-                        ))
-                    }
-                </div>
-            </SwiperSlide>*/}
-            {/* {
-                dates.map((date, index) => (
-                    <SwiperSlide key={index}>
-                        <DateCard
-                            weekday={Dates.castToWeekdayShort(Dates.Days[date.getDay()])}
-                            day={date.getDate()}
-                            isCurrent={currentDate.date == date.getDate()}
-                            isWeekend={Dates.isWeekend(date.getDay())}
-                        />
+                    <SwiperSlide
+                        key={index}
+                    >
+                        <div className={'swiper__week'}>
+                            {
+                                weeks.map((date, index) => (
+                                    <DateCard
+                                        key={index}
+                                        weekday={Dates.castToWeekdayShort(Dates.Days[date.getDay()])}
+                                        day={date.getDate()}
+                                        isCurrent={currentDate.date == date.getDate()}
+                                        isWeekend={Dates.isWeekend(date.getDay())}
+                                    />
+                                ))
+                            }
+                        </div>
                     </SwiperSlide>
                 ))
-            }*/}
+            }
         </Swiper>
     );
 };

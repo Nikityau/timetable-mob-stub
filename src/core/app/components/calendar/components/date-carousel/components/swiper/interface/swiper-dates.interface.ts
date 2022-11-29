@@ -1,9 +1,6 @@
-import {WeeksDate} from "../../../date-carousel";
-
 export interface ISwiperDates {
-    dates: Date[],
-    weeks: WeeksDate
-    weeksDates: Array<Array<Date>>
+    weeksDates: Array<Array<Date>>,
+    dateSpec: 'prev' | 'current' | 'next'
     currentDate: any,
-    changeDates: (y: number, m: number, d: number) => void
+    changeDates: (y: number, m: number, d: number, spec: 'prev' | 'current' | 'next') => void,
 }
