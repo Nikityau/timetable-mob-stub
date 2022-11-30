@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import type {Swiper as SwiperType} from 'swiper'
 import {Swiper, SwiperSlide} from "swiper/react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {ISwiperDates} from "./interface/swiper-dates.interface";
 
@@ -13,10 +13,33 @@ import DateCard from "../date-card/date-card";
 
 import 'swiper/css'
 import {dateCurrent} from "../../../../../../../redux/reducers/date/date.actions";
+import {getDateCurrent} from "../../../../../../../redux/reducers/date/date.selector";
 
-const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDates) => {
+export interface WeeksDate {
+    prevWeek: Date[]
+    week: Date[]
+    nextWeek: Date[]
+}
+
+interface DateSpecState {
+    dates: Date[][],
+    dateStart: 'prev' | 'current' | 'next',
+}
+
+const SwiperDates = ({}: ISwiperDates) => {
+
+    const currentDate = useSelector(getDateCurrent)
 
     const dispatch = useDispatch()
+
+    const [weeksDates, setWeeksDates] = useState<DateSpecState>({ dateStart: 'current', dates: []})
+
+    useEffect(() => {
+        console.log('upd')
+        return () => {
+            console.log('remove')
+        }
+    }, [weeksDates])
 
     const calendarContext = useContext(CalendarContext)
 
@@ -29,12 +52,114 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
     }
 
     useEffect(() => {
+        (() => {
+            const week = Dates.getDatesOfWeek(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
+            const prevWeek = Dates.getDatesOfPrevWeek(week[0].getFullYear(), week[0].getMonth(), week[0].getDate())
+            const nextWeek = Dates.getDatesOfNextWeek(week[0].getFullYear(), week[0].getMonth(), week[0].getDate())
+            setWeeksDates({
+                dates: [
+                    prevWeek,
+                    week,
+                    nextWeek,
+                ],
+                dateStart: 'prev',
+            })
+        })()
+    }, [])
+
+    useEffect(() => {
         const unsub = calendarContext.co.subscribe(toCurrentDate)
 
         return () => {
             unsub()
         }
     }, [swiper])
+
+    const changeDates = (y: number, m: number, d: number, spec: 'prev' | 'current' | 'next', activeIndexPrev: number | 'undef', direction: 'left' | 'right') => {
+        const week = Dates.getDatesOfWeek(y, m, d)
+        const prevWeek = Dates.getDatesOfPrevWeek(y, m, d)
+        const nextWeek = Dates.getDatesOfNextWeek(y, m, d)
+
+        console.log('active_index_prev',activeIndexPrev)
+        if(activeIndexPrev == 0 || activeIndexPrev == 4) return
+
+        if(direction == 'right') {
+            if(weeksDates.dateStart == 'current') {
+                console.log('current')
+                setWeeksDates(prev => ({
+                    dates: [
+                        prevWeek,
+                        week,
+                        nextWeek,
+                    ],
+                    dateStart: 'prev',
+                }))
+                console.log('next')
+            }
+            if(weeksDates.dateStart == 'next') {
+                console.log('next')
+                setWeeksDates(prev => ({
+                    dates: [
+                        week,
+                        nextWeek,
+                        prevWeek,
+                    ],
+                    dateStart: 'current',
+                }))
+                console.log('current')
+            }
+            if(weeksDates.dateStart == 'prev') {
+                console.log('prev')
+                setWeeksDates(prev => ({
+                    dates: [
+                        nextWeek,
+                        prevWeek,
+                        week,
+                    ],
+                    dateStart: 'next',
+                }))
+                console.log('next')
+            }
+        }
+        if(direction == 'left') {
+            if(weeksDates.dateStart == 'current') {
+                console.log('current')
+                setWeeksDates(prev => ({
+                    dates: [
+                        nextWeek,
+                        prevWeek,
+                        week,
+                    ],
+                    dateStart: 'next',
+                }))
+                console.log('next')
+            }
+            if(weeksDates.dateStart == 'next') {
+                console.log('next')
+                setWeeksDates(prev => ({
+                    dates: [
+                        prevWeek,
+                        week,
+                        nextWeek,
+                    ],
+                    dateStart: 'prev',
+                }))
+                console.log('prev')
+            }
+            if(weeksDates.dateStart == 'prev') {
+                console.log('prev')
+                setWeeksDates(prev => ({
+                    dates: [
+                        week,
+                        nextWeek,
+                        prevWeek,
+                    ],
+                    dateStart: 'current',
+                }))
+                console.log('current')
+            }
+        }
+    }
 
     const onSlideChange = (swiper: SwiperType) => {
         console.log('change', swiper)
@@ -46,32 +171,32 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
             let firstEl = undefined
             let firstOfFirstEl = undefined
             if(prevDirection == 'left') {
-                if (dateSpec == 'next') {
-                    firstEl = weeksDates[1]
+                if (weeksDates.dateStart == 'next') {
+                    firstEl = weeksDates.dates[1]
                 }
-                if (dateSpec == 'current') {
-                    firstEl = weeksDates[2]
+                if (weeksDates.dateStart == 'current') {
+                    firstEl = weeksDates.dates[2]
                 }
-                if (dateSpec == 'prev') {
-                    firstEl = weeksDates[0]
+                if (weeksDates.dateStart == 'prev') {
+                    firstEl = weeksDates.dates[0]
                 }
             }
             if(prevDirection == 'right') {
-                if (dateSpec == 'next') {
-                    firstEl = weeksDates[0]
+                if (weeksDates.dateStart == 'next') {
+                    firstEl = weeksDates.dates[0]
                 }
-                if (dateSpec == 'current') {
-                    firstEl = weeksDates[1]
+                if (weeksDates.dateStart == 'current') {
+                    firstEl = weeksDates.dates[1]
                 }
-                if (dateSpec == 'prev') {
-                    firstEl = weeksDates[2]
+                if (weeksDates.dateStart == 'prev') {
+                    firstEl = weeksDates.dates[2]
                 }
             }
 
             if (!firstEl) return
             firstOfFirstEl = firstEl[0]
             if(!firstOfFirstEl) return;
-            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), dateSpec, swiper.activeIndex, prevDirection)
+            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), weeksDates.dateStart, swiper.activeIndex, prevDirection)
 
             return;
         }
@@ -83,19 +208,19 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
 
             let firstEl = undefined
             let firstOfFirstEl = undefined
-            if (dateSpec == 'next') {
-                firstEl = weeksDates[0]
+            if (weeksDates.dateStart == 'next') {
+                firstEl = weeksDates.dates[0]
             }
-            if (dateSpec == 'current') {
-                firstEl = weeksDates[1]
+            if (weeksDates.dateStart == 'current') {
+                firstEl = weeksDates.dates[1]
             }
-            if (dateSpec == 'prev') {
-                firstEl = weeksDates[2]
+            if (weeksDates.dateStart == 'prev') {
+                firstEl = weeksDates.dates[2]
             }
             if (!firstEl) return
             firstOfFirstEl = firstEl[0]
             if(!firstOfFirstEl) return;
-            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), dateSpec, swiper.activeIndex, 'right')
+            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), weeksDates.dateStart, swiper.activeIndex, 'right')
 
             return;
         }
@@ -106,24 +231,24 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
 
             let firstEl = undefined
             let firstOfFirstEl = undefined
-            if (dateSpec == 'next') {
-                firstEl = weeksDates[1]
+            if (weeksDates.dateStart == 'next') {
+                firstEl = weeksDates.dates[1]
             }
-            if (dateSpec == 'current') {
-                firstEl = weeksDates[2]
+            if (weeksDates.dateStart == 'current') {
+                firstEl = weeksDates.dates[2]
             }
-            if (dateSpec == 'prev') {
-                firstEl = weeksDates[0]
+            if (weeksDates.dateStart == 'prev') {
+                firstEl = weeksDates.dates[0]
             }
             if (!firstEl) return
             firstOfFirstEl = firstEl[0]
             if(!firstOfFirstEl) return;
-            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), dateSpec, swiper.activeIndex, 'left')
+            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), weeksDates.dateStart, swiper.activeIndex, 'left')
         }
 
     }
 
-    const onDateCardClick = (e:MouseEvent) => {
+    const onDateCardClick = (e:React.MouseEvent) => {
         /*const date: Dates.DateObj = {
             date: dateNew.getDate(),
             month: Dates.Month[dateNew.getMonth()],
@@ -137,11 +262,21 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
 
         if(!dateCard.classList.contains('date-card')) return
 
-        const date = dateCard.getAttribute('data-date')
-        const month = dateCard.getAttribute('data-month')
-        const year = dateCard.getAttribute('data-year')
+        const date = Number.parseInt(dateCard.getAttribute('data-date'))
+        const month = Number.parseInt(dateCard.getAttribute('data-month'))
+        const year = Number.parseInt(dateCard.getAttribute('data-year'))
 
+        console.log(date, month, year)
 
+        const cDate = new Date(year, month, date)
+
+        dispatch(dateCurrent({
+            date: cDate.getDate(),
+            year: cDate.getFullYear(),
+            month: Dates.Month[cDate.getMonth()],
+            weekday: Dates.Day[cDate.getDay()],
+            full: 'TEST'
+        }))
     }
 
     const onSwiperInit = (swiper: SwiperType) => {
@@ -150,7 +285,7 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
 
     const isCurrentDate = (date:Date):boolean => {
         if(date.getDate() != currentDate.date) return false
-        if(date.getMonth() != currentDate.month) return false
+        if(date.getMonth() != Dates.getMonthNum(currentDate.month)) return false
         if(date.getFullYear() != currentDate.year) return false
 
         return true
@@ -168,10 +303,10 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
             onSwiper={onSwiperInit}
         >
             {
-                weeksDates.map((weeks, index) => (
+                weeksDates.dates.map((weeks, index) => (
                     <SwiperSlide
                         key={index}
-                        onClick={(e) => console.log(e.target)}
+                        onClick={onDateCardClick}
                     >
                         <div className={'swiper__week'}>
                             {

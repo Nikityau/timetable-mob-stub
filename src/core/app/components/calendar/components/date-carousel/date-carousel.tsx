@@ -10,7 +10,7 @@ import SwiperDates from "./components/swiper/swiper-dates";
 import 'swiper/css'
 import './styles/common/date-carousel.scss'
 
-export interface WeeksDate {
+/*export interface WeeksDate {
     prevWeek: Date[]
     week: Date[]
     nextWeek: Date[]
@@ -19,7 +19,7 @@ export interface WeeksDate {
 interface DateSpecState {
     dates: Date[][],
     dateStart: 'prev' | 'current' | 'next',
-}
+}*/
 
 const DateCarousel = () => {
 
@@ -27,9 +27,9 @@ const DateCarousel = () => {
 
     const currentDate = useSelector(getDateCurrent)
 
-    const [weeksDates, setWeeksDates] = useState<DateSpecState>({ dateStart: 'current', dates: []})
+    //const [weeksDates, setWeeksDates] = useState<DateSpecState>({ dateStart: 'current', dates: []})
 
-    useEffect(() => {
+   /* useEffect(() => {
         (() => {
             const week = Dates.getDatesOfWeek(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
             const prevWeek = Dates.getDatesOfPrevWeek(week[0].getFullYear(), week[0].getMonth(), week[0].getDate())
@@ -43,9 +43,9 @@ const DateCarousel = () => {
                 dateStart: 'prev',
             })
         })()
-    }, [currentDate])
+    }, [currentDate])*/
 
-    const changeDates = (y: number, m: number, d: number, spec: 'prev' | 'current' | 'next', activeIndexPrev: number | 'undef', direction: 'left' | 'right') => {
+    /*const changeDates = (y: number, m: number, d: number, spec: 'prev' | 'current' | 'next', activeIndexPrev: number | 'undef', direction: 'left' | 'right') => {
         const week = Dates.getDatesOfWeek(y, m, d)
         const prevWeek = Dates.getDatesOfPrevWeek(y, m, d)
         const nextWeek = Dates.getDatesOfNextWeek(y, m, d)
@@ -129,20 +129,20 @@ const DateCarousel = () => {
                 console.log('current')
             }
         }
-    }
+    }*/
 
     return (
         <div className={'date-carousel'}>
             <div className={'date-carousel__container'}>
                 <SwiperDates
-                    weeksDates={weeksDates.dates}
+                   /* weeksDates={weeksDates.dates}
                     currentDate={{
                         date: currentDate.date,
                         month: Dates.getMonthNum(currentDate.month),
                         year: currentDate.year
                     }}
                     changeDates={changeDates}
-                    dateSpec={weeksDates.dateStart}
+                    dateSpec={weeksDates.dateStart}*/
                 />
             </div>
         </div>
