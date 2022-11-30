@@ -2,7 +2,7 @@ import {IDateAction} from "./interface/date.interface";
 
 import {DateActions} from "./date-set.actions";
 
-import {Dates} from "../../../utils/namespaces/dates";
+import Dates from "../../../utils/namespaces/dates";
 
 export function dateInit(): IDateAction {
     return {

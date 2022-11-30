@@ -4,5 +4,7 @@ export interface IDateCard {
     weekday: Dates.WeekdayShort,
     day: string | number,
     isCurrent?: boolean,
-    isWeekend?: boolean
+    isWeekend?: boolean,
+    onClickHandler?: (date: Date) => void,
+    fullDate: Date
 }

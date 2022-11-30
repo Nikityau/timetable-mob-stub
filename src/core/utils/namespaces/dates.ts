@@ -4,7 +4,7 @@ namespace Dates {
     export type WeekdayShort = 'вс' | 'сб' | 'пн' | 'вт' | 'ср' | 'чт' | 'пт'
     export type MonthFull = 'Январь' | 'Февраль' | 'Март' | 'Апрель' | 'Май' | 'Июнь' | 'Июль' | 'Август' | 'Сентябрь' | 'Октябрь' | 'Ноябрь' | 'Декабрь'
 
-    export enum Days {
+    export enum Day {
         'вс',
         'пн',
         'вт',
@@ -36,7 +36,7 @@ namespace Dates {
         full: string
     }
 
-    export function castToWeekdayShort(weekday: Days | WeekdayShort | string):WeekdayShort {
+    export function castToWeekdayShort(weekday: Day | WeekdayShort | string):WeekdayShort {
         return weekday as WeekdayShort
     }
 
@@ -48,7 +48,7 @@ namespace Dates {
         const date = new Date(Date.now())
 
         const dateNum = date.getDate()
-        const weekday = Dates.Days[date.getDay()]
+        const weekday = Dates.Day[date.getDay()]
         const month = Dates.Month[date.getMonth()]
         const year = date.getFullYear()
         const fullYear = `${dateNum}:${weekday}:${month}:${year}`
@@ -110,7 +110,7 @@ namespace Dates {
         })
     }
 
-    export function isWeekend(day: Days | WeekdayShort | number):boolean {
+    export function isWeekend(day: Day | WeekdayShort | number):boolean {
         if(day == 'сб' || day == 'вс') return true
         if(day == 6 || day == 0) return true
 

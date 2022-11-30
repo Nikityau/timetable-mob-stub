@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {getDateCurrent} from "../../../../../redux/reducers/date/date.selector";
 
@@ -136,7 +136,11 @@ const DateCarousel = () => {
             <div className={'date-carousel__container'}>
                 <SwiperDates
                     weeksDates={weeksDates.dates}
-                    currentDate={currentDate}
+                    currentDate={{
+                        date: currentDate.date,
+                        month: Dates.getMonthNum(currentDate.month),
+                        year: currentDate.year
+                    }}
                     changeDates={changeDates}
                     dateSpec={weeksDates.dateStart}
                 />

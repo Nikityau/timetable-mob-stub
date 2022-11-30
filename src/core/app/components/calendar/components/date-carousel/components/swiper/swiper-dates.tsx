@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import type {Swiper as SwiperType} from 'swiper'
 import {Swiper, SwiperSlide} from "swiper/react";
+import {useDispatch} from "react-redux";
 
 import {ISwiperDates} from "./interface/swiper-dates.interface";
 
@@ -11,8 +12,11 @@ import Dates from "../../../../../../../utils/namespaces/dates";
 import DateCard from "../date-card/date-card";
 
 import 'swiper/css'
+import {dateCurrent} from "../../../../../../../redux/reducers/date/date.actions";
 
 const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDates) => {
+
+    const dispatch = useDispatch()
 
     const calendarContext = useContext(CalendarContext)
 
@@ -21,7 +25,7 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
     const [prevDirection, setPrevDirection] = useState<'left' | 'right'>()
 
     const toCurrentDate = (additIndex: number = 0) => {
-        swiper.slideToLoop(1)
+        //swiper.slideToLoop(1)
     }
 
     useEffect(() => {
@@ -119,8 +123,37 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
 
     }
 
+    const onDateCardClick = (e:MouseEvent) => {
+        /*const date: Dates.DateObj = {
+            date: dateNew.getDate(),
+            month: Dates.Month[dateNew.getMonth()],
+            weekday: Dates.Day[dateNew.getDay()],
+            year: dateNew.getFullYear(),
+            full: 'TEST'
+        }
+
+        dispatch(dateCurrent(date))*/
+        const dateCard = e.target as HTMLElement
+
+        if(!dateCard.classList.contains('date-card')) return
+
+        const date = dateCard.getAttribute('data-date')
+        const month = dateCard.getAttribute('data-month')
+        const year = dateCard.getAttribute('data-year')
+
+
+    }
+
     const onSwiperInit = (swiper: SwiperType) => {
         setSwiper(swiper)
+    }
+
+    const isCurrentDate = (date:Date):boolean => {
+        if(date.getDate() != currentDate.date) return false
+        if(date.getMonth() != currentDate.month) return false
+        if(date.getFullYear() != currentDate.year) return false
+
+        return true
     }
 
     return (
@@ -128,6 +161,7 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
             slidesPerView={1}
             spaceBetween={0}
             loop={true}
+            navigation={false}
             initialSlide={2}
             slidesPerGroup={1}
             onSlideChange={onSlideChange}
@@ -137,16 +171,18 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
                 weeksDates.map((weeks, index) => (
                     <SwiperSlide
                         key={index}
+                        onClick={(e) => console.log(e.target)}
                     >
                         <div className={'swiper__week'}>
                             {
                                 weeks.map((date, index) => (
                                     <DateCard
                                         key={index}
-                                        weekday={Dates.castToWeekdayShort(Dates.Days[date.getDay()])}
+                                        weekday={Dates.castToWeekdayShort(Dates.Day[date.getDay()])}
                                         day={date.getDate()}
-                                        isCurrent={currentDate.date == date.getDate()}
+                                        isCurrent={isCurrentDate(date)}
                                         isWeekend={Dates.isWeekend(date.getDay())}
+                                        fullDate={date}
                                     />
                                 ))
                             }
