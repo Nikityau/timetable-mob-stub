@@ -17,6 +17,8 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
     const calendarContext = useContext(CalendarContext)
 
     const [swiper, setSwiper] = useState<SwiperType>()
+    const [slideActiveIndex, setSlideActiveIndex] = useState<number>(2)
+    const [prevDirection, setPrevDirection] = useState<'left' | 'right'>()
 
     const toCurrentDate = (additIndex: number = 0) => {
         swiper.slideToLoop(1)
@@ -30,48 +32,89 @@ const SwiperDates = ({currentDate, changeDates, weeksDates, dateSpec}: ISwiperDa
         }
     }, [swiper])
 
-    useEffect(() => {
-       /* if(!swiper) return
-        swiper.animating = false
-        toCurrentDate()*/
-    }, [weeksDates])
-
     const onSlideChange = (swiper: SwiperType) => {
-        console.log('change',swiper)
-      /*  const swiperDomEl = document.querySelector('.swiper')
-        const activeSlide = swiperDomEl.querySelector('.swiper-slide-active')
-        if(!activeSlide) return
-        const year = activeSlide.getAttribute('data-start-week-year')
-        const month = activeSlide.getAttribute('data-start-week-month')
-        const date = activeSlide.getAttribute('data-start-week-date')
-        changeDates(Number.parseInt(year), Number.parseInt(month), Number.parseInt(date))*/
-        /*
-        * ai 1 current = a[0]
-        * ai 0 prev = a[2]
-        * ai 2 next = a[1]
-        *
-        * */
+        console.log('change', swiper)
 
-        if(dateSpec == 'next') {
-            const first = weeksDates[1]
-            if(!first) return
-            const ff = first[0]
-            if(!ff) return;
-            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec, swiper.activeIndex)
+        if(Math.abs(swiper.activeIndex - slideActiveIndex) > 1) {
+            console.log('here', prevDirection)
+            setSlideActiveIndex(swiper.activeIndex)
+
+            let firstEl = undefined
+            let firstOfFirstEl = undefined
+            if(prevDirection == 'left') {
+                if (dateSpec == 'next') {
+                    firstEl = weeksDates[1]
+                }
+                if (dateSpec == 'current') {
+                    firstEl = weeksDates[2]
+                }
+                if (dateSpec == 'prev') {
+                    firstEl = weeksDates[0]
+                }
+            }
+            if(prevDirection == 'right') {
+                if (dateSpec == 'next') {
+                    firstEl = weeksDates[0]
+                }
+                if (dateSpec == 'current') {
+                    firstEl = weeksDates[1]
+                }
+                if (dateSpec == 'prev') {
+                    firstEl = weeksDates[2]
+                }
+            }
+
+            if (!firstEl) return
+            firstOfFirstEl = firstEl[0]
+            if(!firstOfFirstEl) return;
+            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), dateSpec, swiper.activeIndex, prevDirection)
+
+            return;
         }
-        if(dateSpec == 'current') {
-            const first = weeksDates[2]
-            if(!first) return
-            const ff = first[0]
-            if(!ff) return;
-            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec, swiper.activeIndex)
+
+        if (swiper.activeIndex > slideActiveIndex) {
+            console.log('right')
+            setSlideActiveIndex(swiper.activeIndex)
+            setPrevDirection('right')
+
+            let firstEl = undefined
+            let firstOfFirstEl = undefined
+            if (dateSpec == 'next') {
+                firstEl = weeksDates[0]
+            }
+            if (dateSpec == 'current') {
+                firstEl = weeksDates[1]
+            }
+            if (dateSpec == 'prev') {
+                firstEl = weeksDates[2]
+            }
+            if (!firstEl) return
+            firstOfFirstEl = firstEl[0]
+            if(!firstOfFirstEl) return;
+            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), dateSpec, swiper.activeIndex, 'right')
+
+            return;
         }
-        if(dateSpec == 'prev') {
-            const first = weeksDates[0]
-            if(!first) return
-            const ff = first[0]
-            if(!ff) return;
-            changeDates(ff.getFullYear(),ff.getMonth(), ff.getDate(), dateSpec, swiper.activeIndex)
+        if (swiper.activeIndex < slideActiveIndex) {
+            console.log('left')
+            setSlideActiveIndex(swiper.activeIndex)
+            setPrevDirection('left')
+
+            let firstEl = undefined
+            let firstOfFirstEl = undefined
+            if (dateSpec == 'next') {
+                firstEl = weeksDates[1]
+            }
+            if (dateSpec == 'current') {
+                firstEl = weeksDates[2]
+            }
+            if (dateSpec == 'prev') {
+                firstEl = weeksDates[0]
+            }
+            if (!firstEl) return
+            firstOfFirstEl = firstEl[0]
+            if(!firstOfFirstEl) return;
+            changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), dateSpec, swiper.activeIndex, 'left')
         }
 
     }

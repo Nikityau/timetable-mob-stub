@@ -19,7 +19,6 @@ export interface WeeksDate {
 interface DateSpecState {
     dates: Date[][],
     dateStart: 'prev' | 'current' | 'next',
-    activeIndex: 'undef' | number
 }
 
 const DateCarousel = () => {
@@ -28,7 +27,7 @@ const DateCarousel = () => {
 
     const currentDate = useSelector(getDateCurrent)
 
-    const [weeksDates, setWeeksDates] = useState<DateSpecState>({ dateStart: 'current', dates: [],activeIndex: 'undef' })
+    const [weeksDates, setWeeksDates] = useState<DateSpecState>({ dateStart: 'current', dates: []})
 
     useEffect(() => {
         (() => {
@@ -42,61 +41,93 @@ const DateCarousel = () => {
                     nextWeek,
                 ],
                 dateStart: 'prev',
-                activeIndex: 'undef'
             })
         })()
     }, [currentDate])
 
-    const changeDates = (y: number, m: number, d: number, spec: 'prev' | 'current' | 'next', activeIndexPrev: number | 'undef') => {
+    const changeDates = (y: number, m: number, d: number, spec: 'prev' | 'current' | 'next', activeIndexPrev: number | 'undef', direction: 'left' | 'right') => {
         const week = Dates.getDatesOfWeek(y, m, d)
         const prevWeek = Dates.getDatesOfPrevWeek(y, m, d)
         const nextWeek = Dates.getDatesOfNextWeek(y, m, d)
 
-      /*  console.log('curr', week)
-        console.log('prev', prevWeek)
-        console.log('next', nextWeek)*/
+        console.log('active_index_prev',activeIndexPrev)
+        if(activeIndexPrev == 0 || activeIndexPrev == 4) return
 
-        console.log(weeksDates.activeIndex, activeIndexPrev)
-        if(weeksDates.activeIndex == activeIndexPrev) return
-
-        if(weeksDates.dateStart == 'current') {
-            console.log('current')
-            setWeeksDates({
-                dates: [
-                    nextWeek,
-                    prevWeek,
-                    week,
-                ],
-                dateStart: 'next',
-                activeIndex: activeIndexPrev
-            })
-            console.log('next')
+        if(direction == 'right') {
+            if(weeksDates.dateStart == 'current') {
+                console.log('current')
+                setWeeksDates(prev => ({
+                    dates: [
+                        prevWeek,
+                        week,
+                        nextWeek,
+                    ],
+                    dateStart: 'prev',
+                }))
+                console.log('next')
+            }
+            if(weeksDates.dateStart == 'next') {
+                console.log('next')
+                setWeeksDates(prev => ({
+                    dates: [
+                        week,
+                        nextWeek,
+                        prevWeek,
+                    ],
+                    dateStart: 'current',
+                }))
+                console.log('current')
+            }
+            if(weeksDates.dateStart == 'prev') {
+                console.log('prev')
+                setWeeksDates(prev => ({
+                    dates: [
+                        nextWeek,
+                        prevWeek,
+                        week,
+                    ],
+                    dateStart: 'next',
+                }))
+                console.log('next')
+            }
         }
-        if(weeksDates.dateStart == 'next') {
-            console.log('next')
-            setWeeksDates({
-                dates: [
-                    week,
-                    prevWeek,
-                    nextWeek,
-                ],
-                dateStart: 'current',
-                activeIndex: activeIndexPrev
-            })
-            console.log('current')
-        }
-        if(weeksDates.dateStart == 'prev') {
-            console.log('prev')
-            setWeeksDates({
-                dates: [
-                    week,
-                    nextWeek,
-                    prevWeek,
-                ],
-                dateStart: 'current',
-                activeIndex: activeIndexPrev
-            })
-            console.log('current')
+        if(direction == 'left') {
+            if(weeksDates.dateStart == 'current') {
+                console.log('current')
+                setWeeksDates(prev => ({
+                    dates: [
+                        nextWeek,
+                        prevWeek,
+                        week,
+                    ],
+                    dateStart: 'next',
+                }))
+                console.log('next')
+            }
+            if(weeksDates.dateStart == 'next') {
+                console.log('next')
+                setWeeksDates(prev => ({
+                    dates: [
+                        prevWeek,
+                        week,
+                        nextWeek,
+                    ],
+                    dateStart: 'prev',
+                }))
+                console.log('prev')
+            }
+            if(weeksDates.dateStart == 'prev') {
+                console.log('prev')
+                setWeeksDates(prev => ({
+                    dates: [
+                        week,
+                        nextWeek,
+                        prevWeek,
+                    ],
+                    dateStart: 'current',
+                }))
+                console.log('current')
+            }
         }
     }
 
@@ -107,7 +138,6 @@ const DateCarousel = () => {
                     weeksDates={weeksDates.dates}
                     currentDate={currentDate}
                     changeDates={changeDates}
-                    activeIndex={weeksDates.activeIndex}
                     dateSpec={weeksDates.dateStart}
                 />
             </div>
