@@ -17,11 +17,11 @@ import {DateSpecState} from "./interface/date-spec-state";
 
 export const useSwiperDates = (): UseSwiperDates => {
     const currentDate = useSelector(ReduxDateSelector.getDateCurrent)
+    const dateNow = useSelector(ReduxDateSelector.getDateNow)
 
     const dispatch = useDispatch()
 
     const calendarContext = useContext(CalendarContext)
-
 
     const [swiper, setSwiper] = useState<SwiperType>()
     const [slideActiveIndex, setSlideActiveIndex] = useState<number>(2)
@@ -50,10 +50,41 @@ export const useSwiperDates = (): UseSwiperDates => {
         return () => {
             unsub()
         }
-    }, [swiper])
+    }, [swiper, currentDate])
 
     const toCurrentDate = (additIndex: number = 0) => {
-        //swiper.slideToLoop(1)
+        const currDate = new Date(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
+        const nowDate = new Date(dateNow.year, Dates.getMonthNum(dateNow.month), dateNow.date)
+
+        if (currDate == nowDate) return
+
+        const nowWeek = Dates.getDatesOfWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
+
+        if(Dates.isDateBelongs(currDate, nowWeek)) return;
+
+        const week = Dates.getDatesOfWeek(currDate.getFullYear(), currDate.getMonth(), currDate.getDate())
+
+        if(currDate > nowDate) {
+            console.log('right')
+
+            /*setWeeksDates({
+                dates: [
+                  week,
+                  nowWeek,
+                  week,
+                ],
+                dateStart: 'prev'
+            })*/
+
+            //swiper.slideToLoop(1)
+
+            return;
+        }
+        if(currDate < nowDate) {
+            console.log('left')
+
+            return;
+        }
     }
 
     const setWeeksDatesFunction = (dates: Date[][], dateStart: SlidePos) => {
@@ -64,6 +95,7 @@ export const useSwiperDates = (): UseSwiperDates => {
     }
 
     const changeDates = (y: number, m: number, d: number, spec: SlidePos, activeIndexPrev: number | 'undef', direction: 'left' | 'right') => {
+        console.log('changeDates')
         const week = Dates.getDatesOfWeek(y, m, d)
         const prevWeek = Dates.getDatesOfPrevWeek(y, m, d)
         const nextWeek = Dates.getDatesOfNextWeek(y, m, d)
@@ -71,7 +103,7 @@ export const useSwiperDates = (): UseSwiperDates => {
         if (activeIndexPrev == 0 || activeIndexPrev == 4) return
 
         if (direction == 'right') {
-            changeDatesRightBranch({ week, prevWeek, nextWeek })
+            changeDatesRightBranch({week, prevWeek, nextWeek})
             return;
         }
         if (direction == 'left') {
@@ -79,7 +111,11 @@ export const useSwiperDates = (): UseSwiperDates => {
             return;
         }
     }
-    const changeDatesLeftBranch = ({ prevWeek, week, nextWeek }: { prevWeek:Date[], week: Date[], nextWeek: Date[] }) => {
+    const changeDatesLeftBranch = ({
+                                       prevWeek,
+                                       week,
+                                       nextWeek
+                                   }: { prevWeek: Date[], week: Date[], nextWeek: Date[] }) => {
         if (weeksDates.dateStart == 'curr') {
             setWeeksDatesFunction([
                 nextWeek,
@@ -102,7 +138,11 @@ export const useSwiperDates = (): UseSwiperDates => {
             ], 'curr')
         }
     }
-    const changeDatesRightBranch = ({ prevWeek, week, nextWeek }: { prevWeek:Date[], week: Date[], nextWeek: Date[] }) => {
+    const changeDatesRightBranch = ({
+                                        prevWeek,
+                                        week,
+                                        nextWeek
+                                    }: { prevWeek: Date[], week: Date[], nextWeek: Date[] }) => {
         if (weeksDates.dateStart == 'curr') {
             setWeeksDatesFunction([
                 prevWeek,
@@ -147,7 +187,7 @@ export const useSwiperDates = (): UseSwiperDates => {
         if (swiper.activeIndex > slideActiveIndex) {
             setPrevDirection('right')
 
-            let { firstEl, direction } = slideChangeRight('right')
+            let {firstEl, direction} = slideChangeRight('right')
             preChangesDates(firstEl, direction)
 
             return;
@@ -155,12 +195,12 @@ export const useSwiperDates = (): UseSwiperDates => {
         if (swiper.activeIndex < slideActiveIndex) {
             setPrevDirection('left')
 
-            let { firstEl, direction } = slideChangeLeft('left')
+            let {firstEl, direction} = slideChangeLeft('left')
             preChangesDates(firstEl, direction)
         }
     }
 
-    const preChangesDates = (array:Date[], direction: SlideDirection) => {
+    const preChangesDates = (array: Date[], direction: SlideDirection) => {
         let firstEl = array
         let firstOfFirstEl = undefined
 
@@ -218,13 +258,7 @@ export const useSwiperDates = (): UseSwiperDates => {
 
         const cDate = new Date(year, month, date)
 
-        dispatch(ReduxDateAction.dateCurrent({
-            date: cDate.getDate(),
-            year: cDate.getFullYear(),
-            month: Dates.Month[cDate.getMonth()],
-            weekday: Dates.Day[cDate.getDay()],
-            full: 'TEST'
-        }))
+        dispatch(ReduxDateAction.dateCurrent(Dates.getDateObj(cDate)))
     }
 
     return [

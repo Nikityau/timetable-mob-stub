@@ -45,8 +45,9 @@ namespace Dates {
     }
 
     export function getDateNow():DateObj {
-        const date = new Date(Date.now())
-
+        return getDateObj(new Date(Date.now()))
+    }
+    export function getDateObj(date:Date):DateObj {
         const dateNum = date.getDate()
         const weekday = Dates.Day[date.getDay()]
         const month = Dates.Month[date.getMonth()]
@@ -80,7 +81,11 @@ namespace Dates {
     }
     export function getDatesOfWeek(year: number, month:number, date: number):Date[] {
         const tempDate = createDate(year, month, date)
-        const day = tempDate.getDay()
+        let day = tempDate.getDay()
+
+        if(day == 0) {
+            day = 7
+        }
 
         return eachDayOfInterval({
             start: new Date(year, month, date - day + 1),
@@ -123,6 +128,19 @@ namespace Dates {
         if(fDate.getFullYear() != sDate.getFullYear()) return false
 
         return true
+    }
+
+    export function isDateBelongs(date: Date, array: Date[]): boolean {
+        for(let i = 0; i < array.length; ++i) {
+            if(
+                isDatesCompare(
+                    date,
+                    array[i]
+                )
+            ) return true
+        }
+
+        return false
     }
 }
 
