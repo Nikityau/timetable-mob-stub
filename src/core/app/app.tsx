@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-import {dateCurrent, dateInit, dateNow} from "../redux/reducers/date/date.actions";
+import ReduxDateAction from "../redux/reducers/date/date.actions";
 
 import Calendar from "./components/calendar/calendar";
 import Timetable from "./components/timetable/timetable";
 
 import '../ui/styles/global/global.scss'
 import '../ui/styles/fonts/sf-pro-display/sf-pro-display.scss'
+import '../ui/styles/fonts/custom/custom.scss'
 import '../ui/styles/theme/dark.scss'
 import '../ui/styles/theme/light.scss'
 import '../ui/styles/side-offset/side-offset.scss'
@@ -32,7 +33,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        dispatch(dateInit())
+        dispatch(ReduxDateAction.dateInit())
     }, [])
 
     return (

@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useSelector} from "react-redux";
 
-import {getDateNow} from "../../../../../redux/reducers/date/date.selector";
+import ReduxDateSelector from "../../../../../redux/reducers/date/date.selector";
 
 import './styles/common/current-date.scss'
 
 const CurrentDate = () => {
 
-    const dateNow = useSelector(getDateNow)
+    const dateNow = useSelector(ReduxDateSelector.getDateNow)
 
     return (
         <div className={'current-date'}>

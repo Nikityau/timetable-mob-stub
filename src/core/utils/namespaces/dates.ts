@@ -116,6 +116,14 @@ namespace Dates {
 
         return false;
     }
+
+    export function isDatesCompare(fDate:Date, sDate: Date):boolean {
+        if(fDate.getDate() != sDate.getDate()) return false
+        if(fDate.getMonth() != sDate.getMonth()) return false
+        if(fDate.getFullYear() != sDate.getFullYear()) return false
+
+        return true
+    }
 }
 
 export default Dates

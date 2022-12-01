@@ -1,4 +1,4 @@
-import {DateActions} from "./date-set.actions";
+import ReduxDateAction from "./date.actions";
 import {DateReducer} from "./date.reducer";
 
 import {IDateAction} from "./interface/date.interface";
@@ -25,15 +25,15 @@ const dateReducer = new DateReducer()
 
 export const date = (state = dateState, action: IDateAction) => {
     switch (action.type) {
-        case DateActions.INIT:
+        case ReduxDateAction.DateActions.INIT:
             return dateReducer.init(state, action)
-        case DateActions.NOW:
+        case ReduxDateAction.DateActions.NOW:
             return dateReducer.now(state, action)
-        case DateActions.SET_NOW:
+        case ReduxDateAction.DateActions.SET_NOW:
             return dateReducer.setNow(state, action)
-        case DateActions.SET_CURRENT:
+        case ReduxDateAction.DateActions.SET_CURRENT:
             return dateReducer.setCurrent(state, action)
-        case DateActions.SET_CURRENT_ACCORDING_NOW:
+        case ReduxDateAction.DateActions.SET_CURRENT_ACCORDING_NOW:
             return dateReducer.setCurrentAccordingNow(state, action)
         default:
             return state

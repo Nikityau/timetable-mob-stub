@@ -1,8 +1,8 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {useDispatch} from "react-redux";
 import {nanoid} from "nanoid";
 
-import {dateCurrentByNow} from "../../../redux/reducers/date/date.actions";
+import ReduxDateAction from "../../../redux/reducers/date/date.actions";
 
 import CurrentDate from "./components/current-date/current-date";
 import DateCarousel from "./components/date-carousel/date-carousel";
@@ -24,8 +24,9 @@ class CalendarObserver {
             this.handlers = this.handlers.filter(el => el.handler_id != handler_id)
         }
     }
+
     invoke() {
-        for(let ev of this.handlers) {
+        for (let ev of this.handlers) {
             ev?.()
         }
     }
@@ -45,7 +46,7 @@ const Calendar = () => {
     const context = useContext(CalendarContext)
 
     const onTodayClick = () => {
-        dispatch(dateCurrentByNow())
+        dispatch(ReduxDateAction.dateCurrentByNow())
         context.co.invoke()
     }
 

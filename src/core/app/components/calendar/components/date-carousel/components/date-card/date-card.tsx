@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {IDateCard} from "./interface/date-card.interface";
 
@@ -6,7 +6,7 @@ import './style/common/date-card.scss'
 import './style/common/date-card_weekend.scss'
 import './style/common/date-card_current.scss'
 
-const DateCard = ({day, weekday, isCurrent, isWeekend, fullDate, onClickHandler}: IDateCard) => {
+const DateCard = ({date, weekday, isCurrent, isWeekend, fullDate}: IDateCard) => {
 
     return (
         <div className={[
@@ -23,7 +23,7 @@ const DateCard = ({day, weekday, isCurrent, isWeekend, fullDate, onClickHandler}
                     <span>{weekday}</span>
                 </div>
                 <div className={'date-card__day'}>
-                    <span>{day}</span>
+                    <span>{date}</span>
                 </div>
             </div>
         </div>
