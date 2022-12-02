@@ -4,10 +4,10 @@ import {useSelector} from "react-redux";
 
 import {useSwiperDates} from "../../../../../../../utils/hooks/swiper-dates/useSwiperDates";
 
+import {ISwiperDates} from "./interface/swiper-dates.interface";
+
 import ReduxDateSelector from "../../../../../../../redux/reducers/date/date.selector";
 import Dates from "../../../../../../../utils/namespaces/dates";
-
-import {ISwiperDates} from "./interface/swiper-dates.interface";
 
 import DateCard from "../date-card/date-card";
 
