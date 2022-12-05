@@ -1,10 +1,10 @@
 import {Action} from "redux";
 
-import {DateActions} from "../date-set.actions";
+import ReduxDateAction from "../date.actions";
 
 import Dates from "../../../../utils/namespaces/dates";
 
 export interface IDateAction extends Action {
-    type: DateActions,
+    type: ReduxDateAction.DateActions,
     payload?: Dates.DateObj
 }

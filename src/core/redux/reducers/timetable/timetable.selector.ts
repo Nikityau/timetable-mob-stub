@@ -1,3 +1,3 @@
 export const getGroupFullTitle = (state):string => {
-    return state['timetable']['full_title']
+    return state['timetable']['original']?.['full_title']
 }

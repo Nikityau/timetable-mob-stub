@@ -32,7 +32,7 @@ export const useSwiperDates = (): UseSwiperDates => {
 
     useEffect(() => {
         (() => {
-            const week = Dates.getDatesOfWeek(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
+            const week = Dates.getDatesOfWeek(dateNow.year, Dates.getMonthNum(dateNow.month), dateNow.date)
             const prevWeek = Dates.getDatesOfPrevWeek(week[0].getFullYear(), week[0].getMonth(), week[0].getDate())
             const nextWeek = Dates.getDatesOfNextWeek(week[0].getFullYear(), week[0].getMonth(), week[0].getDate())
             setWeeksDates({
@@ -44,7 +44,7 @@ export const useSwiperDates = (): UseSwiperDates => {
                 dateStart: 'prev',
             })
         })()
-    }, [])
+    }, [dateNow])
     useEffect(() => {
         const unsub = calendarContext.co.subscribe(toCurrentDate)
 

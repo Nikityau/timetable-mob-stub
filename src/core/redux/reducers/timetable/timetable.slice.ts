@@ -1,11 +1,27 @@
-import {Action} from "redux";
-
 import {timetableData} from "./timetable";
+import ReduxTimeTableAction from "./timetable.actions";
+import {TimetableReducer} from "./timetable.reducer";
+import {ITimetableAction} from "./interface/timetable.action";
 
-const timetableState: any | null = timetableData
+const timetableState: any | null = {
+    original: null,
+    parsed: {
+        above_week: [],
+        below_week: []
+    }
 
-export const timetable = (state = timetableState, action: Action) => {
+}
+
+const timetableReducer = new TimetableReducer()
+
+export const timetable = (state = timetableState, action: ITimetableAction) => {
     switch (action.type) {
+        case ReduxTimeTableAction.TimeTableAction.INIT:
+            return timetableReducer.init(state, action)
+        case ReduxTimeTableAction.TimeTableAction.SET_TIMETABLE:
+            return timetableReducer.setTimetable(state, action)
+        case ReduxTimeTableAction.TimeTableAction.SET_PARSED_TIMETABLE:
+            return timetableReducer.setParsedTimetable(state, action)
         default:
             return state
     }
