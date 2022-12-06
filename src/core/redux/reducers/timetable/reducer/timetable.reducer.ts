@@ -21,7 +21,7 @@ export class TimetableReducer {
     }
 
     setParsedTimetable(state, action: ITimetableAction) {
-        return produce(state, draft => {
+        return produce(state,  draft => {
             const lessons = draft.original.lessons
             const parsed = parseLessons(lessons)
             draft.parsed = parsed
