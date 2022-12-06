@@ -1,11 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-
-import ReduxDateAction from "../redux/reducers/date/date.actions";
-import ReduxTimeTableAction from "../redux/reducers/timetable/timetable.actions";
 
 import Calendar from "./components/calendar/calendar";
 import Timetable from "./components/timetable/timetable";
+
+import {getTheme} from "./utils/getTheme";
 
 import '../ui/styles/global/global.scss'
 import '../ui/styles/fonts/sf-pro-display/sf-pro-display.scss'
@@ -16,36 +15,34 @@ import '../ui/styles/side-offset/side-offset.scss'
 
 import './style/common/app.scss'
 
+import {appContextApi} from "./context/app.context";
+
+export const AppContext = React.createContext(appContextApi)
+
 const App = () => {
+
+    const appContext = useContext(AppContext)
 
     const dispatch = useDispatch()
 
-    const theme = useSelector(state => state['theme'])
-
-    const getTheme = () => {
-        switch (theme) {
-            case "LIGHT":
-                return "theme_light"
-            case "DARK":
-                return "theme_dark"
-            default:
-                return "theme_dark"
-        }
-    }
+    const theme = useSelector(appContext.reduxApi.theme.selector.getTheme)
 
     useEffect(() => {
-        dispatch(ReduxTimeTableAction.init())
-        dispatch(ReduxTimeTableAction.setParsedTimetable())
-        dispatch(ReduxDateAction.dateInit())
+        dispatch(appContext.reduxApi.timetable.action.init())
+        dispatch(appContext.reduxApi.timetable.action.setParsedTimetable())
+        dispatch(appContext.reduxApi.date.action.init())
+        dispatch(appContext.reduxApi.theme.action.setDefault())
     }, [])
 
     return (
-        <div className={['app', getTheme()].join(' ')}>
-            <div className={'app__container'}>
-                <Calendar/>
-                <Timetable/>
-            </div>
-        </div>
+       <AppContext.Provider value={appContextApi}>
+           <div className={['app', getTheme(theme)].join(' ')}>
+               <div className={'app__container'}>
+                   <Calendar/>
+                   <Timetable/>
+               </div>
+           </div>
+       </AppContext.Provider>
     );
 };
 

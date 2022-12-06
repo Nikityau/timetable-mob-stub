@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useSelector} from "react-redux";
 
-import {getGroupFullTitle} from "../../../../../redux/reducers/timetable/timetable.selector";
+import {AppContext} from "../../../../app";
 
 import './styles/common/info-columns.scss'
 
@@ -10,8 +10,10 @@ import schedule_dark_img from '../../../../../assets/icons/date-range-dark.png'
 
 const InfoColumns = () => {
 
+    const appContext = useContext(AppContext)
+
     const theme = useSelector(state => state['theme'])
-    const groupName = useSelector(getGroupFullTitle)
+    const groupName = useSelector(appContext.reduxApi.timetable.selector.getGroupFullTitle)
 
     return (
         <div className={'info-columns'}>

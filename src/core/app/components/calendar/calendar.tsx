@@ -2,8 +2,6 @@ import React, {useContext} from 'react';
 import {useDispatch} from "react-redux";
 import {nanoid} from "nanoid";
 
-import ReduxDateAction from "../../../redux/reducers/date/date.actions";
-
 import CurrentDate from "./components/current-date/current-date";
 import DateCarousel from "./components/date-carousel/date-carousel";
 import InfoColumns from "./components/info-columns/info-columns";
@@ -37,16 +35,20 @@ const calendarContext = {
     co: new CalendarObserver(),
 }
 
+import {AppContext} from "../../app";
+
 export const CalendarContext = React.createContext(calendarContext)
 
 const Calendar = () => {
+
+    const appContext = useContext(AppContext)
 
     const dispatch = useDispatch()
 
     const context = useContext(CalendarContext)
 
     const onTodayClick = () => {
-        dispatch(ReduxDateAction.dateCurrentByNow())
+        dispatch(appContext.reduxApi.date.action.setCurrentByNow())
         context.co.invoke()
     }
 

@@ -4,9 +4,6 @@ import {Swiper as SwiperType} from "swiper";
 
 import {CalendarContext} from "../../../app/components/calendar/calendar";
 
-import ReduxDateSelector from "../../../redux/reducers/date/date.selector";
-import ReduxDateAction from "../../../redux/reducers/date/date.actions";
-
 import Dates from "../../namespaces/dates";
 
 import {SlidePos} from "./interface/slide-pos.type";
@@ -17,9 +14,13 @@ import {DateWeeks} from "./interface/date-weeks.interface";
 
 let isCanChangeDate = true
 
-export const useSwiperDates = (): UseSwiperDates => {
-    const currentDate = useSelector(ReduxDateSelector.getDateCurrent)
-    const dateNow = useSelector(ReduxDateSelector.getDateNow)
+export const useSwiperDates = (
+    getDateCurrent: (any) => any,
+    getDateNow: (any) => any,
+    dateCurrentAction: (any) => any
+): UseSwiperDates => {
+    const currentDate = useSelector(getDateCurrent)
+    const dateNow = useSelector(getDateNow)
 
     const dispatch = useDispatch()
 
@@ -347,7 +348,7 @@ export const useSwiperDates = (): UseSwiperDates => {
 
         const cDate = new Date(year, month, date)
 
-        dispatch(ReduxDateAction.dateCurrent(Dates.getDateObj(cDate)))
+        dispatch(dateCurrentAction(Dates.getDateObj(cDate)))
     }
 
     return [

@@ -1,8 +1,8 @@
 import produce from "immer";
 
-import {IDateAction} from "./interface/date.interface";
+import {IDateAction} from "../interface/date.interface";
 
-import Dates from "../../../utils/namespaces/dates";
+import Dates from "../../../../utils/namespaces/dates";
 
 export class DateReducer {
     init(state, action: IDateAction) {

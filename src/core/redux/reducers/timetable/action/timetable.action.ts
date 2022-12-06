@@ -1,4 +1,4 @@
-import {ITimetableAction} from "./interface/timetable.action";
+import {ITimetableAction} from "../interface/timetable.action";
 
 namespace ReduxTimeTableAction {
     export enum TimeTableAction {

@@ -1,10 +1,10 @@
 import produce from "immer";
 
-import {ITimetableAction} from "./interface/timetable.action";
+import {ITimetableAction} from "../interface/timetable.action";
 
-import {timetableData} from './timetable'
+import {timetableData} from '../data/timetable'
 
-import {parseLessons} from './utils/parse'
+import {parseLessons} from '../utils/parse'
 
 export class TimetableReducer {
     init(state, action: ITimetableAction) {

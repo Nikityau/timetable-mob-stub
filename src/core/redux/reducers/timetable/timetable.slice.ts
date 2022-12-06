@@ -1,6 +1,7 @@
-import {timetableData} from "./timetable";
-import ReduxTimeTableAction from "./timetable.actions";
-import {TimetableReducer} from "./timetable.reducer";
+import ReduxTimeTableAction from "./action/timetable.action";
+
+import {TimetableReducer} from "./reducer/timetable.reducer";
+
 import {ITimetableAction} from "./interface/timetable.action";
 
 const timetableState: any | null = {

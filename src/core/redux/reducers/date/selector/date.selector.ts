@@ -1,6 +1,6 @@
-import Dates from "../../../utils/namespaces/dates";
-import {DateState} from "./interface/date-state.interface";
+import Dates from "../../../../utils/namespaces/dates";
 
+import {DateState} from "../interface/date-state.interface";
 
 namespace ReduxDateSelector {
     export const getDateNow = (state): Dates.DateObj => {
