@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {useSelector} from "react-redux";
 
@@ -6,18 +6,25 @@ import {useSwiperDates} from "../../../../../../../utils/hooks/swiper-dates/useS
 
 import {ISwiperDates} from "./interface/swiper-dates.interface";
 
-import ReduxDateSelector from "../../../../../../../redux/reducers/date/date.selector";
 import Dates from "../../../../../../../utils/namespaces/dates";
 
 import DateCard from "../date-card/date-card";
 
 import 'swiper/css'
 
+import {AppContext} from "../../../../../../app";
+
 const SwiperDates = ({}: ISwiperDates) => {
 
-    const currentDate = useSelector(ReduxDateSelector.getDateCurrent)
+    const appContext = useContext(AppContext)
 
-    const [state,methods] = useSwiperDates()
+    const currentDate = useSelector(appContext.reduxApi.date.selector.getDateCurrent)
+
+    const [state,methods] = useSwiperDates(
+        appContext.reduxApi.date.selector.getDateCurrent,
+        appContext.reduxApi.date.selector.getDateNow,
+        appContext.reduxApi.date.action.setCurrent
+    )
 
     return (
         <Swiper

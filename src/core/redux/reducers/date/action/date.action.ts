@@ -1,9 +1,9 @@
-import {IDateAction} from "./interface/date.interface";
+import {IDateAction} from "../interface/date.interface";
 
-import Dates from "../../../utils/namespaces/dates";
+import Dates from "../../../../utils/namespaces/dates";
 
 namespace ReduxDateAction {
-    export enum DateActions {
+    export enum DateAction {
         INIT = 'date/init',
         NOW = 'date/now',
         SET_NOW = 'date/setNow',
@@ -11,28 +11,28 @@ namespace ReduxDateAction {
         SET_CURRENT_ACCORDING_NOW = 'date/setCurrentAccordingNow'
     }
 
-    export function dateInit(): IDateAction {
+    export function init(): IDateAction {
         return {
-            type: DateActions.INIT
+            type: DateAction.INIT
         }
     }
 
     export function dateNow(): IDateAction {
         return {
-            type: DateActions.NOW
+            type: DateAction.NOW
         }
     }
 
     export function dateCurrent(payload: Dates.DateObj): IDateAction {
         return {
-            type: DateActions.SET_CURRENT,
+            type: DateAction.SET_CURRENT,
             payload
         }
     }
 
     export function dateCurrentByNow(): IDateAction {
         return {
-            type: DateActions.SET_CURRENT_ACCORDING_NOW
+            type: DateAction.SET_CURRENT_ACCORDING_NOW
         }
     }
 }
