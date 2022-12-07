@@ -19,7 +19,8 @@ export const appContextApi = {
                 setParsedTimetable: ReduxApi.TimetableApi.Action.setParsedTimetable
             },
             selector: {
-                getGroupFullTitle: ReduxApi.TimetableApi.Selector.getGroupFullTitle
+                getGroupFullTitle: ReduxApi.TimetableApi.Selector.getGroupFullTitle,
+                getTimetable: ReduxApi.TimetableApi.Selector.getParsedData
             }
         },
         theme: {
