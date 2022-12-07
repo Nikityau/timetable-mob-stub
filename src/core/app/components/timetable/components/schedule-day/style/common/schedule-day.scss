@@ -1,0 +1,11 @@
+.schedule-day {
+  width: auto;
+}
+.schedule-day__container {
+  width: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}

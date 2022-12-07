@@ -2,7 +2,6 @@ export function findRepeatedLessons(lessonCurrent,day, lessonNumber): any {
     let subgroups = {
         week_day: lessonCurrent['week_day'],
         lesson_number: lessonCurrent['lesson_number'],
-        discipline: lessonCurrent['discipline'],
         time_period: lessonCurrent['time_period'],
         subgroups: []
     }
@@ -15,7 +14,8 @@ export function findRepeatedLessons(lessonCurrent,day, lessonNumber): any {
             lesson_type: lesson['lesson_type'],
             week_type: lesson['week_type'],
             teacher: lesson['teacher'],
-            subgroup: lesson['subgroup']
+            subgroup: lesson['subgroup'],
+            discipline: lesson['discipline'],
         })
     }
 

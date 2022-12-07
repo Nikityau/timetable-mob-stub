@@ -26,7 +26,8 @@ const InfoColumns = () => {
                     <span>{ groupName || 'unk' }</span>
                 </div>
                 <div className={'info-columns__schedule'}>
-                    <img src={theme == 'LIGHT' ? schedule_dark_img : schedule_light_img} alt={'img'}/>
+                    {/*<img src={theme == 'LIGHT' ? schedule_dark_img : schedule_light_img} alt={'img'}/>*/}
+
                 </div>
             </div>
             <div className={'info-columns__decoration info-columns__decoration_bottom info-columns_gradient_grey'}></div>

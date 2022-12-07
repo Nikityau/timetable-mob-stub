@@ -44,3 +44,12 @@
 .info-columns__group {
   font-weight: 600;
 }
+.info-columns__schedule {
+  font-family: 'Custom';
+  font-size: 23px;
+
+  &:before {
+    content: '\e915';
+    color: var(--text-color);
+  }
+}
