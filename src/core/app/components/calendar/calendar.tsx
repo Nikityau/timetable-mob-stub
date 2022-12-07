@@ -63,7 +63,7 @@ const Calendar = () => {
                             onClickHandler={onTodayClick}
                         />
                     </div>
-                    <div className={'calendar__date-carousel el_side_offset_m'}>
+                    <div className={'calendar__date-carousel'}>
                         <DateCarousel/>
                     </div>
                     <div className={'calendar__info-columns el_side_offset_m'}>

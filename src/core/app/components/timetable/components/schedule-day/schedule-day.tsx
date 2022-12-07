@@ -10,10 +10,6 @@ interface IScheduleDay {
 
 const ScheduleDay = ({ scheduleDay }:IScheduleDay) => {
 
-    useEffect(() => {
-        console.log(scheduleDay)
-    }, [scheduleDay])
-
     return (
         <div className={'schedule-day'}>
             <div className={'schedule-day__stripe'}/>

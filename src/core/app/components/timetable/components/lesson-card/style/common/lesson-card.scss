@@ -66,6 +66,9 @@
 .lesson-card__lesson-title {
   text-transform: lowercase;
 }
+.lesson-card__lesson-title::first-letter {
+  text-transform: uppercase;
+}
 
 .lesson-card__lesson-teacher {
   display: flex;

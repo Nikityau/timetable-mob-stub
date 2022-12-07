@@ -6,7 +6,8 @@ import {computeTimetableH} from "./utils/computeTimetableH";
 import './style/common/timetable.scss'
 
 import {AppContext} from "../../app";
-import ScheduleDay from "./components/schedule-day/schedule-day";
+import SwiperSchedule from "./components/swiper-schedule/swiper-schedule";
+
 
 const Timetable = () => {
 
@@ -28,7 +29,7 @@ const Timetable = () => {
             }}
         >
             <div className={'timetable__container el_side_offset_m el_side_reverse_offset_m'}>
-                <ScheduleDay scheduleDay={parsedTimetable.above_week[2]}/>
+                <SwiperSchedule schedule={[parsedTimetable?.above_week || [], parsedTimetable?.below_week || []]}/>
             </div>
         </div>
     );

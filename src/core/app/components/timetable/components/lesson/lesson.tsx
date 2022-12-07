@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {parseTimeString} from "../../../../utils/parseTimeString";
 
@@ -15,10 +15,10 @@ const Lesson = ({ lesson }:ILesson) => {
         <div className={'lesson'}>
             <div className={'lesson__time'}>
                 <div className={'lesson__start-time'}>
-                    <span>{ parseTimeString(lesson?.['time_period']).startTime }</span>
+                    <span>{ parseTimeString(lesson?.['time_period'])?.startTime || '00:00' }</span>
                 </div>
                 <div className={'lesson__end-time'}>
-                    <span>{ parseTimeString(lesson?.['time_period']).endTime }</span>
+                    <span>{ parseTimeString(lesson?.['time_period'])?.endTime || '00:00' }</span>
                 </div>
             </div>
             <div className={'lesson__lesson'}>
