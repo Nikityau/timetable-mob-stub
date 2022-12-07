@@ -1,9 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-import Calendar from "./components/calendar/calendar";
-import Timetable from "./components/timetable/timetable";
-
 import {getTheme} from "./utils/getTheme";
 
 import '../ui/styles/global/global.scss'
@@ -16,6 +13,7 @@ import '../ui/styles/side-offset/side-offset.scss'
 import './style/common/app.scss'
 
 import {appContextApi} from "./context/app.context";
+import AppRouter from "./routes/app-router";
 
 export const AppContext = React.createContext(appContextApi)
 
@@ -38,8 +36,7 @@ const App = () => {
        <AppContext.Provider value={appContextApi}>
            <div className={['app', getTheme(theme)].join(' ')}>
                <div className={'app__container'}>
-                   <Calendar/>
-                   <Timetable/>
+                   <AppRouter/>
                </div>
            </div>
        </AppContext.Provider>

@@ -25,6 +25,7 @@
     "react-device-detect": "2.2.2",
     "react-dom": "18.2.0",
     "react-redux": "8.0.4",
+    "react-router-dom": "6.4.4",
     "redux": "4.2.0",
     "redux-devtools-extension": "2.13.9",
     "swiper": "8.4.5"

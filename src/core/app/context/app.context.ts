@@ -1,6 +1,6 @@
 import ReduxApi from "../../redux/api/redux.api";
 
-export const appContextApi = {
+export const appContextApi =  {
     reduxApi: {
         date: {
             action: {
