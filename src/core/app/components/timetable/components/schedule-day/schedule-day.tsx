@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 
 import './style/common/schedule-day.scss'
-import Day from "../day/day";
+
+import Lesson from "../lesson/lesson";
 
 interface IScheduleDay {
     scheduleDay: any[]
@@ -15,11 +16,12 @@ const ScheduleDay = ({ scheduleDay }:IScheduleDay) => {
 
     return (
         <div className={'schedule-day'}>
+            <div className={'schedule-day__stripe'}/>
             <div className={'schedule-day__container'}>
                 {
                     scheduleDay && scheduleDay.length > 0 &&
-                    scheduleDay.map((day, index) => (
-                       <Day day={day} key={index}/>
+                    scheduleDay.map((lesson, index) => (
+                       <Lesson lesson={lesson} key={index}/>
                     ))
                 }
             </div>

@@ -51,31 +51,6 @@ const LessonCard = ({lesson}: ILessonCard) => {
         return <>NOTHING</>
     }
 
-    const lessonJSX = (
-        <>
-            <div className={'lesson-card__tab-header'}>
-                <span> {lesson?.['lesson_type'] || 'unk'} </span>
-            </div>
-            <div className={'lesson-card__main-info'}>
-                <div className={'lesson-card__lesson'}>
-                    <div className={'lesson-card__lesson-title'}>
-                        <span>{parseStrByLength(lesson?.['discipline']) || 'unk'}</span>
-                    </div>
-                    <div className={'lesson-card__lesson-teacher'}>
-                        <span>{lesson?.['teacher'] || 'unk'}</span>
-                    </div>
-                </div>
-                <div className={'lesson-card__lesson-location'}>
-                    <div className={'lesson-card__location-icon'}>
-                    </div>
-                    <div className={'lesson-card__location'}>
-                        <span>{lesson['auditorium_id']}</span>
-                    </div>
-                </div>
-            </div>
-        </>
-    )
-
     return (
         <div className={'lesson-card'}>
             <div className={'lesson-card__container'}>

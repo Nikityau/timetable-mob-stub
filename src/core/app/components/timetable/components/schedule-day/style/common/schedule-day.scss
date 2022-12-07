@@ -1,5 +1,21 @@
 .schedule-day {
+  position: relative;
+
   width: auto;
+}
+.schedule-day__stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transform: translate(60px, 0);
+
+  width: 2px;
+  height: 100vh;
+
+  background: #262A35;
+
+  border-radius: 10px;
 }
 .schedule-day__container {
   width: auto;
