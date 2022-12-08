@@ -125,6 +125,7 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
                         navigation={false}
                         slidesPerGroup={1}
                         onInit={onSwiperInit}
+                        initialSlide={2}
                     >
                         {
                             getFullWeek(above_week, 'above_week')

@@ -1,0 +1,119 @@
+.lesson-card-tabpen {
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+.lesson-card-tabpen__container {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+.tabpen__tab {
+  position: absolute;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  transition: all .3s linear;
+
+  overflow: hidden;
+}
+.tabpen__tab__tab-spec-container {
+  position: absolute;
+  top: 0;
+
+  width: 256px;
+  height: 100px;
+}
+
+.tabpen__tab_left {
+  left: 0;
+
+  background: var(--bg-schecdule-card);
+}
+.tabpen__tab_right {
+  right: 0;
+
+  background: #262A35;
+}
+
+.tabpen__tab_active {
+  width: 100%;
+  height: 100%;
+}
+.tabpen__tab_inactive {
+
+}
+
+.tabpen__tab_inactive_close {
+  width: 50%;
+  height: 40px;
+}
+
+.tabpen__tab-headers {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+.tabpen__tab-header {
+  width: calc(50%);
+
+  display: flex;
+  justify-content: center;
+
+  padding: 13px 0;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100.34%;
+
+  letter-spacing: -0.3px;
+
+  color: var(--text-color);
+}
+
+.tabpen__tab-header_left {
+  background: var(--bg-schecdule-card);
+}
+.tabpen__tab-header_right {
+  background: #262A35;
+}
+
+.tabpen__tab-header_left,
+.tabpen__tab_left_inactive {
+  border-radius: 20px 0px 21px 0px;
+}
+.tabpen__tab-header_right,
+.tabpen__tab_right_inactive {
+  border-radius: 0px 20px 0px 21px;
+}
+
+.tabpen__tab-content {
+  width: 100%;
+  height: 80%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tabpen__tab_not_contact {
+  pointer-events: none;
+}
+.tabpen__tab_can_contact {
+  pointer-events: all;
+}
+
+.tabpen__tab_lower {
+  z-index: 0;
+}
+.tabpen__tab_upper {
+  z-index: 1;
+}

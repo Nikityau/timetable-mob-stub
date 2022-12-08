@@ -1,10 +1,9 @@
 import React from 'react';
 
-import {parseStrByLength} from "../../../../utils/parseStrByLength";
-
-import LessonCardOneType from "./components/lesson-card-one-type";
+import LessonCardTypeOne from "./components/lesson-card-type-one/lesson-card-type-one";
 
 import './style/common/lesson-card.scss'
+import LessonCardTypeTwo from "./components/lesson-card-type-two/lesson-card-type-two";
 
 interface ILessonCard {
     lesson: any
@@ -17,7 +16,7 @@ const LessonCard = ({lesson}: ILessonCard) => {
         const subgroups = lesson.subgroups
 
         if (!subgroups) {
-            return <LessonCardOneType
+            return <LessonCardTypeOne
                 lessonType={lesson?.['lesson_type'] || 'unk'}
                 discipline={lesson?.['discipline'] || 'unk'}
                 teachers={[lesson?.['teacher'] || 'unk']}
@@ -37,7 +36,7 @@ const LessonCard = ({lesson}: ILessonCard) => {
                 offices.push(lesson['auditorium_id'])
             }
 
-            return <LessonCardOneType
+            return <LessonCardTypeOne
                 lessonType={subgroups[0]?.['lesson_type'] || 'unk'}
                 discipline={subgroups[0]?.['discipline'] || 'unk'}
                 teachers={teachers}
@@ -48,7 +47,9 @@ const LessonCard = ({lesson}: ILessonCard) => {
 
         }
 
-        return <>NOTHING</>
+        return (
+            <LessonCardTypeTwo/>
+        )
     }
 
     return (

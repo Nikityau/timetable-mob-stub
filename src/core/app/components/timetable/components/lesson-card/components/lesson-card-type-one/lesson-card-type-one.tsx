@@ -1,9 +1,11 @@
 import React from 'react';
 
-import {parseStrByLength} from "../../../../../utils/parseStrByLength";
+
 import LessonLocation from "./components/lesson-location";
 
-const LessonCardOneType = ({lessonType, discipline, offices, teachers}: {
+import {parseStrByLength} from "../../../../../../utils/parseStrByLength";
+
+const LessonCardTypeOne = ({lessonType, discipline, offices, teachers}: {
     discipline: string,
     lessonType: string,
     teachers: any[],
@@ -73,4 +75,4 @@ const LessonCardOneType = ({lessonType, discipline, offices, teachers}: {
     );
 };
 
-export default LessonCardOneType;
+export default LessonCardTypeOne;

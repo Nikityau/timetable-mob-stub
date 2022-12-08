@@ -177,7 +177,7 @@ export const timetableData = {
             "lesson_number": 3,
             "time_period": "12.05-13.35",
             "week_type": "обе недели",
-            "discipline": "Иностранный язык",
+            "discipline": "Английский язык",
             "auditorium_id": "М302",
             "subgroup": "англ.2",
             "teacher": "Симонова О.Б. ",
@@ -188,11 +188,11 @@ export const timetableData = {
             "lesson_number": 3,
             "time_period": "12.05-13.35",
             "week_type": "обе недели",
-            "discipline": "Иностранный язык",
+            "discipline": "Испанский язык",
             "auditorium_id": "С411",
             "subgroup": "англ.1",
             "teacher": "Кононенко А.П. ",
-            "lesson_type": "Практика"
+            "lesson_type": "Лекция"
         },
         {
             "week_day": 3,
