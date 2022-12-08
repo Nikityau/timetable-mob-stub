@@ -10,10 +10,10 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={AppRoutes.TIMETABLE} element={<TimetablePage/>}/>
+                <Route path={AppRoutes.DEFAULT} element={<TimetablePage/>}/>
                 <Route path={AppRoutes.RINGS} element={<RingsPage/>}/>
 
-                <Route path={AppRoutes.DEFAULT} element={<Navigate to={'/timetable'}/>}/>
+                {/*<Route path={AppRoutes.DEFAULT} element={<Navigate to={'/timetable'}/>}/>*/}
             </Routes>
         </BrowserRouter>
     );

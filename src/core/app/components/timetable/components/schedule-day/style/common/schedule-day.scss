@@ -2,16 +2,18 @@
   position: relative;
 
   width: auto;
+
+
 }
 .schedule-day__stripe {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 20%;
 
-  transform: translate(60px, 0);
+  transform: translate(0, 20px);
 
   width: 2px;
-  height: 100%;
+  height: calc(100% - 200px - 20px);
 
   background: #262A35;
 
@@ -19,9 +21,12 @@
 }
 .schedule-day__container {
   width: auto;
+  height: auto;
 
   display: flex;
   flex-direction: column;
 
   gap: 20px;
+
+  padding: 20px 20px 200px;
 }

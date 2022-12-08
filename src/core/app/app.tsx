@@ -13,7 +13,8 @@ import '../ui/styles/side-offset/side-offset.scss'
 import './style/common/app.scss'
 
 import {appContextApi} from "./context/app.context";
-import AppRouter from "./routes/app-router";
+
+import TimetablePage from "./pages/timetable/timetable.page";
 
 export const AppContext = React.createContext(appContextApi)
 
@@ -36,7 +37,8 @@ const App = () => {
        <AppContext.Provider value={appContextApi}>
            <div className={['app', getTheme(theme)].join(' ')}>
                <div className={'app__container'}>
-                   <AppRouter/>
+                   <TimetablePage/>
+                   {/*<AppRouter/>*/}
                </div>
            </div>
        </AppContext.Provider>

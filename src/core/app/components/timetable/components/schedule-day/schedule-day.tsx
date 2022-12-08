@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import {nanoid} from "nanoid";
 
 import './style/common/schedule-day.scss'
 
@@ -16,8 +17,8 @@ const ScheduleDay = ({ scheduleDay }:IScheduleDay) => {
             <div className={'schedule-day__container'}>
                 {
                     scheduleDay && scheduleDay.length > 0 &&
-                    scheduleDay.map((lesson, index) => (
-                       <Lesson lesson={lesson} key={index}/>
+                    scheduleDay.map((lesson) => (
+                       <Lesson lesson={lesson} key={nanoid()}/>
                     ))
                 }
             </div>

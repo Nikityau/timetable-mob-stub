@@ -28,8 +28,12 @@ const Timetable = () => {
                 height: `${timetableHeight}px`
             }}
         >
-            <div className={'timetable__container el_side_offset_m el_side_reverse_offset_m'}>
-                <SwiperSchedule schedule={[parsedTimetable?.above_week || [], parsedTimetable?.below_week || []]}/>
+            <div className={'timetable__container'}>
+                <SwiperSchedule
+                    schedule={[parsedTimetable?.above_week || [], parsedTimetable?.below_week || []]}
+                    above_week={parsedTimetable?.above_week || []}
+                    below_week={parsedTimetable?.below_week || []}
+                />
             </div>
         </div>
     );

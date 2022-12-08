@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {useSelector} from "react-redux";
+import {nanoid} from "nanoid";
 
 import {useSwiperDates} from "../../../../../../../utils/hooks/swiper-dates/useSwiperDates";
 
@@ -38,16 +39,16 @@ const SwiperDates = ({}: ISwiperDates) => {
             onSwiper={methods.onSwiperInit}
         >
             {
-                state.weeksDates.map((weeks, index) => (
+                state.weeksDates.map((weeks) => (
                     <SwiperSlide
-                        key={index}
+                        key={nanoid()}
                         onClick={methods.onSlideClick}
                     >
                         <div className={'swiper__week'}>
                             {
-                                weeks.map((date, index) => (
+                                weeks.map((date) => (
                                     <DateCard
-                                        key={index}
+                                        key={nanoid()}
                                         weekday={Dates.castToWeekdayShort(Dates.Day[date.getDay()])}
                                         date={date.getDate()}
                                         isCurrent={Dates.isDatesCompare(new Date(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date), date)}

@@ -7,9 +7,11 @@
   width: 100%;
 }
 .swiper__week {
-  width: 100%;
+  width: auto;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  padding: 0 15px;
 }
