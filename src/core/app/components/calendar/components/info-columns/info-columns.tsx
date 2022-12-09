@@ -5,15 +5,12 @@ import {AppContext} from "../../../../app";
 
 import './styles/common/info-columns.scss'
 
-import schedule_light_img from '../../../../../assets/icons/date-range-light.png'
-import schedule_dark_img from '../../../../../assets/icons/date-range-dark.png'
-
 const InfoColumns = () => {
 
     const appContext = useContext(AppContext)
 
     const theme = useSelector(state => state['theme'])
-    const groupName = useSelector(appContext.reduxApi.timetable.selector.getGroupFullTitle)
+    const groupName = useSelector(appContext.reduxApi.getGroupTitle())
 
     return (
         <div className={'info-columns'}>

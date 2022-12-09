@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {TabType} from "../../lesson-card-type-two";
-
-interface ITabCardHeader {
-    classNames: string[],
-    onClick: () => void,
-    tabTitle: string
-}
+import {ITabCardHeader} from "./interface/tab-card-header";
 
 const TabCardHeader = ({classNames, tabTitle, onClick}:ITabCardHeader) => {
     return (

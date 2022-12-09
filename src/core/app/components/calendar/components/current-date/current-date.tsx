@@ -9,7 +9,7 @@ const CurrentDate = () => {
 
     const appContext = useContext(AppContext)
 
-    const dateNow = useSelector(appContext.reduxApi.date.selector.getDateNow)
+    const dateNow = useSelector(appContext.reduxApi.getDateNow())
 
     return (
         <div className={'current-date'}>

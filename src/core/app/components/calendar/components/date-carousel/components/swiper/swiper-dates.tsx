@@ -19,12 +19,12 @@ const SwiperDates = ({}: ISwiperDates) => {
 
     const appContext = useContext(AppContext)
 
-    const currentDate = useSelector(appContext.reduxApi.date.selector.getDateCurrent)
+    const currentDate = useSelector(appContext.reduxApi.getDateCurrent())
 
     const [state,methods] = useSwiperDates(
-        appContext.reduxApi.date.selector.getDateCurrent,
-        appContext.reduxApi.date.selector.getDateNow,
-        appContext.reduxApi.date.action.setCurrent
+        appContext.reduxApi.getDateCurrent(),
+        appContext.reduxApi.getDateNow(),
+        appContext.reduxApi.setDateCurrent.bind(appContext.reduxApi)
     )
 
     return (

@@ -7,7 +7,53 @@ import ReduxTimeTableSelector from "../reducers/timetable/selector/timetable.sel
 import ReduxThemeAction from "../reducers/theme/action/theme.action";
 import ReduxThemeSelector from "../reducers/theme/selector/theme.selector";
 
-namespace ReduxApi {
+import {IReduxApi} from "../../app-redux-bridge/interface/redux";
+import {ThemeState} from "../reducers/theme/interface/theme.state";
+
+import Dates from "../../utils/namespaces/dates";
+import {IDateAction} from "../reducers/date/interface/date.interface";
+import {IThemeAction} from "../reducers/theme/interface/theme.action";
+import {ITimetableAction} from "../reducers/timetable/interface/timetable.action";
+
+namespace RAPI {
+    export class ReduxApi implements IReduxApi {
+        getDateNow(state:any): Dates.DateObj {
+            return ReduxDateSelector.getDateNow(state)
+        }
+        getDateCurrent(state: any): Dates.DateObj {
+            return ReduxDateSelector.getDateCurrent(state)
+        }
+        setDateInit():IDateAction {
+            return ReduxDateAction.init()
+        }
+        setDateCurrent(payload: Dates.DateObj): IDateAction {
+            return ReduxDateAction.dateCurrent(payload)
+        }
+        setDateCurrentByNow(): IDateAction {
+            return ReduxDateAction.dateCurrentByNow()
+        }
+
+        getTheme(state: any): ThemeState {
+            return ReduxThemeSelector.getTheme(state).state
+        }
+        setThemeDefault(): IThemeAction {
+            return ReduxThemeAction.setDefault()
+        }
+
+        getTimetable(state:any) {
+            return ReduxTimeTableSelector.getParsedData(state)
+        }
+        getGroupTitle(state): any {
+            return ReduxTimeTableSelector.getGroupFullTitle(state)
+        }
+        setTimetableInit(): ITimetableAction {
+            return ReduxTimeTableAction.init()
+        }
+        setTimetableParsed(): ITimetableAction {
+            return ReduxTimeTableAction.setParsedTimetable()
+        }
+    }
+
     export const DateApi = {
         Action: ReduxDateAction,
         Selector: ReduxDateSelector
@@ -24,4 +70,4 @@ namespace ReduxApi {
     }
 }
 
-export default ReduxApi
+export default RAPI

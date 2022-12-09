@@ -1,11 +1,13 @@
-import React, {useReducer, useState} from 'react';
+import React, {useReducer} from 'react';
 
 import Tab from "./components/tab/tab";
+
 import {tabReducer} from "./reducer/reducer/tab.reducer";
 import {initTabState} from "./reducer/state/tab-state";
-
-import {TabController} from "./tab-controller/tab-controller";
 import {TabActionType} from "./reducer/action/tab.action.type";
+
+import {ILessonCard} from "./interface/lesson-card";
+import {TabType, domClass} from "./interface/lesson-card.types";
 
 import './style/common/lesson-card-type-two.scss'
 import './style/common/_/_animation.scss'
@@ -15,28 +17,9 @@ import './style/common/_/_header.scss'
 import './style/common/_/_contact.scss'
 import './style/common/_/_addon.scss'
 
-export type TabType = 'left' | 'right'
-export type domClass = string
-
-interface ILessonCard {
-    subgroupOne: {
-        lessonType: string,
-        discipline: string,
-        teachers: any[],
-        offices: any[]
-    },
-    subgroupTwo: {
-        lessonType: string,
-        discipline: string,
-        teachers: any[],
-        offices: any[]
-    }
-}
-
 const LessonCardTypeTwo = ({subgroupOne, subgroupTwo}: ILessonCard) => {
 
     const [state, dispatch] = useReducer(tabReducer, initTabState)
-    //const [tabController, setTabController] = useState(new TabController(state, dispatch()))
 
     const tabChange = (tab: TabType) => {
         return () => {
@@ -52,7 +35,7 @@ const LessonCardTypeTwo = ({subgroupOne, subgroupTwo}: ILessonCard) => {
 
             setTimeout(() => {
                 dispatch({type: TabActionType.SET_IS_CAN_CLOSE, payload: true})
-            }, 300)
+            }, 350)
 
             setTimeout(() => {
                 dispatch({type: TabActionType.SET_IS_NO_CONTACT, payload: false})

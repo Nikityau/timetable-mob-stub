@@ -1,7 +1,7 @@
 import {ITabState} from "../interface/tab-state";
 import {ITabAction} from "../interface/tab.action";
 
-import {TabType} from "../../lesson-card-type-two";
+import {TabType} from "../../interface/lesson-card.types";
 
 import {TabActionType} from "../action/tab.action.type";
 

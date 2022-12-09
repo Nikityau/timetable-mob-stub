@@ -24,13 +24,13 @@ const App = () => {
 
     const dispatch = useDispatch()
 
-    const theme = useSelector(appContext.reduxApi.theme.selector.getTheme)
+    const theme = useSelector(appContext.reduxApi.getTheme())
 
     useEffect(() => {
-        dispatch(appContext.reduxApi.timetable.action.init())
-        dispatch(appContext.reduxApi.timetable.action.setParsedTimetable())
-        dispatch(appContext.reduxApi.date.action.init())
-        dispatch(appContext.reduxApi.theme.action.setDefault())
+        dispatch(appContext.reduxApi.setTimeTableInit())
+        dispatch(appContext.reduxApi.setTimetableParsed())
+        dispatch(appContext.reduxApi.setDateInit())
+        dispatch(appContext.reduxApi.setThemeDefault())
     }, [])
 
     return (

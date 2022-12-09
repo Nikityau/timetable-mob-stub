@@ -14,10 +14,7 @@ export class TimetableReducer {
     }
 
     setTimetable(state, action: ITimetableAction) {
-        return produce(state, draft => {
-
-
-        })
+        return produce(state, draft => {})
     }
 
     setParsedTimetable(state, action: ITimetableAction) {

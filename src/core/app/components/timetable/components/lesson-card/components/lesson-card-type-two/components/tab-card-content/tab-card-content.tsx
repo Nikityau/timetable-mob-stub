@@ -2,24 +2,28 @@ import React from 'react';
 import {nanoid} from "nanoid";
 import LessonLocation from "../../../lesson-location/lesson-location";
 
-interface ITabCardContent {
-    discipline: string,
-    teachers: any[],
-    offices: any[]
-}
+import {ITabCardContent} from "./interface/tab-card-content";
 
-const TabCardContent = ({offices, teachers, discipline}: ITabCardContent) => {
+const TabCardContent = ({offices, teachers, discipline, reverseColor}: ITabCardContent) => {
     return (
-        <div className={'tabpen__tab-content'}>
+        <div className={
+            [
+                'tabpen__tab-content',
+                reverseColor
+                    ? 'tabpen__tab-content_color_reverse'
+                    : ''
+            ].join(' ')
+        }
+        >
             <div className={'tabpen__tab-content-container'}>
                 <div className={'tabpen__tab-content-lesson'}>
                     <div className={'tabpen__tab-content-discipline'}>
-                        <span> { discipline } </span>
+                        <span> {discipline} </span>
                     </div>
                     <div className={'tabpen__tab-content-teachers'}>
                         {
                             teachers.map(teacher => (
-                                <span key={nanoid()}>{ teacher }</span>
+                                <span key={nanoid()}>{teacher}</span>
                             ))
                         }
                     </div>

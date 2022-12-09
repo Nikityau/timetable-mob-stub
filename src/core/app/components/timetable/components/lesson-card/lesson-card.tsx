@@ -1,16 +1,13 @@
 import React from 'react';
 
 import LessonCardTypeOne from "./components/lesson-card-type-one/lesson-card-type-one";
-
-import './style/common/lesson-card.scss'
 import LessonCardTypeTwo from "./components/lesson-card-type-two/lesson-card-type-two";
 
-interface ILessonCard {
-    lesson: any
-}
+import {ILessonMainCard} from "./interface/lesson-card";
 
+import './style/common/lesson-card.scss'
 
-const LessonCard = ({lesson}: ILessonCard) => {
+const LessonCard = ({lesson}: ILessonMainCard) => {
 
     const getLessonsBySubGroup = () => {
         const subgroups = lesson.subgroups
@@ -44,8 +41,6 @@ const LessonCard = ({lesson}: ILessonCard) => {
             />
 
         }
-
-        console.log(subgroups)
 
 
         return (

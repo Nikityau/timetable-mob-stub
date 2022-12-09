@@ -1,4 +1,4 @@
-import {TabType} from "../../lesson-card-type-two";
+import {TabType} from "../../interface/lesson-card.types";
 
 export interface ITabState {
     activeTab: TabType,

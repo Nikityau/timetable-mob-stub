@@ -3,11 +3,11 @@ import {useSelector} from "react-redux";
 
 import {computeTimetableH} from "./utils/computeTimetableH";
 
+import SwiperSchedule from "./components/swiper-schedule/swiper-schedule";
+
 import './style/common/timetable.scss'
 
 import {AppContext} from "../../app";
-import SwiperSchedule from "./components/swiper-schedule/swiper-schedule";
-
 
 const Timetable = () => {
 
@@ -15,7 +15,7 @@ const Timetable = () => {
 
     const [timetableHeight, setTimetableHeight] = useState<number>()
 
-    const parsedTimetable = useSelector(appContext.reduxApi.timetable.selector.getTimetable)
+    const parsedTimetable = useSelector(appContext.reduxApi.getTimetable())
 
     useEffect(() => {
         const height = computeTimetableH('.calendar')

@@ -1,26 +1,9 @@
 import React from 'react';
+
 import TabCardHeader from "../tab-card-header/tab-card-header";
 import TabCardContent from "../tab-card-content/tab-card-content";
-import {domClass, TabType} from "../../lesson-card-type-two";
 
-interface ITab {
-    tabType: TabType
-    activeTabClass: (tab: TabType) => domClass,
-    contactTabClass: () => domClass,
-    switchToTabClass: (tab: TabType) => domClass,
-    closeTabClass: (tab: TabType) => domClass,
-    tabChangeLeft: () => void,
-    tabChangeRight: () => void,
-    data: {
-        tabOneTitle: string,
-        tabTwoTitle: string,
-        tabContent: {
-            discipline: string,
-            teachers: any[],
-            offices: any[]
-        }
-    }
-}
+import {ITab} from "./interface/tab";
 
 const Tab = (
     {
@@ -69,6 +52,7 @@ const Tab = (
                     offices={data.tabContent.offices}
                     teachers={data.tabContent.teachers}
                     discipline={data.tabContent.discipline}
+                    reverseColor={tabType == 'right'}
                 />
             </div>
         </div>
