@@ -43,12 +43,26 @@ const LessonCard = ({lesson}: ILessonCard) => {
                 offices={offices}
             />
 
-        } else {
-
         }
 
+        console.log(subgroups)
+
+
         return (
-            <LessonCardTypeTwo/>
+            <LessonCardTypeTwo
+                subgroupOne={{
+                    discipline: subgroups[0]['discipline'],
+                    lessonType: subgroups[0]['lesson_type'],
+                    offices: [subgroups[0]['auditorium_id']],
+                    teachers: [subgroups[0]['teacher']]
+                }}
+                subgroupTwo={{
+                    discipline: subgroups[1]['discipline'],
+                    lessonType: subgroups[1]['lesson_type'],
+                    offices: [subgroups[1]['auditorium_id']],
+                    teachers: [subgroups[1]['teacher']]
+                }}
+            />
         )
     }
 

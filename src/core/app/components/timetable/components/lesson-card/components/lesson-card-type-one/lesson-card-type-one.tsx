@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-import LessonLocation from "./components/lesson-location";
+import LessonLocation from "../lesson-location/lesson-location";
 
 import {parseStrByLength} from "../../../../../../utils/parseStrByLength";
 
