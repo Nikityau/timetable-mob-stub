@@ -4,11 +4,12 @@ import LessonLocation from "../lesson-location/lesson-location";
 
 import {parseStrByLength} from "../../../../../../utils/parseStrByLength";
 
-const LessonCardTypeOne = ({lessonType, discipline, offices, teachers}: {
+const LessonCardTypeOne = ({lessonType, discipline, offices, teachers, onCardClick}: {
     discipline: string,
     lessonType: string,
     teachers: any[],
-    offices: any[]
+    offices: any[],
+    onCardClick: () => void
 }) => {
 
 
@@ -30,6 +31,12 @@ const LessonCardTypeOne = ({lessonType, discipline, offices, teachers}: {
         </>
     }
     const getOfficesJsx = (offices: any[]): JSX.Element => {
+        if(offices[0] == 'unk') {
+            return <>
+            </>
+        }
+
+
         if (offices.length > 2) {
             if (offices[0] == offices[1]) {
                 return (
@@ -53,7 +60,9 @@ const LessonCardTypeOne = ({lessonType, discipline, offices, teachers}: {
             <div className={'lesson-card__tab-header'}>
                 <span> {lessonType || 'unk'} </span>
             </div>
-            <div className={'lesson-card__main-info'}>
+            <div className={'lesson-card__main-info'}
+                onClick={() => onCardClick()}
+            >
                 <div className={'lesson-card__lesson'}>
                     <div className={'lesson-card__lesson-title'}>
                         <span>{parseStrByLength(discipline) || 'unk'}</span>

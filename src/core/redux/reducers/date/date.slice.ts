@@ -3,24 +3,8 @@ import ReduxDateAction from "./action/date.action";
 import {DateReducer} from "./reducer/date.reducer";
 
 import {IDateAction} from "./interface/date.interface"
-import {DateState} from "./interface/date-state.interface";
 
-const dateState: DateState = {
-    now: {
-        weekday: '',
-        date: 0,
-        month: '',
-        year: 2022,
-        full: ''
-    },
-    current: {
-        weekday: '',
-        date: 0,
-        month: '',
-        year: 2022,
-        full: ''
-    }
-}
+import {dateState} from "./state/date.state";
 
 const dateReducer = new DateReducer()
 

@@ -14,7 +14,8 @@ const Tab = (
         closeTabClass,
         tabChangeLeft,
         tabChangeRight,
-        data
+        data,
+        onCardClick
     }: ITab
 ) => {
     return (
@@ -49,6 +50,7 @@ const Tab = (
                     />
                 </div>
                 <TabCardContent
+                    onCardClick={onCardClick}
                     offices={data.tabContent.offices}
                     teachers={data.tabContent.teachers}
                     discipline={data.tabContent.discipline}

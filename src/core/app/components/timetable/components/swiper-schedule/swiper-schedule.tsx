@@ -108,8 +108,8 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
         )
     }
 
-    const onSwiperInit = (swiper: SwiperType) => {
-        setSwiper(swiper)
+    const onSwiperInit = (swiperInst: SwiperType) => {
+        setSwiper(swiperInst)
     }
 
     return (

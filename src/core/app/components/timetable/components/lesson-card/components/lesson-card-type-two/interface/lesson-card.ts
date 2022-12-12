@@ -1,4 +1,5 @@
 export interface ILessonCard {
+    onCardClick: () => void,
     subgroupOne: {
         lessonType: string,
         discipline: string,

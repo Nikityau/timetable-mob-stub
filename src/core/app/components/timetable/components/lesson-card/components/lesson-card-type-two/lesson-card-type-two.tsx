@@ -17,7 +17,7 @@ import './style/common/_/_header.scss'
 import './style/common/_/_contact.scss'
 import './style/common/_/_addon.scss'
 
-const LessonCardTypeTwo = ({subgroupOne, subgroupTwo}: ILessonCard) => {
+const LessonCardTypeTwo = ({subgroupOne, subgroupTwo, onCardClick}: ILessonCard) => {
 
     const [state, dispatch] = useReducer(tabReducer, initTabState)
 
@@ -87,6 +87,7 @@ const LessonCardTypeTwo = ({subgroupOne, subgroupTwo}: ILessonCard) => {
                     closeTabClass={closeTabClass}
                     tabChangeLeft={tabChange('left')}
                     tabChangeRight={tabChange('right')}
+                    onCardClick={onCardClick}
                     data={{
                         tabOneTitle: subgroupOne.lessonType,
                         tabTwoTitle: subgroupTwo.lessonType,
@@ -105,6 +106,7 @@ const LessonCardTypeTwo = ({subgroupOne, subgroupTwo}: ILessonCard) => {
                     closeTabClass={closeTabClass}
                     tabChangeLeft={tabChange('left')}
                     tabChangeRight={tabChange('right')}
+                    onCardClick={onCardClick}
                     data={{
                         tabOneTitle: subgroupOne.lessonType,
                         tabTwoTitle: subgroupTwo.lessonType,

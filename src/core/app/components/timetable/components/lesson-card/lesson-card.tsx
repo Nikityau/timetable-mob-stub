@@ -9,11 +9,16 @@ import './style/common/lesson-card.scss'
 
 const LessonCard = ({lesson}: ILessonMainCard) => {
 
+    const onCardClick = () => {
+        console.log(lesson)
+    }
+
     const getLessonsBySubGroup = () => {
         const subgroups = lesson.subgroups
 
         if (!subgroups) {
             return <LessonCardTypeOne
+                onCardClick={onCardClick}
                 lessonType={lesson?.['lesson_type'] || 'unk'}
                 discipline={lesson?.['discipline'] || 'unk'}
                 teachers={[lesson?.['teacher'] || 'unk']}
@@ -34,6 +39,7 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
             }
 
             return <LessonCardTypeOne
+                onCardClick={onCardClick}
                 lessonType={subgroups[0]?.['lesson_type'] || 'unk'}
                 discipline={subgroups[0]?.['discipline'] || 'unk'}
                 teachers={teachers}
@@ -45,6 +51,7 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
 
         return (
             <LessonCardTypeTwo
+                onCardClick={onCardClick}
                 subgroupOne={{
                     discipline: subgroups[0]['discipline'],
                     lessonType: subgroups[0]['lesson_type'],

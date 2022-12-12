@@ -4,7 +4,14 @@ import LessonLocation from "../../../lesson-location/lesson-location";
 
 import {ITabCardContent} from "./interface/tab-card-content";
 
-const TabCardContent = ({offices, teachers, discipline, reverseColor}: ITabCardContent) => {
+const TabCardContent = (
+    {
+        offices,
+        teachers,
+        discipline,
+        reverseColor,
+        onCardClick
+    }: ITabCardContent) => {
     return (
         <div className={
             [
@@ -14,6 +21,7 @@ const TabCardContent = ({offices, teachers, discipline, reverseColor}: ITabCardC
                     : ''
             ].join(' ')
         }
+             onClick={onCardClick}
         >
             <div className={'tabpen__tab-content-container'}>
                 <div className={'tabpen__tab-content-lesson'}>

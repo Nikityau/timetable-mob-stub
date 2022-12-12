@@ -8,6 +8,7 @@ export interface ITab {
     closeTabClass: (tab: TabType) => domClass,
     tabChangeLeft: () => void,
     tabChangeRight: () => void,
+    onCardClick: () => void,
     data: {
         tabOneTitle: string,
         tabTwoTitle: string,
