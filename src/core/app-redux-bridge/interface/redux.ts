@@ -20,4 +20,5 @@ export interface IReduxApi {
     setTimetableInit(): ITimetableAction
     setTimetableParsed(): ITimetableAction
 
+    getNotifPopUpState(state:any):boolean
 }

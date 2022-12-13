@@ -1,4 +1,7 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+
+import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
 
 import LessonCardTypeOne from "./components/lesson-card-type-one/lesson-card-type-one";
 import LessonCardTypeTwo from "./components/lesson-card-type-two/lesson-card-type-two";
@@ -9,8 +12,11 @@ import './style/common/lesson-card.scss'
 
 const LessonCard = ({lesson}: ILessonMainCard) => {
 
+    const dispatch = useDispatch()
+
     const onCardClick = () => {
         console.log(lesson)
+        dispatch(ReduxNotificationsAction.setNotifOn())
     }
 
     const getLessonsBySubGroup = () => {

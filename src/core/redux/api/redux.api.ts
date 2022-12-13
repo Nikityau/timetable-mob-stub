@@ -1,3 +1,5 @@
+import Dates from "../../utils/namespaces/dates";
+
 import ReduxDateAction from "../reducers/date/action/date.action";
 import ReduxDateSelector from "../reducers/date/selector/date.selector";
 
@@ -10,10 +12,11 @@ import ReduxThemeSelector from "../reducers/theme/selector/theme.selector";
 import {IReduxApi} from "../../app-redux-bridge/interface/redux";
 import {ThemeState} from "../reducers/theme/interface/theme.state";
 
-import Dates from "../../utils/namespaces/dates";
 import {IDateAction} from "../reducers/date/interface/date.interface";
 import {IThemeAction} from "../reducers/theme/interface/theme.action";
 import {ITimetableAction} from "../reducers/timetable/interface/timetable.action";
+
+import {getNotifPopUpState} from "../reducers/notifications/selector/notification.selector";
 
 namespace RAPI {
     export class ReduxApi implements IReduxApi {
@@ -52,21 +55,10 @@ namespace RAPI {
         setTimetableParsed(): ITimetableAction {
             return ReduxTimeTableAction.setParsedTimetable()
         }
-    }
 
-    export const DateApi = {
-        Action: ReduxDateAction,
-        Selector: ReduxDateSelector
-    }
-
-    export const TimetableApi = {
-        Action: ReduxTimeTableAction,
-        Selector: ReduxTimeTableSelector
-    }
-
-    export const ThemeApi = {
-        Action: ReduxThemeAction,
-        Selector: ReduxThemeSelector
+        getNotifPopUpState(state: any): boolean {
+            return getNotifPopUpState(state)
+        }
     }
 }
 

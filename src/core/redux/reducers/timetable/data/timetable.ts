@@ -515,3 +515,305 @@ export const timetableData = {
         }
     ]
 }
+export const timetableData_2 = {
+    "full_title": "АИБ-4-038",
+    "id": 25543,
+    "title": "АИБ",
+    "number": "038",
+    "course": 4,
+    "faculty_id": 1,
+    "update_date": "2022-12-13",
+    "lessons": [
+        {
+            "week_day": 1,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "обе недели",
+            "discipline": "Интеллектуальные системы и технологии",
+            "auditorium_id": "Д404",
+            "subgroup": null,
+            "teacher": "Москат Н.А.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 1,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "обе недели",
+            "discipline": "Системы автоматизированного проектирования",
+            "auditorium_id": "Д412",
+            "subgroup": null,
+            "teacher": "Феденко А.А.",
+            "lesson_type": "Лекция"
+        }, {
+            "week_day": 1,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "обе недели",
+            "discipline": "Системы автоматизированного проектирования",
+            "auditorium_id": "Д410",
+            "subgroup": "1",
+            "teacher": "Феденко А.А. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 1,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "обе недели",
+            "discipline": "Системы автоматизированного проектирования",
+            "auditorium_id": "Д412",
+            "subgroup": "2",
+            "teacher": "Голубенко Е.В. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 1,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "обе недели",
+            "discipline": "Интеллектуальные системы и технологии",
+            "auditorium_id": "Г316",
+            "subgroup": "1",
+            "teacher": "Булавин Ю.П. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 1,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "обе недели",
+            "discipline": "Интеллектуальные системы и технологии",
+            "auditorium_id": "Г316а",
+            "subgroup": "2",
+            "teacher": "Москат Н.А. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 2,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "обе недели",
+            "discipline": "Технологии программирования",
+            "auditorium_id": "Г313",
+            "subgroup": null,
+            "teacher": "Лященко З.В.",
+            "lesson_type": "Лекция"
+        }, {
+            "week_day": 2,
+            "lesson_number": 5,
+            "time_period": "15.30-17.00",
+            "week_type": "обе недели",
+            "discipline": "Разработка мобильных приложений",
+            "auditorium_id": "Г302",
+            "subgroup": "2",
+            "teacher": "Мизюков Г.С. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 2,
+            "lesson_number": 5,
+            "time_period": "15.30-17.00",
+            "week_type": "обе недели",
+            "discipline": "Программирование в 1С",
+            "auditorium_id": "Г315",
+            "subgroup": "1",
+            "teacher": "Небаба А.Н. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 2,
+            "lesson_number": 6,
+            "time_period": "17.10-18.40",
+            "week_type": "обе недели",
+            "discipline": "Программирование в 1С",
+            "auditorium_id": "Г315",
+            "subgroup": "2",
+            "teacher": "Небаба А.Н. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 3,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "обе недели",
+            "discipline": "Разработка мобильных приложений",
+            "auditorium_id": "Г303",
+            "subgroup": "1",
+            "teacher": "Никитченко С.Л. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 3,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "обе недели",
+            "discipline": "Разработка мобильных приложений",
+            "auditorium_id": "Д404",
+            "subgroup": null,
+            "teacher": "Никитченко С.Л.",
+            "lesson_type": "Лекция"
+        }, {
+            "week_day": 3,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "над чертой",
+            "discipline": "Технологии программирования",
+            "auditorium_id": "Д404",
+            "subgroup": "2",
+            "teacher": "Лященко З.В. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 3,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "под чертой",
+            "discipline": "Технологии программирования",
+            "auditorium_id": "Д407",
+            "subgroup": "1",
+            "teacher": "Суханов А.В. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 3,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "над чертой",
+            "discipline": "Технологии программирования",
+            "auditorium_id": "Д410",
+            "subgroup": "1",
+            "teacher": "Суханов А.В. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 3,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "под чертой",
+            "discipline": "Технологии программирования",
+            "auditorium_id": "Д404",
+            "subgroup": "2",
+            "teacher": "Лященко З.В. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 3,
+            "lesson_number": 5,
+            "time_period": "15.30-17.00",
+            "week_type": "под чертой",
+            "discipline": "Периферийные устройства информационных систем",
+            "auditorium_id": "Д404",
+            "subgroup": null,
+            "teacher": "Юхнов В.И.",
+            "lesson_type": "Лекция"
+        }, {
+            "week_day": 4,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "над чертой",
+            "discipline": "Гражданская позиция и экономическая культура",
+            "auditorium_id": "С403",
+            "subgroup": null,
+            "teacher": "Тованчова Е.Н.",
+            "lesson_type": "Лекция"
+        }, {
+            "week_day": 4,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "обе недели",
+            "discipline": "Программирование в 1С",
+            "auditorium_id": "Г313",
+            "subgroup": null,
+            "teacher": "Небаба А.Н.",
+            "lesson_type": "Лекция"
+        }, {
+            "week_day": 4,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "под чертой",
+            "discipline": "Гражданская позиция и экономическая культура",
+            "auditorium_id": "С406",
+            "subgroup": null,
+            "teacher": "Тлепцеришева С.А.",
+            "lesson_type": "Практика"
+        }, {
+            "week_day": 5,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "обе недели",
+            "discipline": "Периферийные устройства информационных систем",
+            "auditorium_id": "Д406",
+            "subgroup": "1",
+            "teacher": "Юхнов В.И. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 5,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "обе недели",
+            "discipline": "Инфокоммуникационные системы и сети",
+            "auditorium_id": "Д404",
+            "subgroup": "2",
+            "teacher": "Соколова О.И. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 5,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "обе недели",
+            "discipline": "Периферийные устройства информационных систем",
+            "auditorium_id": "Д406",
+            "subgroup": "2",
+            "teacher": "Юхнов В.И. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 5,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "обе недели",
+            "discipline": "Инфокоммуникационные системы и сети",
+            "auditorium_id": "Д404",
+            "subgroup": "1",
+            "teacher": "Соколова О.И. ",
+            "lesson_type": "Лабораторная"
+        }, {
+            "week_day": 5,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "обе недели",
+            "discipline": "Инфокоммуникационные системы и сети",
+            "auditorium_id": "Д404",
+            "subgroup": null,
+            "teacher": "Соколова О.И.",
+            "lesson_type": "Лекция"
+        }, {
+            "week_day": 6,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "под чертой",
+            "discipline": "Основы взаимодействия участников перевозочного процесса на имитационном тренажере",
+            "auditorium_id": "Г210",
+            "subgroup": null,
+            "teacher": "Бакалов М.В.",
+            "lesson_type": "Практика"
+        }, {
+            "week_day": 6,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "под чертой",
+            "discipline": "Основы взаимодействия участников перевозочного процесса на имитационном тренажере",
+            "auditorium_id": "Г210",
+            "subgroup": null,
+            "teacher": "Бакалов М.В.",
+            "lesson_type": "Практика"
+        }, {
+            "week_day": 6,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "под чертой",
+            "discipline": "Основы взаимодействия участников перевозочного процесса на имитационном тренажере",
+            "auditorium_id": "Г210",
+            "subgroup": null,
+            "teacher": "Бакалов М.В.",
+            "lesson_type": "Практика"
+        }, {
+            "week_day": 6,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "под чертой",
+            "discipline": "Основы взаимодействия участников перевозочного процесса на имитационном тренажере",
+            "auditorium_id": "Г210",
+            "subgroup": null,
+            "teacher": "Бакалов М.В.",
+            "lesson_type": "Практика"
+        }]
+}

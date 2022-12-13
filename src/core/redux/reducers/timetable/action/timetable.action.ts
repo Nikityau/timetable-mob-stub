@@ -1,4 +1,5 @@
 import {ITimetableAction} from "../interface/timetable.action";
+import timetableAction from "./timetable.action";
 
 namespace ReduxTimeTableAction {
     export enum TimeTableAction {
@@ -14,10 +15,12 @@ namespace ReduxTimeTableAction {
         }
     }
 
-    export function setTimetable(): ITimetableAction {
+    export function setTimetable(timetable:any): ITimetableAction {
         return {
             type: TimeTableAction.SET_TIMETABLE,
-            payload: null
+            payload: {
+                timetable
+            }
         }
     }
 

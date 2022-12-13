@@ -51,8 +51,8 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
                                 key={nanoid()}
                                 className={'swiper-schedule__slide'}
                                 data-week-type={weekType}
-                                data-day-type-string={getDayType(day[0]['week_day'])}
-                                data-day-type-number={day[0]['week_day']}
+                                data-day-type-string={getDayType(day[0]?.['week_day'])}
+                                data-day-type-number={day[0]?.['week_day'] || -1}
                             >
                                 <ScheduleDay scheduleDay={day}/>
                             </SwiperSlide>

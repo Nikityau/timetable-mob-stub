@@ -10,7 +10,6 @@ import './style/common/timetable.scss'
 import {AppContext} from "../../app";
 
 const Timetable = () => {
-
     const appContext = useContext(AppContext)
 
     const [timetableHeight, setTimetableHeight] = useState<number>()

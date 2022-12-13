@@ -55,4 +55,10 @@ export class AppReduxBridge {
     setTimetableParsed() {
         return this.reduxApi.setTimetableParsed()
     }
+
+    getNotifPopUpState() {
+        return (state:any) => {
+            return this.reduxApi.getNotifPopUpState(state)
+        }
+    }
 }
