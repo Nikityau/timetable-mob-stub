@@ -1,13 +1,15 @@
 import React, {useContext, useEffect} from 'react';
 import {useSelector} from "react-redux";
 
+import {useToggler} from "../../../utils/hooks/useToggler";
+
+import NotifPopUp from "./components/notif-pop-up/notif-pop-up";
+
 import './style/common/notification.scss'
 import './style/common/_/notification_active.scss'
 import './style/common/_/_notif_window.scss'
 
 import {AppContext} from "../../app";
-import {useToggler} from "../../../utils/hooks/useToggler";
-import NotifPopUp from "./style/components/notif-pop-up/notif-pop-up";
 
 const Notification = () => {
 

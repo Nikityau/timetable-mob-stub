@@ -4,3 +4,9 @@
 .el_disable {
   pointer-events: none;
 }
+.el_enable_view {
+  opacity: 1;
+}
+.el_disable_view {
+  opacity: .5;
+}

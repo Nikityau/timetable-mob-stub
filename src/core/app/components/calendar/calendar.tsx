@@ -60,6 +60,7 @@ const Calendar = () => {
                         <CurrentDate/>
                         <Button
                             text={'сегодня'}
+                            isShadowOn={false}
                             onClickHandler={onTodayClick}
                         />
                     </div>

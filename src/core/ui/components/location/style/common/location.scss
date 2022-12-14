@@ -1,0 +1,27 @@
+.location-ui {
+
+}
+.location-ui__container {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.location-ui__icon {
+  font-family: 'Custom';
+  color: #fff;
+  font-size: 20px;
+
+  &:before {
+    content: '\e90a';
+  }
+}
+.location-ui__location {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100.34%;
+  letter-spacing: -0.3px;
+
+  color: var(--text-color);
+}

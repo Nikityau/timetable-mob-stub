@@ -9,6 +9,8 @@
   transition: background-color .3s linear;
 
   z-index: 1;
+
+  overflow: hidden;
 }
 .notification__notif-pop-up {
   position: absolute;

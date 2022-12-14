@@ -1,0 +1,31 @@
+:root {
+  --antd-wave-shadow-color: #fff !important;
+}
+
+.switcher-ui {
+
+  .ant-switch.ant-switch-small .ant-switch-handle {
+    top: 50%;
+    transform: translate(0, -50%);
+
+    width: 10px;
+    height: 10px;
+  }
+
+  .ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled),
+  .ant-switch.ant-switch-checked {
+    background: var(--color-purple);
+  }
+  .ant-switch,
+  .ant-switch:hover:not(.ant-switch-disabled) {
+    background: var(--bg-color);
+  }
+  .ant-switch-handle {
+    &:before {
+      background: #262A35;
+    }
+  }
+  .ant-click-animating-node {
+    --antd-wave-shadow-color: var(--color-purple);
+  }
+}

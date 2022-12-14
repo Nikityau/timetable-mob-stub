@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from "../../../../../../../../ui/components/button/button";
+import Button from "../../../../../../../ui/components/button/button";
 
 import './style/common/notif-header.scss'
 
@@ -26,6 +26,7 @@ const NotifHeader = () => {
                 <div className={'notif-pop-up__save-btn'}>
                     <Button
                         text={'Сохранить'}
+                        isShadowOn={true}
                         onClickHandler={onClick}
                     />
                 </div>
