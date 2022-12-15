@@ -1,0 +1,31 @@
+.notif-dates__timepicker-swiper {
+  width: 100%;
+  height: 100%;
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide-active {
+    .notif-dates__timepicker-time {
+      color: var(--text-color);
+    }
+  }
+}
+.notif-dates__timepicker-time {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: var(--text-color-another);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all .3s linear;
+}

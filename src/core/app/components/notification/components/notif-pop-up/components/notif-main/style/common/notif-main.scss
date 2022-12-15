@@ -1,9 +1,12 @@
 .notif-pop-up__main {
-  width: 100%;
+  width: 100vw;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .notif-pop-up__main-container {
   width: 100%;
   height: 100%;
 
-  overflow: scroll;
+  padding-bottom: 50px;
 }

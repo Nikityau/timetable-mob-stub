@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
-import NotifSwitcher from "./components/notif-switcher/notif-switcher";
-import NotifRepeater from "./components/notif-repeater/notif-repeater";
+import NotifRepeater from "../notif-repeater/notif-repeater";
+import NotifSwitcher from "../notif-switcher/notif-switcher";
 
 import './style/common/notif-notification.scss'
 import NotifDates from "./components/notif-dates/notif-dates";
@@ -23,7 +23,11 @@ const NotifNotification = () => {
         <div className={'notif-pop-up__notification'}>
             <div className={'notif-pop-up__notification-container'}>
                <div className={'notif-pop-up__notif-switcher'}>
-                   <NotifSwitcher onSwitchChange={onSwitchChange}/>
+                   <NotifSwitcher
+                       type={'clock'}
+                       text={'Добавить уведомление:'}
+                       onSwitchChange={onSwitchChange}
+                   />
                </div>
                 <div className={[
                     'notif-pop-up__notification-data el_side_offset_m',

@@ -1,6 +1,81 @@
 .notif-dates {
   width: 100%;
 }
+
 .notif-dates__container {
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.notif-dates__container {
+
+}
+
+.notif-dates__tabs-headers {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notif-dates__tab-ring {
+  font-family: 'Custom';
+  font-size: 15px;
+
+  color: #fff;
+
+  &:before {
+    content: '\e916';
+  }
+}
+
+.notif-dates__tab-date,
+.notif-dates__tab-clock {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100.34%;
+
+  letter-spacing: -0.3px;
+
+  color: var(--text-color);
+}
+
+.notif-dates__header-tab {
+  padding: 5px 10px;
+
+  border-radius: 23px;
+
+  transition: background-color .3s linear;
+}
+
+.notif-dates__tab_active {
+  background: #181A1F;
+
+  border-radius: 23px;
+}
+
+.notif-dates__tabs {
+  position: relative;
+
+  height: 230px;
+}
+
+.notif-dates__tab {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  transition: all .3s linear;
+
+  background: #262A35;
+
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+
+  border-radius: 8px;
 }

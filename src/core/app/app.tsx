@@ -6,8 +6,11 @@ import {getTheme} from "./utils/getTheme";
 import TimetablePage from "./pages/timetable/timetable.page";
 
 import '../ui/styles/global/global.scss'
+
 import '../ui/styles/fonts/sf-pro-display/sf-pro-display.scss'
 import '../ui/styles/fonts/custom/custom.scss'
+import '../ui/styles/fonts/inter/inter.scss'
+
 import '../ui/styles/theme/dark.scss'
 import '../ui/styles/theme/light.scss'
 import '../ui/styles/side-offset/side-offset.scss'

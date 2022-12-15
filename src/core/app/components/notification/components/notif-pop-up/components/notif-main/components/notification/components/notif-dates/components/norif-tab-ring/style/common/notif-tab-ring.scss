@@ -1,0 +1,40 @@
+.notif-dates__tab-rings {
+  width: auto;
+}
+.notif-dates__tab-rings__container {
+  width: auto;
+
+  text-align: left;
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.notif-dates__tab-ring-stripe {
+  width: 100%;
+  height: 2px;
+
+  background: #31353F;
+
+  border-radius: 33px;
+}
+.notif-dates__tab-ring-time {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: var(--text-color);
+
+  border-radius: 22px;
+
+  transition: background-color .3s linear;
+
+  padding: 5px 10px;
+}
+.notif-dates__tab-ring-time_current {
+  background: #5C4EFE;
+}

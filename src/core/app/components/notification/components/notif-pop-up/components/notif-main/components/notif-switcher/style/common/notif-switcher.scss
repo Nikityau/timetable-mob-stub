@@ -1,0 +1,35 @@
+.notif-pop-up__notification-choise {
+  width: auto;
+
+  padding: 17px;
+
+  background: #262A35;
+
+  border-radius: 6px;
+
+  display: flex;
+  justify-content: space-between;
+}
+.notif-pop-up__notification-icon {
+  font-family: 'Custom';
+  font-size: 20px;
+  color: #fff;
+
+  &:before {
+    content: '\e90d';
+  }
+}
+.notif-pop-up__notification-text {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100.34%;
+
+  letter-spacing: -0.3px;
+
+  color: var(--text-color);
+}
+.notif-pop-up__switcher {
+  background: var(--color-purple);
+}
