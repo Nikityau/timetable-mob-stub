@@ -1,5 +1,5 @@
 export const notificationsState = {
-    isNotifPopUpOpen: true,
+    isNotifPopUpOpen: false,
     popUpData: {
         lessonType: "",
         lessonTitle: "",

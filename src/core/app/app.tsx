@@ -16,7 +16,6 @@ import '../ui/styles/able/able.scss'
 import './style/common/app.scss'
 
 import {appContextApi} from "./context/app.context";
-import Notification from "./components/notification/notification";
 
 export const AppContext = React.createContext(appContextApi)
 
@@ -47,7 +46,6 @@ const App = () => {
                ].join(' ')}>
                    <TimetablePage/>
                </div>
-               <Notification/>
            </div>
        </AppContext.Provider>
     );

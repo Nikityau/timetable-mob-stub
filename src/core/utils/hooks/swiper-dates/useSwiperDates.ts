@@ -6,13 +6,13 @@ import {CalendarContext} from "../../../app/components/calendar/calendar";
 
 import Dates from "../../namespaces/dates";
 
-import {SlidePos} from "./interface/slide-pos.type";
+import {DateController} from "./date-controller";
+
 import {SlideDirection} from "./interface/slide-direction.type";
 import {UseSwiperDates} from "./interface/use-swiper-dates";
 import {DateSpecState} from "./interface/date-spec-state.interface";
-import {DateWeeks} from "./interface/date-weeks.interface";
 
-let isCanChangeDate = true
+const dateController = new DateController()
 
 export const useSwiperDates = (
     getDateCurrent: (any) => any,
@@ -30,6 +30,25 @@ export const useSwiperDates = (
     const [slideActiveIndex, setSlideActiveIndex] = useState<number>(2)
     const [prevDirection, setPrevDirection] = useState<SlideDirection>()
     const [weeksDates, setWeeksDates] = useState<DateSpecState>({dateStart: 'curr', dates: []})
+
+    useEffect(() => {
+        dateController._setSwiper = setSwiper
+        dateController._setSliderActiveIndex = setSlideActiveIndex
+        dateController._setSlideDirection = setPrevDirection
+        dateController._setWeeksDates = setWeeksDates
+    }, [])
+    useEffect(() => {
+        dateController.swiper = swiper
+    }, [swiper])
+    useEffect(() => {
+        dateController.sliderActiveIndex = slideActiveIndex
+    }, [slideActiveIndex])
+    useEffect(() => {
+        dateController.slideDirection = prevDirection
+    }, [prevDirection])
+    useEffect(() => {
+        dateController.weeksDates = weeksDates
+    }, [weeksDates])
 
     useEffect(() => {
         (() => {
@@ -54,20 +73,15 @@ export const useSwiperDates = (
         }
     }, [swiper, currentDate])
 
-    const setWeeksDatesFunction = (dates: Date[][], dateStart: SlidePos) => {
-        setWeeksDates({
-            dates,
-            dateStart
-        })
-    }
-
     const toCurrentDate = () => {
-        const currDate = new Date(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
-        const nowDate = new Date(dateNow.year, Dates.getMonthNum(dateNow.month), dateNow.date)
+        //const currDate = new Date(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
+        //const nowDate = new Date(dateNow.year, Dates.getMonthNum(dateNow.month), dateNow.date)
 
-        const nowWeek = Dates.getDatesOfWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
+        ///const nowWeek = Dates.getDatesOfWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
 
-        if (Dates.isDatesCompare(currDate, nowDate)) {
+        dateController.toCurrentDate(currentDate, dateNow)
+
+       /* if (Dates.isDatesCompare(currDate, nowDate)) {
             toCurrentDateFromWeek(currDate, nowWeek, nowDate)
 
             return;
@@ -93,244 +107,13 @@ export const useSwiperDates = (
             toCurrentDateFromPast(activeIndex, nowWeek, nowDate, { week, prevWeek, nextWeek })
 
             return;
-        }
-    }
-    const toCurrentDateFromWeek = (currDate, nowWeek, nowDate) => {
-        const swiperDOM = document.querySelector('.swiper')
-        const activeSlide = swiperDOM.querySelector('.swiper-slide-active')
-        const dateCard = activeSlide.querySelector('.date-card')
-
-        const dateDateCard = Number.parseInt(dateCard.getAttribute('data-date'))
-        const monthDateCard = Number.parseInt(dateCard.getAttribute('data-month'))
-        const yearDateCard = Number.parseInt(dateCard.getAttribute('data-year'))
-
-        const weekOfActive = Dates.getDatesOfWeek(yearDateCard, monthDateCard, dateDateCard)
-        const tempDate = weekOfActive[0]
-
-        if(Dates.isDateBelongs(currDate,weekOfActive)) return;
-
-        if(tempDate > nowDate) {
-            toCurrentDateFromFut(swiper.activeIndex, nowWeek, nowDate, {
-                week: weekOfActive,
-                prevWeek: nowWeek,
-                nextWeek: nowWeek
-            })
-
-            swiper.slideToLoop(1)
-        }
-        if(tempDate < nowDate) {
-            toCurrentDateFromPast(swiper.activeIndex, nowWeek, nowDate, {
-                week: weekOfActive,
-                prevWeek: nowWeek,
-                nextWeek: nowWeek
-            })
-        }
-    }
-    const toCurrentDateFromFut = (activeIndex, nowWeek, nowDate,{ week, prevWeek, nextWeek }:DateWeeks) => {
-        if (activeIndex == 3) {
-            setWeeksDatesFunction([prevWeek, nextWeek, week], 'prev')
-        }
-        if (activeIndex == 4) {
-            setWeeksDatesFunction([week, prevWeek, nextWeek], 'curr')
-        }
-        if (activeIndex == 2) {
-            setWeeksDatesFunction([prevWeek, week, nextWeek], 'prev')
-        }
-
-        if (activeIndex == 4 || activeIndex == 3) {
-            swiper.slideToLoop(1)
-        }
-        if (activeIndex == 2) {
-            swiper.slideToLoop(0)
-        }
-
-        nextWeek = Dates.getDatesOfNextWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
-        prevWeek = Dates.getDatesOfPrevWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
-
-        if (activeIndex == 4 || activeIndex == 3) {
-            setWeeksDatesFunction([prevWeek, nowWeek, nextWeek], 'prev')
-        }
-        if (activeIndex == 2) {
-            setWeeksDatesFunction([nowWeek, nextWeek, prevWeek], 'curr')
-        }
-
-        isCanChangeDate = true
-    }
-    const toCurrentDateFromPast = (activeIndex, nowWeek, nowDate,{ week, prevWeek, nextWeek }:DateWeeks) => {
-        if(activeIndex == 1) {
-            setWeeksDatesFunction([week, prevWeek, nextWeek], 'curr')
-        }
-        if(activeIndex == 0) {
-            setWeeksDatesFunction([prevWeek, nextWeek, week], 'prev')
-        }
-        if(activeIndex == 2) {
-            setWeeksDatesFunction([prevWeek, week, nextWeek], 'prev')
-        }
-
-        if(activeIndex == 1) {
-            swiper.slideToLoop(1)
-        }
-        if(activeIndex == 0) {
-            swiper.slideToLoop(0)
-        }
-        if(activeIndex == 2) {
-            swiper.slideToLoop(2)
-        }
-
-        nextWeek = Dates.getDatesOfNextWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
-        prevWeek = Dates.getDatesOfPrevWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
-
-        if(activeIndex == 1) {
-            setWeeksDatesFunction([prevWeek, nowWeek, nextWeek], 'prev')
-        }
-        if(activeIndex == 0) {
-            setWeeksDatesFunction([nowWeek, nextWeek, prevWeek], 'curr')
-        }
-        if(activeIndex == 2) {
-            setWeeksDatesFunction([nextWeek, prevWeek, nowWeek], 'next')
-        }
-
-        isCanChangeDate = true
-    }
-
-    const changeDates = (y: number, m: number, d: number, spec: SlidePos, activeIndexPrev: number | 'undef', direction: 'left' | 'right') => {
-        if (!isCanChangeDate) return;
-
-        const week = Dates.getDatesOfWeek(y, m, d)
-        const prevWeek = Dates.getDatesOfPrevWeek(y, m, d)
-        const nextWeek = Dates.getDatesOfNextWeek(y, m, d)
-
-        if (activeIndexPrev == 0 || activeIndexPrev == 4) return
-
-        if (direction == 'right') {
-            changeDatesRightBranch({week, prevWeek, nextWeek})
-            return;
-        }
-        if (direction == 'left') {
-            changeDatesLeftBranch({prevWeek, week, nextWeek})
-            return;
-        }
-    }
-    const changeDatesLeftBranch = ({prevWeek, week, nextWeek}: DateWeeks) => {
-        if (weeksDates.dateStart == 'curr') {
-            setWeeksDatesFunction([
-                nextWeek,
-                prevWeek,
-                week,
-            ], 'next')
-        }
-        if (weeksDates.dateStart == 'next') {
-            setWeeksDatesFunction([
-                prevWeek,
-                week,
-                nextWeek,
-            ], 'prev')
-        }
-        if (weeksDates.dateStart == 'prev') {
-            setWeeksDatesFunction([
-                week,
-                nextWeek,
-                prevWeek,
-            ], 'curr')
-        }
-    }
-    const changeDatesRightBranch = ({prevWeek, week, nextWeek}: DateWeeks) => {
-        if (weeksDates.dateStart == 'curr') {
-            setWeeksDatesFunction([
-                prevWeek,
-                week,
-                nextWeek,
-            ], 'prev')
-        }
-        if (weeksDates.dateStart == 'next') {
-            setWeeksDatesFunction([
-                week,
-                nextWeek,
-                prevWeek,
-            ], 'curr')
-        }
-        if (weeksDates.dateStart == 'prev') {
-            setWeeksDatesFunction([
-                nextWeek,
-                prevWeek,
-                week,
-            ], 'next')
-        }
+        }*/
     }
 
     const onSlideChange = (swiper: SwiperType) => {
-        setSlideActiveIndex(swiper.activeIndex)
+        dateController.swiper = swiper
 
-        let objEl = undefined
-
-        if (Math.abs(swiper.activeIndex - slideActiveIndex) > 1) {
-            if (prevDirection == 'left') {
-                objEl = slideChangeLeft(prevDirection)
-            }
-            if (prevDirection == 'right') {
-                objEl = slideChangeRight(prevDirection)
-            }
-
-            preChangesDates(objEl.firstEl, objEl.direction)
-
-            return;
-        }
-
-        if (swiper.activeIndex > slideActiveIndex) {
-            setPrevDirection('right')
-
-            let {firstEl, direction} = slideChangeRight('right')
-            preChangesDates(firstEl, direction)
-
-            return;
-        }
-        if (swiper.activeIndex < slideActiveIndex) {
-            setPrevDirection('left')
-
-            let {firstEl, direction} = slideChangeLeft('left')
-            preChangesDates(firstEl, direction)
-        }
-    }
-    const preChangesDates = (array: Date[], direction: SlideDirection) => {
-        let firstEl = array
-        let firstOfFirstEl = undefined
-
-        if (!firstEl) return
-        firstOfFirstEl = firstEl[0]
-        if (!firstOfFirstEl) return;
-        changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), weeksDates.dateStart, swiper.activeIndex, direction)
-    }
-    const slideChangeLeft = (direction: SlideDirection) => {
-        let firstEl
-        if (weeksDates.dateStart == 'next') {
-            firstEl = weeksDates.dates[1]
-        }
-        if (weeksDates.dateStart == 'curr') {
-            firstEl = weeksDates.dates[2]
-        }
-        if (weeksDates.dateStart == 'prev') {
-            firstEl = weeksDates.dates[0]
-        }
-        return {
-            firstEl,
-            direction
-        }
-    }
-    const slideChangeRight = (direction: SlideDirection) => {
-        let firstEl = undefined
-        if (weeksDates.dateStart == 'next') {
-            firstEl = weeksDates.dates[0]
-        }
-        if (weeksDates.dateStart == 'curr') {
-            firstEl = weeksDates.dates[1]
-        }
-        if (weeksDates.dateStart == 'prev') {
-            firstEl = weeksDates.dates[2]
-        }
-        return {
-            firstEl,
-            direction
-        }
+        dateController.onSlideChange()
     }
 
     const onSwiperInit = (swiper: SwiperType) => {
