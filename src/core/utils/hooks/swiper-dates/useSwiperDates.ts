@@ -74,40 +74,7 @@ export const useSwiperDates = (
     }, [swiper, currentDate])
 
     const toCurrentDate = () => {
-        //const currDate = new Date(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
-        //const nowDate = new Date(dateNow.year, Dates.getMonthNum(dateNow.month), dateNow.date)
-
-        ///const nowWeek = Dates.getDatesOfWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
-
         dateController.toCurrentDate(currentDate, dateNow)
-
-       /* if (Dates.isDatesCompare(currDate, nowDate)) {
-            toCurrentDateFromWeek(currDate, nowWeek, nowDate)
-
-            return;
-        }
-
-        if (Dates.isDateBelongs(currDate, nowWeek)) return;
-
-        const week = Dates.getDatesOfWeek(currDate.getFullYear(), currDate.getMonth(), currDate.getDate())
-
-        let prevWeek = nowWeek
-        let nextWeek = nowWeek
-
-        isCanChangeDate = false
-
-        const {activeIndex} = swiper
-
-        if (currDate > nowDate) {
-            toCurrentDateFromFut(activeIndex, nowWeek, nowDate, { prevWeek, week, nextWeek })
-
-            return;
-        }
-        if (currDate < nowDate) {
-            toCurrentDateFromPast(activeIndex, nowWeek, nowDate, { week, prevWeek, nextWeek })
-
-            return;
-        }*/
     }
 
     const onSlideChange = (swiper: SwiperType) => {

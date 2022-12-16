@@ -20,8 +20,8 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
 
     const appContext = useContext(AppContext)
 
-    const nowDate = useSelector(appContext.reduxApi.getDateNow())
-    const currDate = useSelector(appContext.reduxApi.getDateCurrent())
+    //const nowDate = useSelector(appContext.reduxApi.getDateNow())
+    //const currDate = useSelector(appContext.reduxApi.getDateCurrent())
 
     const [swiper, setSwiper] = useState<SwiperType>()
 
