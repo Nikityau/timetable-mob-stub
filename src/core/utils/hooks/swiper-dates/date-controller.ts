@@ -4,7 +4,7 @@ import {SlideDirection} from "./interface/slide-direction.type";
 import {DateSpecState} from "./interface/date-spec-state.interface";
 
 import {DateCurrentController} from "./date-current-controller";
-import {DateChangeController} from "./interface/date-change-controller";
+import {DateChangeController} from "./date-change-controller";
 
 export class DateController {
     private _swiper: SwiperType
@@ -57,6 +57,7 @@ export class DateController {
 
     setWeeksDates(weeksDates: DateSpecState) {
         if (!this._setWeeksDates) return
+
         this._setWeeksDates(weeksDates)
     }
 

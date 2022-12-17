@@ -21,7 +21,7 @@ module.exports = {
         assetModuleFilename: "assets/[name][ext]",
         sourceMapFilename: "[name].js.map",
         path: path.resolve(__dirname, 'dist'),
-        publicPath: "/",
+        publicPath: "./",
         clean: true
     },
     optimization: {

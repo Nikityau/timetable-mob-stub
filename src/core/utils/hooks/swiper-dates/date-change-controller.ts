@@ -1,11 +1,11 @@
 import type {Swiper as SwiperType} from 'swiper'
 
-import Dates from "../../../namespaces/dates";
+import Dates from "../../namespaces/dates";
 
-import {SlideDirection} from "./slide-direction.type";
-import {SlidePos} from "./slide-pos.type";
-import {DateSpecState} from "./date-spec-state.interface";
-import {DateWeeks} from "./date-weeks.interface";
+import {SlideDirection} from "./interface/slide-direction.type";
+import {SlidePos} from "./interface/slide-pos.type";
+import {DateSpecState} from "./interface/date-spec-state.interface";
+import {DateWeeks} from "./interface/date-weeks.interface";
 
 export class DateChangeController {
     weeksDates: DateSpecState

@@ -41,7 +41,9 @@ export class DateCurrentController {
             return;
         }
 
-        if (Dates.isDateBelongs(currDate, nowWeek)) return;
+        if (Dates.isDateBelongs(currDate, nowWeek)) {
+            return;
+        }
 
         const week = Dates.getDatesOfWeek(currDate.getFullYear(), currDate.getMonth(), currDate.getDate())
 
@@ -83,7 +85,7 @@ export class DateCurrentController {
                 nextWeek: nowWeek
             })
 
-            this.swiperSlideTo(1)
+            return;
         }
         if (tempDate < nowDate) {
             this.toCurrentDateFromPast(activeIndex, nowWeek, nowDate, {
@@ -124,6 +126,18 @@ export class DateCurrentController {
                 ],
                 dateStart: 'prev'
             })
+        }
+        if(activeIndex == 1) {
+            /*this.setWeeksDates({
+                dates: [
+                    week,
+                    prevWeek,
+                    nextWeek,
+                ],
+                dateStart: 'curr'
+            })*/
+
+            return
         }
 
         if (activeIndex == 4 || activeIndex == 3) {
