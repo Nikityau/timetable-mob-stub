@@ -153,22 +153,24 @@ export class DateCurrentController {
             this.swiperSlideTo(0)
         }
         if (activeIndex == 1) {
-            this.swiperSlideTo(-1)
+            /*this.swiperSlideTo(-1)
 
             setTimeout(() => {
                 //console.log(this._swiper)
-                /*this._swiper.update()
+                /!*this._swiper.update()
                 this._swiper.updateSlides()
                 this._swiper.updateSize()
-                this._swiper.updateProgress()*/
+                this._swiper.updateProgress()*!/
                 //this._swiper.slideReset()
                 //this._swiper.setProgress(0)
                 //this._swiper.slideToClosest()
-                this._swiper.updateSlidesClasses()
+                //this._swiper.updateSlidesClasses()
+                //this._swiper.slideTo(1)
+                this._swiper.slideTo(1, 0)
                 console.log("upd")
-            }, 500)
+            }, 500)*/
 
-            return
+            //return
         }
 
         //return

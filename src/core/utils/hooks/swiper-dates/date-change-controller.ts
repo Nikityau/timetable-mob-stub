@@ -11,20 +11,29 @@ export class DateChangeController {
     weeksDates: DateSpecState
 
     getIsCanChange: () => boolean
+    getIsChangeRapidly: () => boolean
     setActiveIndex: (index: number) => void
     setSlideDirection: (direction: SlideDirection) => void
     setWeeksDates: (weeksDates: DateSpecState) => void
+    sliderPos: () => 'end' | 'begin' | '...'
+    slideTo: (index: number, isRapidly: boolean) => void
 
     constructor(
         setActiveIndex: (index: number) => void,
         setSlideDirection: (direction: SlideDirection) => void,
         getIsCanChange: () => boolean,
-        setWeeksDates: (weeksDates: DateSpecState) => void
+        setWeeksDates: (weeksDates: DateSpecState) => void,
+        sliderPos: () => 'end' | 'begin' | '...',
+        slideTo: (index: number, isRapidly: boolean) => void,
+        getIsChangeRapidly: () => boolean
     ) {
         this.getIsCanChange = getIsCanChange
         this.setActiveIndex = setActiveIndex
         this.setSlideDirection = setSlideDirection
         this.setWeeksDates = setWeeksDates
+        this.sliderPos = sliderPos
+        this.slideTo = slideTo
+        this.getIsChangeRapidly = getIsChangeRapidly
     }
 
     onSlideChange(
@@ -32,7 +41,7 @@ export class DateChangeController {
         slideActiveIndex,
         prevDirection,
         weeksDates: DateSpecState,
-    ):void {
+    ): void {
         this.setActiveIndex(swiper.activeIndex)
 
         this.weeksDates = weeksDates
@@ -69,13 +78,13 @@ export class DateChangeController {
     }
 
     changeDates(y: number, m: number, d: number, spec: SlidePos, activeIndexPrev: number | 'undef', direction: 'left' | 'right'): void {
-        if(!this.getIsCanChange()) return
+        if (!this.getIsCanChange()) return
 
         const week = Dates.getDatesOfWeek(y, m, d)
         const prevWeek = Dates.getDatesOfPrevWeek(y, m, d)
         const nextWeek = Dates.getDatesOfNextWeek(y, m, d)
 
-        if (activeIndexPrev == 0 || activeIndexPrev == 4) return
+        if (activeIndexPrev == 0 || activeIndexPrev == 4) return;
 
         if (direction == 'right') {
             this.changeDatesRightBranch({week, prevWeek, nextWeek}, this.weeksDates)
@@ -86,7 +95,8 @@ export class DateChangeController {
             this.changeDatesLeftBranch({prevWeek, week, nextWeek}, this.weeksDates)
         }
     }
-    changeDatesLeftBranch({prevWeek, week, nextWeek}: DateWeeks, weeksDates: DateSpecState):void {
+
+    changeDatesLeftBranch({prevWeek, week, nextWeek}: DateWeeks, weeksDates: DateSpecState): void {
         if (weeksDates.dateStart == 'curr') {
             this.setWeeksDates({
                 dates: [
@@ -121,44 +131,84 @@ export class DateChangeController {
             })
         }
     }
-    changeDatesRightBranch({prevWeek, week, nextWeek}: DateWeeks, weeksDates: DateSpecState):void {
-        if (weeksDates.dateStart == 'curr') {
-            this.setWeeksDates({
-                dates: [
-                    prevWeek,
-                    week,
-                    nextWeek,
-                ],
-                dateStart: 'prev'
-            })
 
-            return
+    changeDatesRightBranch(
+        {
+            prevWeek,
+            week,
+            nextWeek
+        }: DateWeeks,
+        weeksDates: DateSpecState,
+    ): void {
+        if (weeksDates.dateStart == 'curr') {
+            console.log('next:(prev)')
+            if(this.getIsChangeRapidly()) {
+                this.setWeeksDates({
+                    dates: [
+                        prevWeek,
+                        week,
+                        nextWeek,
+                    ],
+                    dateStart: 'prev'
+                })
+            } else {
+                this.setWeeksDates({
+                    dates: [
+                        prevWeek,
+                        week,
+                        nextWeek,
+                    ],
+                    dateStart: 'prev'
+                })
+            }
         }
         if (weeksDates.dateStart == 'next') {
-            this.setWeeksDates({
-                dates: [
-                    week,
-                    nextWeek,
-                    prevWeek,
-                ],
-                dateStart: 'curr'
-            })
-
-            return;
+            console.log('next:(curr)')
+            if (this.getIsChangeRapidly()) {
+                this.setWeeksDates({
+                    dates: [
+                        prevWeek,
+                        week,
+                        nextWeek,
+                    ],
+                    dateStart: 'curr'
+                })
+            } else {
+                this.setWeeksDates({
+                    dates: [
+                        week,
+                        nextWeek,
+                        prevWeek,
+                    ],
+                    dateStart: 'curr'
+                })
+            }
         }
         if (weeksDates.dateStart == 'prev') {
-            this.setWeeksDates({
-                dates: [
-                    nextWeek,
-                    prevWeek,
-                    week,
-                ],
-                dateStart: 'next'
-            })
+            console.log('next:(next)')
+            if(this.getIsChangeRapidly()) {
+                this.setWeeksDates({
+                    dates: [
+                        prevWeek,
+                        nextWeek,
+                        week,
+                    ],
+                    dateStart: 'next'
+                })
+            } else {
+                this.setWeeksDates({
+                    dates: [
+                        nextWeek,
+                        prevWeek,
+                        week,
+                    ],
+                    dateStart: 'next'
+                })
+            }
         }
     }
 
-    preChangesDates(array: Date[], direction: SlideDirection, weeksDates: DateSpecState, activeIndex):void {
+    preChangesDates(array: Date[], direction: SlideDirection, weeksDates: DateSpecState, activeIndex): void {
         let firstEl = array
         let firstOfFirstEl = undefined
 
@@ -185,7 +235,8 @@ export class DateChangeController {
             direction
         }
     }
-    slideChangeRight(direction: SlideDirection, weeksDates:DateSpecState): { firstEl: any, direction: any } {
+
+    slideChangeRight(direction: SlideDirection, weeksDates: DateSpecState): { firstEl: any, direction: any } {
         let firstEl = undefined
         if (weeksDates.dateStart == 'next') {
             firstEl = weeksDates.dates[0]

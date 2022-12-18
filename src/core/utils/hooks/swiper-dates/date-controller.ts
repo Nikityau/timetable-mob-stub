@@ -20,6 +20,7 @@ export class DateController {
     _setWeeksDates: (weeksDates: DateSpecState) => void
 
     isCanChangeDate: boolean = true
+    isChangeRapidly = false
 
     dateCurrentController = new DateCurrentController(
         this.getIsCanChangeDate.bind(this),
@@ -31,10 +32,14 @@ export class DateController {
         this.setSliderActiveIndex.bind(this),
         this.setSlideDirection.bind(this),
         this.getIsCanChangeDate.bind(this),
-        this.setWeeksDates.bind(this)
+        this.setWeeksDates.bind(this),
+        this.slidePosition.bind(this),
+        this.swiperSlideTo.bind(this),
+        this.getIsChangeRapidly.bind(this)
     )
 
-    constructor() {}
+    constructor() {
+    }
 
     setIsCanChangeDate(value: boolean): boolean {
         this.isCanChangeDate = value
@@ -43,6 +48,9 @@ export class DateController {
 
     getIsCanChangeDate(): boolean {
         return this.isCanChangeDate
+    }
+    getIsChangeRapidly(): boolean {
+        return this.isChangeRapidly
     }
 
     setSliderActiveIndex(index: number) {
@@ -59,6 +67,10 @@ export class DateController {
         if (!this._setWeeksDates) return
 
         console.log(weeksDates)
+        if(this.isChangeRapidly) {
+            this.isChangeRapidly = false
+        }
+
         this._setWeeksDates(weeksDates)
     }
 
@@ -81,11 +93,33 @@ export class DateController {
         )
     }
 
-    swiperSlideTo(index: number) {
-        if(!this._swiper) return
+    slidePosition(): 'end' | 'begin' | '...' {
+        if (this.isSlideEnd()) return 'end'
+        if (this.isSlideBegin()) return 'begin'
+        return '...'
+    }
+
+    isSlideEnd(): boolean {
+        return this._swiper.isEnd
+    }
+    isSlideBegin(): boolean {
+        return this._swiper.isBeginning
+    }
+
+    swiperSlideTo(index: number, isRapidly = false) {
+        if (!this._swiper) return
+
+        if (isRapidly) return;
+
         this._swiper.slideToLoop(index)
     }
 
+    whenSwiperEnd(swiper: SwiperType) {
+        if (swiper.activeIndex == 4) {
+            this.isChangeRapidly = true
+            swiper.slideToLoop(1, 0)
+        }
+    }
 
     public set weeksDates(weeksDates: DateSpecState) {
         this._weeksDates = weeksDates
@@ -101,5 +135,12 @@ export class DateController {
 
     public set swiper(swiper: SwiperType) {
         this._swiper = swiper
+        /* this._swiper?.once('activeIndexChange', (swiper:SwiperType) => {
+             this.test(swiper)
+         })*/
+        this._swiper?.once('slideNextTransitionEnd', (swiper: SwiperType) => {
+            this.whenSwiperEnd(swiper)
+        })
+
     }
 }
