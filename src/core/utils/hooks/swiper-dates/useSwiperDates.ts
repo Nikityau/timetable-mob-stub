@@ -78,6 +78,8 @@ export const useSwiperDates = (
     }
 
     const onSlideChange = (swiper: SwiperType) => {
+        console.log('swiper', swiper)
+        console.log('slide active index', swiper.activeIndex)
         dateController.swiper = swiper
 
         dateController.onSlideChange()

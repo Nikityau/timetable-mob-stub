@@ -94,7 +94,12 @@ namespace Dates {
     }
     export function getDatesOfPrevWeek(year: number, month: number, date: number):Date[] {
         const tempDate = createDate(year, month, date)
-        const day = tempDate.getDay()
+        let day = tempDate.getDay()
+
+        if(day == 0) {
+            day = 7
+        }
+
         const mondayCurrent = date - day + 1
         const mondayPrev = mondayCurrent - 7
 
@@ -105,7 +110,12 @@ namespace Dates {
     }
     export function getDatesOfNextWeek(year: number, month: number, date: number):Date[] {
         const tempDate = createDate(year, month, date)
-        const day = tempDate.getDay()
+        let day = tempDate.getDay()
+
+        if(day == 0) {
+            day = 7
+        }
+
         const mondayCurrent = date - day + 1
         const mondayNext = mondayCurrent + 7
 

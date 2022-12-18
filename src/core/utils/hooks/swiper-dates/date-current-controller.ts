@@ -1,8 +1,12 @@
+import type { Swiper as SwiperType } from 'swiper'
+
 import Dates from "../../namespaces/dates";
 
 import {DateSpecState} from "./interface/date-spec-state.interface";
 
 export class DateCurrentController {
+
+    _swiper:SwiperType
 
     getIsCanChange: () => boolean
     setIsCanChange: (value: boolean) => boolean
@@ -28,12 +32,16 @@ export class DateCurrentController {
         dateNow,
         swiper,
     ): void {
+        this._swiper = swiper
+
         const currDate = new Date(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
         const nowDate = new Date(dateNow.year, Dates.getMonthNum(dateNow.month), dateNow.date)
 
         const nowWeek = Dates.getDatesOfWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
 
         const {activeIndex} = swiper
+
+        this.setIsCanChange(false)
 
         if (Dates.isDatesCompare(currDate, nowDate)) {
             this.toCurrentDateFromWeek(currDate, nowWeek, nowDate, activeIndex)
@@ -49,8 +57,6 @@ export class DateCurrentController {
 
         let prevWeek = nowWeek
         let nextWeek = nowWeek
-
-        this.setIsCanChange(false)
 
         if (currDate > nowDate) {
             this.toCurrentDateFromFut(activeIndex, nowWeek, nowDate, {prevWeek, week, nextWeek})
@@ -127,18 +133,18 @@ export class DateCurrentController {
                 dateStart: 'prev'
             })
         }
-        if(activeIndex == 1) {
-            /*this.setWeeksDates({
+        if (activeIndex == 1) {
+            this.setWeeksDates({
                 dates: [
                     week,
                     prevWeek,
                     nextWeek,
                 ],
                 dateStart: 'curr'
-            })*/
-
-            return
+            })
         }
+
+        //this.setIsCanChange(true)
 
         if (activeIndex == 4 || activeIndex == 3) {
             this.swiperSlideTo(1)
@@ -146,6 +152,26 @@ export class DateCurrentController {
         if (activeIndex == 2) {
             this.swiperSlideTo(0)
         }
+        if (activeIndex == 1) {
+            this.swiperSlideTo(-1)
+
+            setTimeout(() => {
+                //console.log(this._swiper)
+                /*this._swiper.update()
+                this._swiper.updateSlides()
+                this._swiper.updateSize()
+                this._swiper.updateProgress()*/
+                //this._swiper.slideReset()
+                //this._swiper.setProgress(0)
+                //this._swiper.slideToClosest()
+                this._swiper.updateSlidesClasses()
+                console.log("upd")
+            }, 500)
+
+            return
+        }
+
+        //return
 
         nextWeek = Dates.getDatesOfNextWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
         prevWeek = Dates.getDatesOfPrevWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
@@ -169,6 +195,18 @@ export class DateCurrentController {
                 ],
                 dateStart: 'curr'
             })
+        }
+        if (activeIndex == 1) {
+            this.setWeeksDates({
+                dates: [
+                    nextWeek,
+                    prevWeek,
+                    nowWeek,
+                ],
+                dateStart: 'next'
+            })
+        }
+        if(activeIndex == 0) {
         }
 
         this.setIsCanChange(true)

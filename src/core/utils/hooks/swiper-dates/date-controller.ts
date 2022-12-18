@@ -58,6 +58,7 @@ export class DateController {
     setWeeksDates(weeksDates: DateSpecState) {
         if (!this._setWeeksDates) return
 
+        console.log(weeksDates)
         this._setWeeksDates(weeksDates)
     }
 
