@@ -7,250 +7,195 @@ import {SlidePos} from "./interface/slide-pos.type";
 import {DateSpecState} from "./interface/date-spec-state.interface";
 import {DateWeeks} from "./interface/date-weeks.interface";
 
+
+type Week = { week: Date[] }
+
 export class DateChangeController {
-    weeksDates: DateSpecState
 
     getIsCanChange: () => boolean
     getIsChangeRapidly: () => boolean
     setActiveIndex: (index: number) => void
     setSlideDirection: (direction: SlideDirection) => void
-    setWeeksDates: (weeksDates: DateSpecState) => void
-    sliderPos: () => 'end' | 'begin' | '...'
-    slideTo: (index: number, isRapidly: boolean) => void
 
     constructor(
         setActiveIndex: (index: number) => void,
         setSlideDirection: (direction: SlideDirection) => void,
         getIsCanChange: () => boolean,
-        setWeeksDates: (weeksDates: DateSpecState) => void,
-        sliderPos: () => 'end' | 'begin' | '...',
-        slideTo: (index: number, isRapidly: boolean) => void,
         getIsChangeRapidly: () => boolean
     ) {
         this.getIsCanChange = getIsCanChange
         this.setActiveIndex = setActiveIndex
         this.setSlideDirection = setSlideDirection
-        this.setWeeksDates = setWeeksDates
-        this.sliderPos = sliderPos
-        this.slideTo = slideTo
         this.getIsChangeRapidly = getIsChangeRapidly
     }
 
     onSlideChange(
         swiper: SwiperType,
-        slideActiveIndex,
-        prevDirection,
+        slideActiveIndex: number,
+        prevDirection: SlideDirection,
         weeksDates: DateSpecState,
-    ): void {
+    ): DateSpecState | undefined {
+        if(!weeksDates) return;
+        if (!this.getIsCanChange()) return
+
         this.setActiveIndex(swiper.activeIndex)
 
-        this.weeksDates = weeksDates
+        if (Math.abs(swiper.activeIndex - slideActiveIndex) > 1 && !this.getIsChangeRapidly()) return
 
-        let objEl = undefined
-
-        if (Math.abs(swiper.activeIndex - slideActiveIndex) > 1) {
-            if (prevDirection == 'left') {
-                objEl = this.slideChangeLeft(prevDirection, weeksDates)
-            }
-            if (prevDirection == 'right') {
-                objEl = this.slideChangeRight(prevDirection, weeksDates)
-            }
-
-            this.preChangesDates(objEl.firstEl, objEl.direction, weeksDates, swiper.activeIndex)
-
-            return
-        }
+        let direction: SlideDirection = 'left'
 
         if (swiper.activeIndex > slideActiveIndex) {
             this.setSlideDirection('right')
 
-            let {firstEl, direction} = this.slideChangeRight('right', weeksDates)
-            this.preChangesDates(firstEl, direction, weeksDates, swiper.activeIndex)
-
-            return;
+            direction = 'right'
         }
         if (swiper.activeIndex < slideActiveIndex) {
             this.setSlideDirection('left')
 
-            let {firstEl, direction} = this.slideChangeLeft('left', weeksDates)
-            this.preChangesDates(firstEl, direction, weeksDates, swiper.activeIndex)
+            direction = 'left'
         }
-    }
 
-    changeDates(y: number, m: number, d: number, spec: SlidePos, activeIndexPrev: number | 'undef', direction: 'left' | 'right'): void {
-        if (!this.getIsCanChange()) return
-
-        const week = Dates.getDatesOfWeek(y, m, d)
-        const prevWeek = Dates.getDatesOfPrevWeek(y, m, d)
-        const nextWeek = Dates.getDatesOfNextWeek(y, m, d)
-
-        if (activeIndexPrev == 0 || activeIndexPrev == 4) return;
-
-        if (direction == 'right') {
-            this.changeDatesRightBranch({week, prevWeek, nextWeek}, this.weeksDates)
-
-            return;
+        if(this.getIsChangeRapidly()) {
+            console.log('rapidly')
         }
-        if (direction == 'left') {
-            this.changeDatesLeftBranch({prevWeek, week, nextWeek}, this.weeksDates)
-        }
-    }
 
-    changeDatesLeftBranch({prevWeek, week, nextWeek}: DateWeeks, weeksDates: DateSpecState): void {
-        if (weeksDates.dateStart == 'curr') {
-            this.setWeeksDates({
-                dates: [
-                    nextWeek,
-                    prevWeek,
-                    week,
-                ],
-                dateStart: 'next'
-            })
+        if(this.getIsChangeRapidly()) {
             return
         }
-        if (weeksDates.dateStart == 'next') {
-            this.setWeeksDates({
+
+        const {week} = this.getWeekFrom(direction, weeksDates.dates, weeksDates.dateStart)
+
+        if(!week) return;
+
+        const day = this.getFirstDayInWeek(week)
+
+        const weeks = this.getNewWeeks(day)
+        const weekState = this.getWeeksStateFrom(direction,weeks, weeksDates.dateStart)
+
+        return weekState
+    }
+
+    getNewWeeks(date: Date): DateWeeks {
+        const week = Dates.getDatesOfWeek(date.getFullYear(), date.getMonth(), date.getDate())
+        const prevWeek = Dates.getDatesOfPrevWeek(date.getFullYear(), date.getMonth(), date.getDate())
+        const nextWeek = Dates.getDatesOfNextWeek(date.getFullYear(), date.getMonth(), date.getDate())
+
+        return {
+            week,
+            nextWeek,
+            prevWeek
+        }
+    }
+
+    getWeeksStateFrom(direction: SlideDirection, weeks: DateWeeks, weekStart: SlidePos):DateSpecState {
+        if(direction == 'left') {
+            return this.getWeeksStateFromLeftBranch(weeks, weekStart)
+        }
+        if(direction == 'right') {
+            return this.getWeeksStateFromRightBranch(weeks, weekStart)
+        }
+    }
+    getWeeksStateFromLeftBranch(weeks: DateWeeks, weekStart: SlidePos): DateSpecState {
+        if (weekStart == 'curr') {
+            return {
                 dates: [
-                    prevWeek,
-                    week,
-                    nextWeek,
+                    weeks.nextWeek,
+                    weeks.prevWeek,
+                    weeks.week,
+                ],
+                dateStart: 'next'
+            }
+        }
+        if (weekStart == 'next') {
+            return {
+                dates: [
+                    weeks.prevWeek,
+                    weeks.week,
+                    weeks.nextWeek,
                 ],
                 dateStart: 'prev'
-            })
-
-            return;
+            }
         }
-        if (weeksDates.dateStart == 'prev') {
-            this.setWeeksDates({
+        if (weekStart == 'prev') {
+            return {
                 dates: [
-                    week,
-                    nextWeek,
-                    prevWeek,
+                    weeks.week,
+                    weeks.nextWeek,
+                    weeks.prevWeek,
                 ],
                 dateStart: 'curr'
-            })
+            }
         }
     }
-
-    changeDatesRightBranch(
-        {
-            prevWeek,
-            week,
-            nextWeek
-        }: DateWeeks,
-        weeksDates: DateSpecState,
-    ): void {
-        if (weeksDates.dateStart == 'curr') {
-            console.log('next:(prev)')
-            if(this.getIsChangeRapidly()) {
-                this.setWeeksDates({
-                    dates: [
-                        prevWeek,
-                        week,
-                        nextWeek,
-                    ],
-                    dateStart: 'prev'
-                })
-            } else {
-                this.setWeeksDates({
-                    dates: [
-                        prevWeek,
-                        week,
-                        nextWeek,
-                    ],
-                    dateStart: 'prev'
-                })
+    getWeeksStateFromRightBranch(weeks: DateWeeks, weekStart: SlidePos): DateSpecState {
+        if (weekStart == 'curr') {
+            return {
+                dates: [
+                    weeks.prevWeek,
+                    weeks.week,
+                    weeks.nextWeek
+                ],
+                dateStart: 'prev'
             }
         }
-        if (weeksDates.dateStart == 'next') {
-            console.log('next:(curr)')
-            if (this.getIsChangeRapidly()) {
-                this.setWeeksDates({
-                    dates: [
-                        prevWeek,
-                        week,
-                        nextWeek,
-                    ],
-                    dateStart: 'curr'
-                })
-            } else {
-                this.setWeeksDates({
-                    dates: [
-                        week,
-                        nextWeek,
-                        prevWeek,
-                    ],
-                    dateStart: 'curr'
-                })
+        if (weekStart == 'prev') {
+            return {
+                dates: [
+                    weeks.nextWeek,
+                    weeks.prevWeek,
+                    weeks.week,
+                ],
+                dateStart: 'next'
             }
         }
-        if (weeksDates.dateStart == 'prev') {
-            console.log('next:(next)')
-            if(this.getIsChangeRapidly()) {
-                this.setWeeksDates({
-                    dates: [
-                        prevWeek,
-                        nextWeek,
-                        week,
-                    ],
-                    dateStart: 'next'
-                })
-            } else {
-                this.setWeeksDates({
-                    dates: [
-                        nextWeek,
-                        prevWeek,
-                        week,
-                    ],
-                    dateStart: 'next'
-                })
+        if (weekStart == 'next') {
+            return {
+                dates: [
+                    weeks.week,
+                    weeks.nextWeek,
+                    weeks.prevWeek,
+                ],
+                dateStart: 'curr'
             }
         }
     }
 
-    preChangesDates(array: Date[], direction: SlideDirection, weeksDates: DateSpecState, activeIndex): void {
-        let firstEl = array
-        let firstOfFirstEl = undefined
-
-        if (!firstEl) return
-        firstOfFirstEl = firstEl[0]
-        if (!firstOfFirstEl) return;
-        this.changeDates(firstOfFirstEl.getFullYear(), firstOfFirstEl.getMonth(), firstOfFirstEl.getDate(), weeksDates.dateStart, activeIndex, direction)
+    getFirstDayInWeek(week: Date[]): Date {
+        return week[0]
     }
 
-    slideChangeLeft(direction: SlideDirection, weeksDates: DateSpecState): { firstEl: any, direction: any } {
-        let firstEl = undefined
-        if (weeksDates.dateStart == 'next') {
-            firstEl = weeksDates.dates[1]
+    getWeekFrom(direction: SlideDirection, weeks: Date[][], dateStart: SlidePos): Week {
+        if(direction == 'left') {
+            return {
+                week: this.getWeekFromLeftBranch(weeks, dateStart)
+            }
         }
-        if (weeksDates.dateStart == 'curr') {
-            firstEl = weeksDates.dates[2]
-        }
-        if (weeksDates.dateStart == 'prev') {
-            firstEl = weeksDates.dates[0]
-        }
-
-        return {
-            firstEl,
-            direction
+        if(direction == 'right') {
+            return {
+                week: this.getWeekFromRightBranch(weeks, dateStart)
+            }
         }
     }
-
-    slideChangeRight(direction: SlideDirection, weeksDates: DateSpecState): { firstEl: any, direction: any } {
-        let firstEl = undefined
-        if (weeksDates.dateStart == 'next') {
-            firstEl = weeksDates.dates[0]
+    getWeekFromLeftBranch(weeks: Date[][], dateStart: SlidePos): Date[] {
+        if (dateStart == 'next') {
+            return weeks[1]
         }
-        if (weeksDates.dateStart == 'curr') {
-            firstEl = weeksDates.dates[1]
+        if (dateStart == 'curr') {
+            return weeks[2]
         }
-        if (weeksDates.dateStart == 'prev') {
-            firstEl = weeksDates.dates[2]
+        if (dateStart == 'prev') {
+            return weeks[0]
         }
-
-        return {
-            firstEl,
-            direction
+    }
+    getWeekFromRightBranch(weeks: Date[][], dateStart: SlidePos): Date[] {
+        if (dateStart == 'next') {
+            return weeks[0]
+        }
+        if (dateStart == 'curr') {
+            return weeks[1]
+        }
+        if (dateStart == 'prev') {
+            return weeks[2]
         }
     }
 }

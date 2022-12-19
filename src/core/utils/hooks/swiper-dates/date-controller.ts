@@ -32,9 +32,6 @@ export class DateController {
         this.setSliderActiveIndex.bind(this),
         this.setSlideDirection.bind(this),
         this.getIsCanChangeDate.bind(this),
-        this.setWeeksDates.bind(this),
-        this.slidePosition.bind(this),
-        this.swiperSlideTo.bind(this),
         this.getIsChangeRapidly.bind(this)
     )
 
@@ -66,50 +63,45 @@ export class DateController {
     setWeeksDates(weeksDates: DateSpecState) {
         if (!this._setWeeksDates) return
 
-        console.log(weeksDates)
         if(this.isChangeRapidly) {
             this.isChangeRapidly = false
         }
 
+        console.log(weeksDates)
         this._setWeeksDates(weeksDates)
     }
 
     toCurrentDate(currentDate, dateNow) {
-        if (!this._setSwiper) return
+        /*if (!this._setSwiper) return
 
         this.dateCurrentController.toCurrentDate(
             currentDate,
             dateNow,
             this._swiper
-        )
+        )*/
     }
 
     onSlideChange() {
-        this.dateChangeController.onSlideChange(
+        const weeksState = this.dateChangeController.onSlideChange(
             this._swiper,
             this._sliderActiveIndex,
             this._slideDirection,
             this._weeksDates,
         )
-    }
 
-    slidePosition(): 'end' | 'begin' | '...' {
-        if (this.isSlideEnd()) return 'end'
-        if (this.isSlideBegin()) return 'begin'
-        return '...'
-    }
+        if(!weeksState) return
 
-    isSlideEnd(): boolean {
-        return this._swiper.isEnd
-    }
-    isSlideBegin(): boolean {
-        return this._swiper.isBeginning
+        this.setWeeksDates(weeksState)
     }
 
     swiperSlideTo(index: number, isRapidly = false) {
         if (!this._swiper) return
 
-        if (isRapidly) return;
+        if (isRapidly) {
+            this._swiper.slideToLoop(index, 0)
+
+            return
+        }
 
         this._swiper.slideToLoop(index)
     }
@@ -135,12 +127,8 @@ export class DateController {
 
     public set swiper(swiper: SwiperType) {
         this._swiper = swiper
-        /* this._swiper?.once('activeIndexChange', (swiper:SwiperType) => {
-             this.test(swiper)
-         })*/
         this._swiper?.once('slideNextTransitionEnd', (swiper: SwiperType) => {
             this.whenSwiperEnd(swiper)
         })
-
     }
 }
