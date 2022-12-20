@@ -1,12 +1,20 @@
-import type { Swiper as SwiperType } from 'swiper'
+import type {Swiper as SwiperType} from 'swiper'
 
 import Dates from "../../namespaces/dates";
 
 import {DateSpecState} from "./interface/date-spec-state.interface";
 
+type TranslateData = {
+    from: DateSpecState
+    to: DateSpecState,
+    slideTo: number
+}
+
+type TranslateFrom = 'future' | 'past' | 'unk'
+
 export class DateCurrentController {
 
-    _swiper:SwiperType
+    _swiper: SwiperType
 
     getIsCanChange: () => boolean
     setIsCanChange: (value: boolean) => boolean
@@ -31,7 +39,7 @@ export class DateCurrentController {
         currentDate,
         dateNow,
         swiper,
-    ): void {
+    ): TranslateData | undefined {
         this._swiper = swiper
 
         const currDate = new Date(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date)
@@ -43,11 +51,47 @@ export class DateCurrentController {
 
         this.setIsCanChange(false)
 
+        let translateFrom: TranslateFrom = 'unk'
+
         if (Dates.isDatesCompare(currDate, nowDate)) {
-            this.toCurrentDateFromWeek(currDate, nowWeek, nowDate, activeIndex)
+            const date = this.getDateFromActiveCard()
+            const weekOfActive = Dates.getDatesOfWeek(date.getFullYear(), date.getMonth(), date.getDate())
+
+            translateFrom = this.toCurrentDateFromWeek(currDate, nowDate, weekOfActive)
+            if (translateFrom == 'unk') return;
+
+            if (translateFrom == 'future') {
+                this.toCurrentDateFromFut(
+                    activeIndex,
+                    nowWeek,
+                    nowDate,
+                    {
+                        week: weekOfActive,
+                        prevWeek: nowWeek,
+                        nextWeek: nowWeek
+                    }
+                )
+
+                return;
+            }
+            if (translateFrom == 'past') {
+                this.toCurrentDateFromPast(
+                    activeIndex,
+                    nowWeek,
+                    nowDate,
+                    {
+                        week: weekOfActive,
+                        prevWeek: nowWeek,
+                        nextWeek: nowWeek
+                    }
+                )
+
+                return;
+            }
 
             return;
         }
+
 
         if (Dates.isDateBelongs(currDate, nowWeek)) {
             return;
@@ -59,18 +103,36 @@ export class DateCurrentController {
         let nextWeek = nowWeek
 
         if (currDate > nowDate) {
-            this.toCurrentDateFromFut(activeIndex, nowWeek, nowDate, {prevWeek, week, nextWeek})
+            this.toCurrentDateFromFut(
+                activeIndex,
+                nowWeek,
+                nowDate,
+                {
+                    prevWeek,
+                    week,
+                    nextWeek
+                }
+            )
 
             return;
         }
         if (currDate < nowDate) {
-            this.toCurrentDateFromPast(activeIndex, nowWeek, nowDate, {week, prevWeek, nextWeek})
+            this.toCurrentDateFromPast(
+                activeIndex,
+                nowWeek,
+                nowDate,
+                {
+                    week,
+                    prevWeek,
+                    nextWeek
+                }
+            )
 
             return;
         }
     }
 
-    toCurrentDateFromWeek(currDate, nowWeek, nowDate, activeIndex): void {
+    getDateFromActiveCard(): Date {
         const swiperDOM = document.querySelector('.swiper')
         const activeSlide = swiperDOM.querySelector('.swiper-slide-active')
         const dateCard = activeSlide.querySelector('.date-card')
@@ -79,30 +141,36 @@ export class DateCurrentController {
         const monthDateCard = Number.parseInt(dateCard.getAttribute('data-month'))
         const yearDateCard = Number.parseInt(dateCard.getAttribute('data-year'))
 
-        const weekOfActive = Dates.getDatesOfWeek(yearDateCard, monthDateCard, dateDateCard)
-        const tempDate = weekOfActive[0]
+        return new Date(yearDateCard, monthDateCard, dateDateCard)
+    }
 
-        if (Dates.isDateBelongs(currDate, weekOfActive)) return;
+    toCurrentDateFromWeek(currDate, nowDate, weekOfActive: Date[]): TranslateFrom {
+        const firstDay = weekOfActive[0]
 
-        if (tempDate > nowDate) {
-            this.toCurrentDateFromFut(activeIndex, nowWeek, nowDate, {
-                week: weekOfActive,
-                prevWeek: nowWeek,
-                nextWeek: nowWeek
-            })
+        if (Dates.isDateBelongs(currDate, weekOfActive)) return 'unk';
 
-            return;
+        if (firstDay > nowDate) {
+            /* this.toCurrentDateFromFut(activeIndex, nowWeek, nowDate, {
+                 week: weekOfActive,
+                 prevWeek: nowWeek,
+                 nextWeek: nowWeek
+             })*/
+
+            return 'future'
         }
-        if (tempDate < nowDate) {
-            this.toCurrentDateFromPast(activeIndex, nowWeek, nowDate, {
+        if (firstDay < nowDate) {
+            /*this.toCurrentDateFromPast(activeIndex, nowWeek, nowDate, {
                 week: weekOfActive,
                 prevWeek: nowWeek,
                 nextWeek: nowWeek
-            })
+            })*/
+
+            return 'past'
         }
     }
 
     toCurrentDateFromFut(activeIndex, nowWeek, nowDate, {week, prevWeek, nextWeek}): void {
+        console.log(activeIndex)
         if (activeIndex == 3) {
             this.setWeeksDates({
                 dates: [
@@ -144,39 +212,17 @@ export class DateCurrentController {
             })
         }
 
-        //this.setIsCanChange(true)
-
         if (activeIndex == 4 || activeIndex == 3) {
             this.swiperSlideTo(1)
         }
         if (activeIndex == 2) {
             this.swiperSlideTo(0)
         }
-        if (activeIndex == 1) {
-            /*this.swiperSlideTo(-1)
-
-            setTimeout(() => {
-                //console.log(this._swiper)
-                /!*this._swiper.update()
-                this._swiper.updateSlides()
-                this._swiper.updateSize()
-                this._swiper.updateProgress()*!/
-                //this._swiper.slideReset()
-                //this._swiper.setProgress(0)
-                //this._swiper.slideToClosest()
-                //this._swiper.updateSlidesClasses()
-                //this._swiper.slideTo(1)
-                this._swiper.slideTo(1, 0)
-                console.log("upd")
-            }, 500)*/
-
-            //return
-        }
-
-        //return
 
         nextWeek = Dates.getDatesOfNextWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
         prevWeek = Dates.getDatesOfPrevWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
+
+        console.log(activeIndex)
 
         if (activeIndex == 4 || activeIndex == 3) {
             this.setWeeksDates({
@@ -195,7 +241,7 @@ export class DateCurrentController {
                     nextWeek,
                     prevWeek,
                 ],
-                dateStart: 'curr'
+                dateStart: 'prev'
             })
         }
         if (activeIndex == 1) {
@@ -205,10 +251,8 @@ export class DateCurrentController {
                     prevWeek,
                     nowWeek,
                 ],
-                dateStart: 'next'
+                dateStart: 'prev'
             })
-        }
-        if(activeIndex == 0) {
         }
 
         this.setIsCanChange(true)
@@ -276,7 +320,7 @@ export class DateCurrentController {
                     nextWeek,
                     prevWeek,
                 ],
-                dateStart: 'curr'
+                dateStart: 'prev'
             })
         }
         if (activeIndex == 2) {
@@ -286,7 +330,7 @@ export class DateCurrentController {
                     prevWeek,
                     nowWeek,
                 ],
-                dateStart: 'next'
+                dateStart: 'prev'
             })
         }
 
