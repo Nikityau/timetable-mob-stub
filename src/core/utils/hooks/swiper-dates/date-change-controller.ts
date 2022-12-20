@@ -7,7 +7,6 @@ import {SlidePos} from "./interface/slide-pos.type";
 import {DateSpecState} from "./interface/date-spec-state.interface";
 import {DateWeeks} from "./interface/date-weeks.interface";
 
-
 type Week = { week: Date[] }
 
 export class DateChangeController {
@@ -42,7 +41,7 @@ export class DateChangeController {
 
         if (Math.abs(swiper.activeIndex - slideActiveIndex) > 1 && !this.getIsChangeRapidly()) return
 
-        let direction: SlideDirection = 'left'
+        let direction: SlideDirection = prevDirection
 
         if (swiper.activeIndex > slideActiveIndex) {
             this.setSlideDirection('right')
@@ -56,11 +55,7 @@ export class DateChangeController {
         }
 
         if(this.getIsChangeRapidly()) {
-            console.log('rapidly')
-        }
-
-        if(this.getIsChangeRapidly()) {
-            return
+            direction = prevDirection
         }
 
         const {week} = this.getWeekFrom(direction, weeksDates.dates, weeksDates.dateStart)
@@ -96,6 +91,21 @@ export class DateChangeController {
         }
     }
     getWeeksStateFromLeftBranch(weeks: DateWeeks, weekStart: SlidePos): DateSpecState {
+        if(this.getIsChangeRapidly()) {
+            if(weekStart == 'next') {
+                return {
+                    dates: [
+                        weeks.prevWeek,
+                        weeks.week,
+                        weeks.nextWeek,
+                    ],
+                    dateStart: 'prev'
+                }
+            }
+
+            return
+        }
+
         if (weekStart == 'curr') {
             return {
                 dates: [
@@ -128,6 +138,23 @@ export class DateChangeController {
         }
     }
     getWeeksStateFromRightBranch(weeks: DateWeeks, weekStart: SlidePos): DateSpecState {
+        if(this.getIsChangeRapidly()) {
+            if (weekStart == 'curr') {
+                return {
+                    dates: [
+                        weeks.prevWeek,
+                        weeks.week,
+                        weeks.nextWeek
+                    ],
+                    dateStart: 'prev'
+                }
+            }
+
+
+            return
+        }
+
+
         if (weekStart == 'curr') {
             return {
                 dates: [
@@ -177,6 +204,12 @@ export class DateChangeController {
         }
     }
     getWeekFromLeftBranch(weeks: Date[][], dateStart: SlidePos): Date[] {
+        if(this.getIsChangeRapidly()) {
+            if(dateStart == 'next') {
+                return weeks[2]
+            }
+        }
+
         if (dateStart == 'next') {
             return weeks[1]
         }
@@ -188,6 +221,15 @@ export class DateChangeController {
         }
     }
     getWeekFromRightBranch(weeks: Date[][], dateStart: SlidePos): Date[] {
+        if(this.getIsChangeRapidly()) {
+            if(dateStart == 'curr') {
+                return weeks[0]
+            }
+
+
+            return
+        }
+
         if (dateStart == 'next') {
             return weeks[0]
         }

@@ -72,13 +72,13 @@ export class DateController {
     }
 
     toCurrentDate(currentDate, dateNow) {
-        /*if (!this._setSwiper) return
+        if (!this._setSwiper) return
 
         this.dateCurrentController.toCurrentDate(
             currentDate,
             dateNow,
             this._swiper
-        )*/
+        )
     }
 
     onSlideChange() {
@@ -106,6 +106,12 @@ export class DateController {
         this._swiper.slideToLoop(index)
     }
 
+    whenSwiperBegin(swiper: SwiperType) {
+        if(swiper.activeIndex == 0) {
+            this.isChangeRapidly = true
+            swiper.slideToLoop(1, 0)
+        }
+    }
     whenSwiperEnd(swiper: SwiperType) {
         if (swiper.activeIndex == 4) {
             this.isChangeRapidly = true
@@ -129,6 +135,9 @@ export class DateController {
         this._swiper = swiper
         this._swiper?.once('slideNextTransitionEnd', (swiper: SwiperType) => {
             this.whenSwiperEnd(swiper)
+        })
+        this._swiper?.once('slidePrevTransitionEnd', (swiper) => {
+            this.whenSwiperBegin(swiper)
         })
     }
 }
