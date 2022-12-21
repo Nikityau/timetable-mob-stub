@@ -63,6 +63,14 @@ export const useSwiperDates = (
                 ],
                 dateStart: 'prev',
             })
+            console.log('init', {
+                dates: [
+                    prevWeek,
+                    week,
+                    nextWeek,
+                ],
+                dateStart: 'prev',
+            })
         })()
     }, [dateNow])
     useEffect(() => {

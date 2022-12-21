@@ -49,8 +49,6 @@ export class DateCurrentController {
 
         const {activeIndex} = swiper
 
-        this.setIsCanChange(false)
-
         let translateFrom: TranslateFrom = 'unk'
 
         if (Dates.isDatesCompare(currDate, nowDate)) {
@@ -72,7 +70,7 @@ export class DateCurrentController {
                     }
                 )
 
-                return;
+                return
             }
             if (translateFrom == 'past') {
                 this.toCurrentDateFromPast(
@@ -114,7 +112,7 @@ export class DateCurrentController {
                 }
             )
 
-            return;
+            return
         }
         if (currDate < nowDate) {
             this.toCurrentDateFromPast(
@@ -127,8 +125,6 @@ export class DateCurrentController {
                     nextWeek
                 }
             )
-
-            return;
         }
     }
 
@@ -150,27 +146,16 @@ export class DateCurrentController {
         if (Dates.isDateBelongs(currDate, weekOfActive)) return 'unk';
 
         if (firstDay > nowDate) {
-            /* this.toCurrentDateFromFut(activeIndex, nowWeek, nowDate, {
-                 week: weekOfActive,
-                 prevWeek: nowWeek,
-                 nextWeek: nowWeek
-             })*/
-
             return 'future'
         }
         if (firstDay < nowDate) {
-            /*this.toCurrentDateFromPast(activeIndex, nowWeek, nowDate, {
-                week: weekOfActive,
-                prevWeek: nowWeek,
-                nextWeek: nowWeek
-            })*/
-
             return 'past'
         }
     }
 
     toCurrentDateFromFut(activeIndex, nowWeek, nowDate, {week, prevWeek, nextWeek}): void {
-        console.log(activeIndex)
+        this.setIsCanChange(false)
+
         if (activeIndex == 3) {
             this.setWeeksDates({
                 dates: [
@@ -212,63 +197,12 @@ export class DateCurrentController {
             })
         }
 
-        if (activeIndex == 4 || activeIndex == 3) {
-            this.swiperSlideTo(1)
-        }
-        if (activeIndex == 2) {
-            this.swiperSlideTo(0)
-        }
-
-        nextWeek = Dates.getDatesOfNextWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
-        prevWeek = Dates.getDatesOfPrevWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
-
-        console.log(activeIndex)
-
-        if (activeIndex == 4 || activeIndex == 3) {
-            this.setWeeksDates({
-                dates: [
-                    prevWeek,
-                    nowWeek,
-                    nextWeek,
-                ],
-                dateStart: 'prev'
-            })
-        }
-        if (activeIndex == 2) {
-            this.setWeeksDates({
-                dates: [
-                    nowWeek,
-                    nextWeek,
-                    prevWeek,
-                ],
-                dateStart: 'prev'
-            })
-        }
-        if (activeIndex == 1) {
-            this.setWeeksDates({
-                dates: [
-                    nextWeek,
-                    prevWeek,
-                    nowWeek,
-                ],
-                dateStart: 'prev'
-            })
-        }
-
-        this.setIsCanChange(true)
+        this.lasTransform(nowDate, nowWeek)
     }
 
     toCurrentDateFromPast(activeIndex, nowWeek, nowDate, {week, prevWeek, nextWeek}): void {
-        if (activeIndex == 1) {
-            this.setWeeksDates({
-                dates: [
-                    week,
-                    prevWeek,
-                    nextWeek,
-                ],
-                dateStart: 'curr'
-            })
-        }
+        this.setIsCanChange(false)
+
         if (activeIndex == 0) {
             this.setWeeksDates({
                 dates: [
@@ -290,49 +224,23 @@ export class DateCurrentController {
             })
         }
 
-        if (activeIndex == 1) {
-            this.swiperSlideTo(1)
-        }
-        if (activeIndex == 0) {
-            this.swiperSlideTo(0)
-        }
-        if (activeIndex == 2) {
-            this.swiperSlideTo(2)
-        }
+        this.lasTransform(nowDate, nowWeek)
+    }
 
-        nextWeek = Dates.getDatesOfNextWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
-        prevWeek = Dates.getDatesOfPrevWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
+    lasTransform(nowDate: Date, nowWeek: Date[]) {
+        this.swiperSlideTo(1)
 
-        if (activeIndex == 1) {
-            this.setWeeksDates({
-                dates: [
-                    prevWeek,
-                    nowWeek,
-                    nextWeek,
-                ],
-                dateStart: 'prev'
-            })
-        }
-        if (activeIndex == 0) {
-            this.setWeeksDates({
-                dates: [
-                    nowWeek,
-                    nextWeek,
-                    prevWeek,
-                ],
-                dateStart: 'prev'
-            })
-        }
-        if (activeIndex == 2) {
-            this.setWeeksDates({
-                dates: [
-                    nextWeek,
-                    prevWeek,
-                    nowWeek,
-                ],
-                dateStart: 'prev'
-            })
-        }
+        const nextWeek = Dates.getDatesOfNextWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
+        const prevWeek = Dates.getDatesOfPrevWeek(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate())
+
+        this.setWeeksDates({
+            dates: [
+                prevWeek,
+                nowWeek,
+                nextWeek,
+            ],
+            dateStart: 'prev'
+        })
 
         this.setIsCanChange(true)
     }

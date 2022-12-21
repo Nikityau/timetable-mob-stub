@@ -39,22 +39,23 @@ export class DateChangeController {
 
         this.setActiveIndex(swiper.activeIndex)
 
-        if (Math.abs(swiper.activeIndex - slideActiveIndex) > 1 && !this.getIsChangeRapidly()) return
+        if (Math.abs(swiper.activeIndex - swiper.previousIndex) > 1 && !this.getIsChangeRapidly()) return
 
         let direction: SlideDirection = prevDirection
 
-        if (swiper.activeIndex > slideActiveIndex) {
+        if (swiper.activeIndex > swiper.previousIndex) {
             this.setSlideDirection('right')
 
             direction = 'right'
         }
-        if (swiper.activeIndex < slideActiveIndex) {
+        if (swiper.activeIndex < swiper.previousIndex) {
             this.setSlideDirection('left')
 
             direction = 'left'
         }
 
         if(this.getIsChangeRapidly()) {
+            console.log('prevDirection', prevDirection)
             direction = prevDirection
         }
 
@@ -206,37 +207,42 @@ export class DateChangeController {
     getWeekFromLeftBranch(weeks: Date[][], dateStart: SlidePos): Date[] {
         if(this.getIsChangeRapidly()) {
             if(dateStart == 'next') {
+                console.log('l rapid next')
                 return weeks[2]
             }
         }
 
         if (dateStart == 'next') {
+            console.log('l normal next')
             return weeks[1]
         }
         if (dateStart == 'curr') {
+            console.log('l normal curr')
             return weeks[2]
         }
         if (dateStart == 'prev') {
+            console.log('l normal prev')
             return weeks[0]
         }
     }
     getWeekFromRightBranch(weeks: Date[][], dateStart: SlidePos): Date[] {
         if(this.getIsChangeRapidly()) {
             if(dateStart == 'curr') {
+                console.log('r rapid curr')
                 return weeks[0]
             }
-
-
-            return
         }
 
         if (dateStart == 'next') {
+            console.log('r normal next')
             return weeks[0]
         }
         if (dateStart == 'curr') {
+            console.log('r normal curr')
             return weeks[1]
         }
         if (dateStart == 'prev') {
+            console.log('r normal prev')
             return weeks[2]
         }
     }
