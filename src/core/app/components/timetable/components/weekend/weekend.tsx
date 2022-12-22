@@ -9,6 +9,9 @@ const Weekend = () => {
         <div className={'weekend'}
             style={{ backgroundImage: `url(${bg_dark})` }}
         >
+            <div className={'weekend__title'}>
+                <h2>Воу кажется сегодня нет занятий, можно провести время с друзьями или с пользой! :)</h2>
+            </div>
         </div>
     );
 };

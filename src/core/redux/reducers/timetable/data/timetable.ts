@@ -90,7 +90,7 @@ export const timetableData = {
             "time_period": "8.20-9.50",
             "week_type": "обе недели",
             "discipline": "Военная подготовка",
-            "auditorium_id": "",
+            "auditorium_id": "Б008",
             "subgroup": null,
             "teacher": " ..",
             "lesson_type": "Учебное занятие"
@@ -101,7 +101,7 @@ export const timetableData = {
             "time_period": "10.05-11.35",
             "week_type": "обе недели",
             "discipline": "Военная подготовка",
-            "auditorium_id": "",
+            "auditorium_id": "Б008",
             "subgroup": null,
             "teacher": " ..",
             "lesson_type": "Учебное занятие"
@@ -816,4 +816,37 @@ export const timetableData_2 = {
             "teacher": "Бакалов М.В.",
             "lesson_type": "Практика"
         }]
+}
+export const timetableData_3 = {
+    "full_title": "АИА-3-006",
+    "id": 25549,
+    "title": "АИА",
+    "number": "006",
+    "course": 3,
+    "faculty_id": 316,
+    "update_date": "2022-12-14",
+    "lessons": [
+        {
+            "week_day": 1,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "над чертой",
+            "discipline": "Русский язык и культура речи молодого ученого",
+            "auditorium_id": "Э237",
+            "subgroup": null,
+            "teacher": "Черкасова М.Н.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 1,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "под чертой",
+            "discipline": "Русский язык и культура речи молодого ученого",
+            "auditorium_id": "Э237",
+            "subgroup": null,
+            "teacher": "Черкасова М.Н.",
+            "lesson_type": "Практика"
+        }
+    ]
 }

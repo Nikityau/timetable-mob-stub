@@ -20,7 +20,7 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
     }
 
     const getLessonsBySubGroup = () => {
-        const subgroups = lesson.subgroups
+        const subgroups = lesson?.subgroups
 
         if (!subgroups) {
             return <LessonCardTypeOne

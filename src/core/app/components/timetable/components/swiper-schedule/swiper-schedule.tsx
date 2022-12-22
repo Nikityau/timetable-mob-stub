@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import type { Swiper as SwiperType } from 'swiper'
+import type {Swiper as SwiperType} from 'swiper'
 import {Swiper, SwiperSlide} from "swiper/react";
 import {useSelector} from "react-redux";
 import {nanoid} from "nanoid";
@@ -47,26 +47,27 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
                 <>
                     {
                         week?.map((day, index) => (
-                            <SwiperSlide
-                                key={nanoid()}
-                                className={'swiper-schedule__slide'}
-                                data-week-type={weekType}
-                                data-day-type-string={getDayType(day[0]?.['week_day'])}
-                                data-day-type-number={day[0]?.['week_day'] || -1}
-                            >
-                                <ScheduleDay scheduleDay={day}/>
-                            </SwiperSlide>
+                            day
+                                ? <SwiperSlide
+                                    key={nanoid()}
+                                    className={'swiper-schedule__slide'}
+                                    data-week-type={weekType}
+                                    data-day-type-string={getDayType(day[0]?.['week_day'])}
+                                    data-day-type-number={day[0]?.['week_day'] || -1}
+                                >
+                                    <ScheduleDay scheduleDay={day}/>
+                                </SwiperSlide>
+                                : <SwiperSlide
+                                    key={nanoid()}
+                                    className={'swiper-schedule__slide'}
+                                    data-week-type={weekType}
+                                    data-day-type-string={getDayType(index + 1)}
+                                    data-day-type-number={index + 1}
+                                >
+                                    <Weekend/>
+                                </SwiperSlide>
                         ))
                     }
-                   <SwiperSlide
-                       key={nanoid()}
-                       className={'swiper-schedule__slide'}
-                       data-week-type={weekType}
-                       data-day-type-string={getDayType(7)}
-                       data-day-type-number={7}
-                   >
-                       <Weekend/>
-                   </SwiperSlide>
                 </>
             )
         }
@@ -75,35 +76,27 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
             <>
                 {
                     week?.map((day, index) => (
-                        <SwiperSlide
-                            key={nanoid()}
-                            className={'swiper-schedule__slide'}
-                            data-week-type={weekType}
-                            data-day-type-string={getDayType(day[0]['week_day'])}
-                            data-day-type-number={day[0]['week_day']}
-                        >
-                            <ScheduleDay scheduleDay={day}/>
-                        </SwiperSlide>
+                        day
+                            ? <SwiperSlide
+                                key={nanoid()}
+                                className={'swiper-schedule__slide'}
+                                data-week-type={weekType}
+                                data-day-type-string={getDayType(day[0]?.['week_day'])}
+                                data-day-type-number={day[0]?.['week_day']}
+                            >
+                                <ScheduleDay scheduleDay={day}/>
+                            </SwiperSlide>
+                            : <SwiperSlide
+                                key={nanoid()}
+                                className={'swiper-schedule__slide'}
+                                data-week-type={weekType}
+                                data-day-type-string={getDayType(index + 1)}
+                                data-day-type-number={index + 1}
+                            >
+                                <Weekend/>
+                            </SwiperSlide>
                     ))
                 }
-                <SwiperSlide
-                    key={nanoid()}
-                    className={'swiper-schedule__slide'}
-                    data-week-type={weekType}
-                    data-day-type-string={getDayType(6)}
-                    data-day-type-number={6}
-                >
-                    <Weekend/>
-                </SwiperSlide>
-                <SwiperSlide
-                    key={nanoid()}
-                    className={'swiper-schedule__slide'}
-                    data-week-type={weekType}
-                    data-day-type-string={getDayType(7)}
-                    data-day-type-number={7}
-                >
-                    <Weekend/>
-                </SwiperSlide>
             </>
         )
     }

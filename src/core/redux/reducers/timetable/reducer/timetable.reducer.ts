@@ -1,36 +1,41 @@
 import produce from "immer";
 
 import {ITimetableAction} from "../interface/timetable.action";
+import {ITimetableSlice} from "../interface/timetable.slice";
 
-import {timetableData, timetableData_2} from '../data/timetable'
+import {timetableData, timetableData_2, timetableData_3} from '../data/timetable'
 
-import {parseLessons} from '../utils/parse'
+import {ParseLessonsAdapter} from "../utils/parseLessons.adapter";
+
+const lessonAdapter = new ParseLessonsAdapter()
 
 export class TimetableReducer {
-    init(state, action: ITimetableAction) {
+    init(state:ITimetableSlice, action: ITimetableAction) {
         return produce(state, draft => {
-            draft.original = timetableData
+            //draft.original = timetableData
+
+            const timetable = timetableData_2
+
+            draft.id = timetable.id
+            draft.full_title = timetable.full_title
+            draft.title = timetable.title
+            draft.number = timetable.number
+            draft.course = timetable.course
+            draft.faculty_id = timetable.faculty_id
+            draft.update_date = timetable.update_date
+            draft.lessons.original = timetable.lessons
         })
     }
 
-    setTimetable(state, action: ITimetableAction) {
+    setTimetable(state:ITimetableSlice, action: ITimetableAction) {
         return produce(state, draft => {
-            draft.original = action.payload.timetable
+            //draft.original = action.payload.timetable
         })
     }
 
-    setParsedTimetable(state, action: ITimetableAction) {
+    setParsedTimetable(state:ITimetableSlice, action: ITimetableAction) {
         return produce(state,  draft => {
-            const lessons = draft.original.lessons
-            if(lessons.length == 0) {
-                draft.parsed = {
-                    above_week: [],
-                    below_week: []
-                }
-            } else {
-                const parsed = parseLessons(lessons)
-                draft.parsed = parsed
-            }
+            draft.lessons.parsed = lessonAdapter.parse(state.lessons.original)
         })
     }
 }

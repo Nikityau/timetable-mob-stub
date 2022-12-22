@@ -5,3 +5,22 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.weekend__title {
+  width: auto;
+
+  padding: 40px 60px;
+
+  text-align: center;
+}
+.weekend__title h2 {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.3px;
+
+
+  color: #5E6173;
+}
