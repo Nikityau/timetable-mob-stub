@@ -1,4 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {useDispatch} from "react-redux";
+import {nanoid} from "nanoid";
+
+import Ring from "./components/ring/ring";
+import BreakTime from "./components/break-time/break-time";
 
 import {IRings} from "./interface/rings";
 
@@ -7,9 +12,6 @@ import './style/common/rings.scss'
 import btn_img from '../../../../../assets/icons/btn-back.png'
 
 import {rings} from './data/rings'
-import Ring from "./components/ring/ring";
-import BreakTime from "./components/break-time/break-time";
-import {useDispatch} from "react-redux";
 import {AppContext} from "../../../../app";
 
 const Rings = ({isOpen}: IRings) => {
@@ -40,11 +42,11 @@ const Rings = ({isOpen}: IRings) => {
         ].join(' ')}>
             <div className={'rings__container'}>
                 <div className={'rings__header'}>
-                     <div className={'rings__btn'}
-                        onClick={onCloseClick}
-                     >
-                         <img src={btn_img} alt={'btn'}/>
-                     </div>
+                    <div className={'rings__btn'}
+                         onClick={onCloseClick}
+                    >
+                        <img src={btn_img} alt={'btn'}/>
+                    </div>
                     <div className={'rings__text'}>
                         <span>Расписание звонков</span>
                     </div>
@@ -52,15 +54,20 @@ const Rings = ({isOpen}: IRings) => {
                     </div>
                 </div>
                 <div className={'rings__schedule'}
-                    style={{
-                        height: `${scheduleHeight}px`
-                    }}
+                     style={{
+                         height: `${scheduleHeight}px`
+                     }}
                 >
-                    <div className={'rings__schedule-container'}>
+                    <div className={'rings__schedule-container'}
+                        key={nanoid()}
+                    >
                         {
                             rings.map(data => (
-                                <>
+                                <React.Fragment
+                                    key={nanoid()}
+                                >
                                     <Ring
+                                        key={nanoid()}
                                         lessonNumber={data.lessonNumber}
                                         timeStart={data.lessonTimeStart}
                                         timeEnd={data.lessonTimeEnd}
@@ -68,11 +75,12 @@ const Rings = ({isOpen}: IRings) => {
                                     {
                                         data.breakTime
                                             ? <BreakTime
+                                                key={nanoid()}
                                                 breakTime={data.breakTime}
                                             />
-                                            : ''
+                                            : <></>
                                     }
-                                </>
+                                </React.Fragment>
                             ))
                         }
                     </div>

@@ -1,0 +1,59 @@
+{
+  "format": "dotw:wt:ln:nor:sem:yy",
+  "dotw": {
+    "definition": "day of the week",
+    "value": [
+      "mon or пн or 1",
+      "tue or вт or 2",
+      "wed or ср or 3",
+      "thu or чт or 4",
+      "fri or пт or 5",
+      "sat or сб or 6",
+      "sun or вс or 7"
+    ]
+  },
+  "ln": {
+    "definition": "lesson number",
+    "value": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "wt": {
+    "definition": "week type",
+    "value": [
+      "above or 1",
+      "below or -1",
+      "all or 0"
+    ]
+  },
+  "nor": {
+    "definition": "number of repetitions",
+    "value": [
+      "every or 1",
+      "one or 0"
+    ]
+  },
+  "sem": {
+    "definition": "semester",
+    "value": [
+      "0 - all",
+      "1 - 1 half",
+      "2 - 2 half"
+    ]
+  },
+  "yy": {
+    "definition": "year",
+    "value": [
+      "2022",
+      "2023",
+      "..."
+    ]
+  }
+}
