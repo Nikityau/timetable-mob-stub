@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useSelector} from "react-redux";
 
 import {AppContext} from "../../../../app";
@@ -10,9 +10,15 @@ const CurrentDate = () => {
     const appContext = useContext(AppContext)
 
     const dateNow = useSelector(appContext.reduxApi.getDateNow())
+    const isAddonPage = useSelector(appContext.reduxApi.getIsAddonPage())
 
     return (
-        <div className={'current-date'}>
+        <div className={[
+            'current-date',
+            isAddonPage
+                ? 'current-date__container_left_offset'
+                : ''
+        ].join(' ')}>
             <div className={'current-date__container'}>
                 <div className={'current-date__day'}>
                     <span>{dateNow?.date || '00'}</span>

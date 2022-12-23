@@ -5,15 +5,19 @@ import {theme} from "../reducers/theme/theme.slice";
 import {timetable} from "../reducers/timetable/timetable.slice";
 import {date} from "../reducers/date/date.slice";
 import {notifications} from "../reducers/notifications/notifications.slice";
+import {addonPage} from "../reducers/addonPage/addonPage.slice";
+import {ringsSchedule} from "../reducers/rings/rings.slice";
 
 const enhancers = composeWithDevTools(
     applyMiddleware()
 )
 
 const reducers = combineReducers({
+    addonPage,
     theme,
-    timetable,
     date,
+    ringsSchedule,
+    timetable,
     notifications,
 })
 

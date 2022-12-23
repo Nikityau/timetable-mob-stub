@@ -16,6 +16,7 @@ import '../ui/styles/able/able.scss'
 import './style/common/app.scss'
 
 import {appContextApi} from "./context/app.context";
+import RingsSchedule from "./components/rings-schedule/rings-schedule";
 
 export const AppContext = React.createContext(appContextApi)
 
@@ -46,6 +47,7 @@ const App = () => {
                ].join(' ')}>
                    <TimetablePage/>
                </div>
+               <RingsSchedule/>
            </div>
        </AppContext.Provider>
     );

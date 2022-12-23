@@ -16,6 +16,10 @@
   z-index: 1;
 }
 
+.current-date__container_left_offset {
+  transform: translate(22%, 0);
+}
+
 .current-date__day {
   font-family: 'SF Pro Display', sans-serif;
   font-style: normal;

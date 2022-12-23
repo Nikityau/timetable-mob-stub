@@ -61,4 +61,19 @@ export class AppReduxBridge {
             return this.reduxApi.getNotifPopUpState(state)
         }
     }
+
+    getIsAddonPage() {
+        return (state:any): boolean => {
+            return this.reduxApi.getIsAddonPage(state)
+        }
+    }
+
+    getRingsState() {
+        return (state):boolean => {
+            return this.reduxApi.getRingsScheduleState(state)
+        }
+    }
+    setRingsState(payload: boolean) {
+        return this.reduxApi.setRingsScheduleState(payload)
+    }
 }

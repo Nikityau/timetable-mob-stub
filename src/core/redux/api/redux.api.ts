@@ -9,14 +9,17 @@ import ReduxTimeTableSelector from "../reducers/timetable/selector/timetable.sel
 import ReduxThemeAction from "../reducers/theme/action/theme.action";
 import ReduxThemeSelector from "../reducers/theme/selector/theme.selector";
 
+import {ReduxNotificationSelector} from "../reducers/notifications/selector/notification.selector";
+import {ReduxAddonPageSelector} from "../reducers/addonPage/selector/addonPage.selector";
+import {ReduxRingsSelector} from "../reducers/rings/selector/rings.selector";
+import {ReduxRingsAction} from "../reducers/rings/action/rings.slice";
+
 import {IReduxApi} from "../../app-redux-bridge/interface/redux";
 import {ThemeState} from "../reducers/theme/interface/theme.state";
 
 import {IDateAction} from "../reducers/date/interface/date.interface";
 import {IThemeAction} from "../reducers/theme/interface/theme.action";
 import {ITimetableAction} from "../reducers/timetable/interface/timetable.action";
-
-import {getNotifPopUpState} from "../reducers/notifications/selector/notification.selector";
 
 namespace RAPI {
     export class ReduxApi implements IReduxApi {
@@ -57,7 +60,20 @@ namespace RAPI {
         }
 
         getNotifPopUpState(state: any): boolean {
-            return getNotifPopUpState(state)
+            return ReduxNotificationSelector.getNotifPopUpState(state)
+        }
+
+        getIsAddonPage(state: any):boolean {
+            return ReduxAddonPageSelector.getIsAddonPage(state)
+        }
+
+        getRingsScheduleState(state): boolean {
+            return ReduxRingsSelector.getRingsState(state)
+        }
+        setRingsScheduleState(payload: boolean):ReduxRingsAction.IRingsAction {
+            if(payload) return ReduxRingsAction.ringsScheduleOpen()
+
+            return ReduxRingsAction.ringsScheduleClose()
         }
     }
 }

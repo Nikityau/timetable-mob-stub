@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {AppContext} from "../../../../app";
 
@@ -9,8 +9,13 @@ const InfoColumns = () => {
 
     const appContext = useContext(AppContext)
 
-    const theme = useSelector(state => state['theme'])
+    const dispatch = useDispatch()
+
     const groupName = useSelector(appContext.reduxApi.getGroupTitle())
+
+    const onInfoClick = () => {
+        dispatch(appContext.reduxApi.setRingsState(true))
+    }
 
     return (
         <div className={'info-columns'}>
@@ -22,9 +27,9 @@ const InfoColumns = () => {
                 <div className={'info-columns__group'}>
                     <span>{ groupName || 'unk' }</span>
                 </div>
-                <div className={'info-columns__schedule'}>
-                    {/*<img src={theme == 'LIGHT' ? schedule_dark_img : schedule_light_img} alt={'img'}/>*/}
-
+                <div className={'info-columns__schedule'}
+                    onClick={onInfoClick}
+                >
                 </div>
             </div>
             <div className={'info-columns__decoration info-columns__decoration_bottom info-columns_gradient_grey'}></div>
