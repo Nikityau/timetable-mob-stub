@@ -1,5 +1,5 @@
 export namespace ReduxNotificationSelector {
     export const getNotifPopUpState = (state):boolean => {
-        return state['notifications']['isNotifPopUpOpen']
+        return state['notifications']['isNotifyOpen']
     }
 }

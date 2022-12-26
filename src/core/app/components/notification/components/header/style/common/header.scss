@@ -1,0 +1,37 @@
+.notify-header {
+  width: 100%;
+}
+
+.notify-header__container {
+  width: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notify-header__lesson-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.notify-header__lesson-title,
+.notify-header__lesson-type {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100.34%;
+  letter-spacing: -0.3px;
+
+  color: #F3F3F3;
+}
+.notify-header__lesson-title {
+  font-weight: 400;
+  font-size: 14px;
+
+  color: #5E6173;
+}
+.notify-header__btn {
+
+}

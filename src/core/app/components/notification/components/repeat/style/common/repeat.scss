@@ -1,0 +1,46 @@
+.repeat {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px 0;
+}
+.repeat__icon {
+
+}
+.repeat__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.repeat__icon {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    transform: translate(0, -50%);
+
+    content: '\e917';
+
+    font-family: 'Custom';
+    font-size: 15px;
+
+    color: #fff;
+  }
+}
+.repeat__text {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100.34%;
+  letter-spacing: -0.3px;
+
+  color: #F3F3F3;
+}
+.repeat__tumbler {
+
+}

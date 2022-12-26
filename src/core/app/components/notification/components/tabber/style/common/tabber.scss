@@ -1,0 +1,16 @@
+.tabber {
+  width: 100%;
+
+  padding: 20px 0;
+
+  display: flex;
+  justify-content: center;
+}
+.tabber__tab-block {
+  width: 56px;
+  height: 11px;
+
+  background: #181A1F;
+
+  border-radius: 25px;
+}

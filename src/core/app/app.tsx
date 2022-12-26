@@ -4,10 +4,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {getTheme} from "./utils/getTheme";
 
 import TimetablePage from "./pages/timetable/timetable.page";
+import RingsSchedule from "./components/rings-schedule/rings-schedule";
+import Notification from "./components/notification/notification";
 
 import '../ui/styles/global/global.scss'
 import '../ui/styles/fonts/sf-pro-display/sf-pro-display.scss'
 import '../ui/styles/fonts/custom/custom.scss'
+import '../ui/styles/fonts/inter/inter.scss'
 import '../ui/styles/theme/dark.scss'
 import '../ui/styles/theme/light.scss'
 import '../ui/styles/side-offset/side-offset.scss'
@@ -16,7 +19,6 @@ import '../ui/styles/able/able.scss'
 import './style/common/app.scss'
 
 import {appContextApi} from "./context/app.context";
-import RingsSchedule from "./components/rings-schedule/rings-schedule";
 
 export const AppContext = React.createContext(appContextApi)
 
@@ -48,9 +50,11 @@ const App = () => {
                    <TimetablePage/>
                </div>
                <RingsSchedule/>
+               <Notification/>
            </div>
        </AppContext.Provider>
     );
 };
+
 
 export default App;

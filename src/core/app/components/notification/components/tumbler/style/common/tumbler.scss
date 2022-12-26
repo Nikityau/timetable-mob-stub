@@ -1,0 +1,52 @@
+.tumbler {
+  width: auto;
+
+  padding: 17px 25px;
+
+  background: #262A35;
+
+  border-radius: 6px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tumbler__icon {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    transform: translate(0, -50%);
+
+    font-family: 'Custom';
+    color: #fff;
+    font-size: 18px;
+  }
+}
+.tumbler__icon_time {
+  &:before {
+    content: '\e90d';
+  }
+}
+.tumbler__icon_note {
+  &:before {
+    content: '\e90c';
+  }
+}
+
+.tumbler__text {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100.34%;
+  letter-spacing: -0.3px;
+
+  color: #F3F3F3;
+}
+.tumbler__toggler {
+
+}
