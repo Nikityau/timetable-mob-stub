@@ -1,14 +1,14 @@
 import produce from "immer";
 
+import {ReduxNotificationsAction} from "../action/notification.action";
+import INotifyAction = ReduxNotificationsAction.INotifyAction;
+
+import {INotificationsState} from "../interface/notifications.state";
+
 export class NotificationsReducer {
-    notifOn(state) {
+    setNotifyState(state:INotificationsState, action:INotifyAction) {
         return produce(state, draft => {
-            draft.isNotifPopUpOpen = true
-        })
-    }
-    notifOff(state) {
-        return produce(state, draft => {
-            draft.isNotifPopUpOpen = false
+            draft.isNotifyOpen = action.payload.isNotifyOpen
         })
     }
 }

@@ -8,8 +8,11 @@
 
   z-index: 2;
 
-  transition: background-color .3s linear;
+  transition: all .3s linear;
 
+  //background-color: rgba(0, 0, 0, 0.5);
+}
+.notification_open {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .notification__main {
@@ -24,7 +27,7 @@
 
   transform: translate(0, 100%);
 
-  transition: transform .3s linear;
+  transition: all .3s linear;
 }
 .notification__main_open {
   transform: translate(0, 0);
@@ -50,4 +53,7 @@
 }
 .notification__groups {
   padding: 20px 0;
+}
+.notification__note {
+
 }

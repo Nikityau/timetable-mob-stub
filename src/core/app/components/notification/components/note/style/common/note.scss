@@ -1,0 +1,48 @@
+.notify-note {
+  padding-bottom: 100px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.notify-note__container {
+  transition: all .3s linear;
+}
+.notify-note__tumbler-wrapper {
+  padding: 0 5px;
+}
+.notify-note__note {
+  width: 100%;
+
+  textarea {
+    width: calc(100% - 25px);
+    height: 160px;
+
+    resize: none;
+
+    background: #181A1F;
+
+    border: 2px solid #262A35;
+
+    border-radius: 8px;
+
+    outline: unset;
+
+    font-family: 'SF Pro Display', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100.34%;
+    letter-spacing: -0.3px;
+
+    color: #F3F3F3;
+
+    padding: 10px;
+
+    transition: all .3s linear;
+
+    &:focus {
+      border-color: var(--color-purple);
+    }
+  }
+}

@@ -1,20 +1,31 @@
 export namespace ReduxNotificationsAction {
     export enum NotificationAction {
-        NOTIF_ON = 'notifications/notifOn',
-        NOTIF_OFF = 'notifications/notifOff',
+        OPEN = "notify/open",
+        CLOSE = "notify/close"
     }
 
-    export const setNotifOn = () => {
-        return {
-            type: NotificationAction.NOTIF_ON,
-            payload: null
+    export interface INotifyAction {
+        type: NotificationAction,
+        payload: {
+            isNotifyOpen?: boolean
         }
     }
 
-    export const setNotiffOff = () => {
+    export const notifyOpenAction = ():INotifyAction => {
         return {
-            type: NotificationAction.NOTIF_OFF,
-            payload: null
+            type: NotificationAction.OPEN,
+            payload: {
+                isNotifyOpen: true
+            }
+        }
+    }
+
+    export const notifyCloseAction = ():INotifyAction => {
+        return {
+            type: NotificationAction.CLOSE,
+            payload: {
+                isNotifyOpen: false
+            }
         }
     }
 }

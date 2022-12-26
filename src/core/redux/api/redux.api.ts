@@ -20,6 +20,7 @@ import {ThemeState} from "../reducers/theme/interface/theme.state";
 import {IDateAction} from "../reducers/date/interface/date.interface";
 import {IThemeAction} from "../reducers/theme/interface/theme.action";
 import {ITimetableAction} from "../reducers/timetable/interface/timetable.action";
+import {ReduxNotificationsAction} from "../reducers/notifications/action/notification.action";
 
 namespace RAPI {
     export class ReduxApi implements IReduxApi {
@@ -74,6 +75,13 @@ namespace RAPI {
             if(payload) return ReduxRingsAction.ringsScheduleOpen()
 
             return ReduxRingsAction.ringsScheduleClose()
+        }
+
+
+        setNotificationState(payload: boolean):ReduxNotificationsAction.INotifyAction {
+            if(payload) return ReduxNotificationsAction.notifyOpenAction()
+
+            return ReduxNotificationsAction.notifyCloseAction()
         }
     }
 }

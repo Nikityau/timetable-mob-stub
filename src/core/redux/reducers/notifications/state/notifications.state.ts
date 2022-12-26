@@ -1,7 +1,7 @@
 import {INotificationsState} from "../interface/notifications.state";
 
 export const notificationsState: INotificationsState = {
-    isNotifyOpen: true,
+    isNotifyOpen: false,
     inputData: {
         lessonType: "nothing",
         lessonTitle: "nothing",

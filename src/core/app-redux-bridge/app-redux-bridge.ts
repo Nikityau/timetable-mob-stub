@@ -76,4 +76,8 @@ export class AppReduxBridge {
     setRingsState(payload: boolean) {
         return this.reduxApi.setRingsScheduleState(payload)
     }
+
+    setNotificationState(payload: boolean) {
+        return this.reduxApi.setNotificationState(payload)
+    }
 }
