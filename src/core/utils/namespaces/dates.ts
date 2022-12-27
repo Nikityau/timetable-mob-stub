@@ -1,4 +1,4 @@
-import {eachDayOfInterval} from "date-fns";
+import {differenceInWeeks, eachDayOfInterval} from "date-fns";
 
 namespace Dates {
     export type WeekdayShort = 'вс' | 'сб' | 'пн' | 'вт' | 'ср' | 'чт' | 'пт'
@@ -33,7 +33,8 @@ namespace Dates {
         date: number,
         month: string,
         year: number,
-        full: string
+        full: string,
+        dateString: string
     }
 
     export function castToWeekdayShort(weekday: Day | WeekdayShort | string):WeekdayShort {
@@ -59,7 +60,8 @@ namespace Dates {
             weekday,
             month,
             year,
-            full: fullYear
+            full: fullYear,
+            dateString: date.toDateString()
         }
     }
     export function getDaysInMonth(year:number, month:number):number {
@@ -72,12 +74,10 @@ namespace Dates {
     }
     export function getDatesOfMonth(year:number, month: number):Date[] {
         const days = getDaysInMonth(year, month + 1)
-        const dates = eachDayOfInterval({
+        return eachDayOfInterval({
             start: new Date(year, month, 1),
             end: new Date(year, month, days)
         })
-
-        return dates
     }
     export function getDatesOfWeek(year: number, month:number, date: number):Date[] {
         const tempDate = createDate(year, month, date)
@@ -124,6 +124,15 @@ namespace Dates {
             end: new Date(year, month, mondayNext + 6),
         })
     }
+    export function getFirstDayInWeek(date: Date) {
+        let day = date.getDay()
+
+        const mondayCurrent = 7 - day
+        console.log(day)
+
+        return new Date(date.getFullYear(), date.getMonth(), mondayCurrent)
+    }
+
 
     export function isWeekend(day: Day | WeekdayShort | number):boolean {
         if(day == 'сб' || day == 'вс') return true
@@ -151,6 +160,21 @@ namespace Dates {
         }
 
         return false
+    }
+
+    export function getWeekType(date: Date = new Date(Date.now())): 1 | -1 {
+        const dateNow = new Date(Date.now())
+        console.log(getFirstDayInWeek(new Date(dateNow.getFullYear(), 8, 1)))
+        const zeroDay = new Date(dateNow.getFullYear(), 8, 1)
+
+        let difference = Math.abs(differenceInWeeks(
+            zeroDay,
+            date,
+        ))
+
+        if(difference % 2 == 0) return 1
+
+        return -1
     }
 }
 

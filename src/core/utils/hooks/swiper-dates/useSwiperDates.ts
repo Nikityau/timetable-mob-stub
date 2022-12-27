@@ -2,8 +2,6 @@ import React, {useContext, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Swiper as SwiperType} from "swiper";
 
-import {CalendarContext} from "../../../app/components/calendar/calendar";
-
 import Dates from "../../namespaces/dates";
 
 import {DateController} from "./controller/date.controller";
@@ -13,6 +11,8 @@ import {DateCurrentController} from "./controller/date-current.controller";
 import {SlideDirection} from "./interface/slide-direction.type";
 import {UseSwiperDates} from "./interface/use-swiper-dates";
 import {DateSpecState} from "./interface/date-spec-state.interface";
+
+import {AppContext} from "../../../app/app";
 
 const dateController = new DateController(
     new DateChangeController(),
@@ -29,7 +29,7 @@ export const useSwiperDates = (
 
     const dispatch = useDispatch()
 
-    const calendarContext = useContext(CalendarContext)
+    const appContext = useContext(AppContext)
 
     const [swiper, setSwiper] = useState<SwiperType>()
     const [slideActiveIndex, setSlideActiveIndex] = useState<number>(2)
@@ -71,7 +71,7 @@ export const useSwiperDates = (
         })()
     }, [dateNow])
     useEffect(() => {
-        const unsub = calendarContext.co.subscribe(toCurrentDate)
+        const unsub = appContext.calendar.subscribe(toCurrentDate)
 
         return () => {
             unsub()

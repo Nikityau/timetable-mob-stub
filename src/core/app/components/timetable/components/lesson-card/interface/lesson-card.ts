@@ -1,3 +1,5 @@
+import {ILesson} from "../../../../../../redux/reducers/timetable/interface/lesson";
+
 export interface ILessonMainCard {
-    lesson: any
+    lesson: ILesson
 }

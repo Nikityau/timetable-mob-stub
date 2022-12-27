@@ -11,4 +11,14 @@ export class NotificationsReducer {
             draft.isNotifyOpen = action.payload.isNotifyOpen
         })
     }
+    setInputData(state:INotificationsState, action:INotifyAction) {
+        return produce(state, draft => {
+            draft.inputData = action.payload.lesson
+        })
+    }
+    deleteInputData(state:INotificationsState, action:INotifyAction) {
+        return produce(state, draft => {
+            draft.inputData = action.payload.lesson
+        })
+    }
 }

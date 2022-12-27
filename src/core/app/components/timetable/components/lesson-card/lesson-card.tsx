@@ -7,17 +7,19 @@ import LessonCardTypeTwo from "./components/lesson-card-type-two/lesson-card-typ
 import {ILessonMainCard} from "./interface/lesson-card";
 
 import './style/common/lesson-card.scss'
+
 import {AppContext} from "../../../../app";
+import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
+import setInputData = ReduxNotificationsAction.setInputData;
 
 const LessonCard = ({lesson}: ILessonMainCard) => {
 
-    const appContext= useContext(AppContext)
+    const appContext = useContext(AppContext)
 
     const dispatch = useDispatch()
 
-
     const onCardClick = () => {
-        console.log(lesson)
+        dispatch(setInputData(lesson))
         dispatch(appContext.reduxApi.setNotificationState(true))
     }
 
@@ -38,10 +40,10 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
         const lessonType = subgroups[0]['lesson_type']
         isLessonTypeEvery = subgroups.every(lesson => lesson['lesson_type'] == lessonType)
 
-        if(isLessonTypeEvery) {
+        if (isLessonTypeEvery) {
             const teachers = []
             const offices = []
-            for(let lesson of subgroups) {
+            for (let lesson of subgroups) {
                 teachers.push(lesson['teacher'])
                 offices.push(lesson['auditorium_id'])
             }
@@ -77,7 +79,9 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
     }
 
     return (
-        <div className={'lesson-card'}>
+        <div className={'lesson-card'}
+
+        >
             <div className={'lesson-card__container'}>
                 {
                     getLessonsBySubGroup()

@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import './style/common/tabber.scss'
 
 import {AppContext} from "../../../../app";
-
+import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
 
 const Tabber = () => {
 
@@ -13,7 +13,7 @@ const Tabber = () => {
     const dispatch = useDispatch()
 
     const onClick = () => {
-
+        dispatch(ReduxNotificationsAction.deleteInputData())
         dispatch(appContext.reduxApi.setNotificationState(false))
     }
 

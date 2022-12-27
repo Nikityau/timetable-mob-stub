@@ -11,7 +11,7 @@ export interface ILesson {
     lesson_type: string
 }
 
-interface ILessonSubgroup {
+export interface ILessonSubgroup {
     auditorium_id: string,
     discipline: string,
     subgroup: string | null,

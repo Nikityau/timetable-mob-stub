@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {useSelector} from "react-redux";
+
+import {ReduxNotificationSelector} from "../../../../../redux/reducers/notifications/selector/notification.selector";
 
 import './style/common/header.scss'
-import Button from "../../../../../ui/components/button/button";
+
+import {NotifyContext} from "../../notification";
 
 const Header = () => {
 
-    const onSave = () => {
+    const notifyContext = useContext(NotifyContext)
 
+    const headData = useSelector(ReduxNotificationSelector.getLessonTypeNDiscipline)
+
+    const onSave = () => {
+        notifyContext.notify.save()
     }
 
     return (
@@ -14,17 +22,11 @@ const Header = () => {
             <div className={'notify-header__container el_side_offset_m'}>
                 <div className={'notify-header__lesson-info'}>
                     <div className={'notify-header__lesson-type'}>
-                        <span>Лабораторная</span>
+                        <span>{ headData.lessonType }</span>
                     </div>
                     <div className={'notify-header__lesson-title'}>
-                        <span>Операционные системы</span>
+                        <span>{ headData.discipline }</span>
                     </div>
-                </div>
-                <div className={'notify-header__btn'}>
-                    <Button
-                        text={'Сохранить'}
-                        onClickHandler={onSave}
-                    />
                 </div>
             </div>
         </div>

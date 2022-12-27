@@ -1,13 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import type {Swiper as SwiperType} from 'swiper'
-import {Swiper, SwiperSlide} from "swiper/react";
 import {useSelector} from "react-redux";
-import {nanoid} from "nanoid";
-
-import ScheduleDay from "../schedule-day/schedule-day";
-import Weekend from "../weekend/weekend";
+import {Swiper} from "swiper/react";
 
 import Dates from "../../../../../utils/namespaces/dates";
+
+import {getFullWeek} from './swiper-schedule-slides'
 
 import {ISwiperSchedule} from "./interface/swiper-schedule";
 
@@ -16,89 +14,40 @@ import './style/common/swiper-schedule.scss'
 
 import {AppContext} from "../../../../app";
 
+let isRapidly: boolean = false
+
 const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => {
 
     const appContext = useContext(AppContext)
 
-    //const nowDate = useSelector(appContext.reduxApi.getDateNow())
-    //const currDate = useSelector(appContext.reduxApi.getDateCurrent())
+    const nowDate = useSelector(appContext.reduxApi.getDateNow())
+    const currDate = useSelector(appContext.reduxApi.getDateCurrent())
 
     const [swiper, setSwiper] = useState<SwiperType>()
 
-    const getDayType = (day: number): string => {
-        switch (day) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-                return Dates.Day[day]
-            case 7:
-                return Dates.Day[0]
-            default:
-                return "undef"
+    useEffect(() => {
+        const unsub = appContext.calendar.subscribe(changeSlide)
+
+        return () => {
+            unsub()
         }
+    }, [currDate])
+
+    const changeSlide = () => {
+        if (!swiper) return
+
+        const weekType = Dates.getWeekType(new Date(currDate.dateString))
+        console.log(weekType)
     }
 
-    const getFullWeek = (week: any[], weekType: string): JSX.Element => {
-        if (week.length == 6) {
-            return (
-                <>
-                    {
-                        week?.map((day, index) => (
-                            day
-                                ? <SwiperSlide
-                                    key={nanoid()}
-                                    className={'swiper-schedule__slide'}
-                                    data-week-type={weekType}
-                                    data-day-type-string={getDayType(day[0]?.['week_day'])}
-                                    data-day-type-number={day[0]?.['week_day'] || -1}
-                                >
-                                    <ScheduleDay scheduleDay={day}/>
-                                </SwiperSlide>
-                                : <SwiperSlide
-                                    key={nanoid()}
-                                    className={'swiper-schedule__slide'}
-                                    data-week-type={weekType}
-                                    data-day-type-string={getDayType(index + 1)}
-                                    data-day-type-number={index + 1}
-                                >
-                                    <Weekend/>
-                                </SwiperSlide>
-                        ))
-                    }
-                </>
-            )
+    const swiperSlide = (index: number) => {
+        if(isRapidly) {
+            isRapidly = false
+            swiper.slideToLoop(index, 0)
+            return
         }
 
-        return (
-            <>
-                {
-                    week?.map((day, index) => (
-                        day
-                            ? <SwiperSlide
-                                key={nanoid()}
-                                className={'swiper-schedule__slide'}
-                                data-week-type={weekType}
-                                data-day-type-string={getDayType(day[0]?.['week_day'])}
-                                data-day-type-number={day[0]?.['week_day']}
-                            >
-                                <ScheduleDay scheduleDay={day}/>
-                            </SwiperSlide>
-                            : <SwiperSlide
-                                key={nanoid()}
-                                className={'swiper-schedule__slide'}
-                                data-week-type={weekType}
-                                data-day-type-string={getDayType(index + 1)}
-                                data-day-type-number={index + 1}
-                            >
-                                <Weekend/>
-                            </SwiperSlide>
-                    ))
-                }
-            </>
-        )
+        swiper.slideToLoop(index)
     }
 
     const onSwiperInit = (swiperInst: SwiperType) => {

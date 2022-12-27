@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 12px;
+  gap: 8px;
 }
 
 
@@ -26,8 +26,6 @@
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
-  line-height: 100.34%;
-  letter-spacing: -0.3px;
 
   color: #F3F3F3;
 }
@@ -35,12 +33,23 @@
 .group__teacher {
 
 }
-.group__auditorium,
 .group__group {
+  font-family: 'SF Pro Display';
+  font-style: normal;
   font-weight: 400;
   font-size: 14px;
+
+  color: #5E6173;
+
 }
 .group__auditorium {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+
+  color: #F3F3F3;
+
   display: flex;
   align-items: center;
   gap: 5px;

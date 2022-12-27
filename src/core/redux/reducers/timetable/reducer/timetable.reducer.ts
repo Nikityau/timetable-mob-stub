@@ -3,7 +3,7 @@ import produce from "immer";
 import {ITimetableAction} from "../interface/timetable.action";
 import {ITimetableSlice} from "../interface/timetable.slice";
 
-import {timetableData, timetableData_2, timetableData_3} from '../data/timetable'
+import {timetableData, timetableData_2, timetableData_3, timetableData_4} from '../data/timetable'
 
 import {ParseLessonsAdapter} from "../utils/parseLessons.adapter";
 
@@ -14,7 +14,7 @@ export class TimetableReducer {
         return produce(state, draft => {
             //draft.original = timetableData
 
-            const timetable = timetableData_2
+            const timetable = timetableData_4
 
             draft.id = timetable.id
             draft.full_title = timetable.full_title

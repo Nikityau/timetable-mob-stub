@@ -1,0 +1,43 @@
+{
+  "dowt:ln:wt": {
+    "week_day": 1,
+    "lesson_number": 1,
+    "week_type": 0,
+    "notify": {
+      "isNotify": "true || false",
+      "type": "date || time || before",
+      "value": "date:22.10.2022 || time: 22:05 || before: 5m",
+      "isRepeat": "true || false"
+    },
+    "note": {
+      "isNote": "true || false",
+      "text": "some text...",
+      "isRemind": "true || false"
+    }
+  },
+  "lessons": [
+    {
+      "id": 25507,
+      "date": "22.11.2022",
+      "lesson": {
+        "week_day": 1,
+        "lesson_number": 1,
+        "time_period": "8.20-9.50",
+        "week_type": "под чертой",
+        "discipline": "Основы экономических знаний",
+        "auditorium_id": "Б117",
+        "subgroup": null,
+        "teacher": "Скорев М.М.",
+        "lesson_type": "Лекция"
+      },
+      "notify": {
+        "isRepeat": "true || false",
+        "value": "24:00"
+      },
+      "note": {
+        "isRepeat": "true || false",
+        "text": "some text..."
+      }
+    }
+  ]
+}

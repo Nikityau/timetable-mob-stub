@@ -1,10 +1,8 @@
+import {ILesson} from "../../timetable/interface/lesson";
+
 export interface INotificationsState {
     isNotifyOpen: boolean,
-    inputData: {
-        lessonType: string | "nothing",
-        lessonTitle: string | "nothing",
-        groups: []
-    }
+    inputData: ILesson | null
     notificationData: INote
     unsaved: INote
 }

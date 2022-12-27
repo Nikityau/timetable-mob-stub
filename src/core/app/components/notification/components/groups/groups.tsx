@@ -1,22 +1,29 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+import {nanoid} from "nanoid";
+
+import {ReduxNotificationSelector} from "../../../../../redux/reducers/notifications/selector/notification.selector";
 
 import Group from "./components/group/group";
 
 import './style/common/groups.scss'
 
 const Groups = () => {
+
+    const groups = useSelector(ReduxNotificationSelector.getGroups)
+
     return (
         <div className={'notify-groups el_side_offset_m'}>
-            <Group
-                teacher={'Москат Н.А.'}
-                group={'Подгруппа 1'}
-                auditorium={'Г 302'}
-            />
-            <Group
-                teacher={'Гальцева А.А.'}
-                group={'Подгруппа 2'}
-                auditorium={'Г 303'}
-            />
+            {
+                groups?.map(group => (
+                    <Group
+                        key={nanoid()}
+                        teacher={group.teacher}
+                        group={group.subgroup}
+                        auditorium={group.auditorium_id}
+                    />
+                ))
+            }
         </div>
     );
 };

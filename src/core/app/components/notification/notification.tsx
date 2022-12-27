@@ -10,6 +10,9 @@ import Note from "./components/note/note";
 import './style/common/notification.scss'
 
 import {AppContext} from "../../app";
+import {notifyContext} from "./context/notify.context";
+
+export const NotifyContext = React.createContext(notifyContext)
 
 const Notification = () => {
 
@@ -27,39 +30,41 @@ const Notification = () => {
     }, [])
 
     return (
-        <div className={[
-            'notification',
-            isNotifyOpen
-                ? 'notification_open'
-                : 'el_disable'
-        ].join(' ')}>
+        <NotifyContext.Provider value={notifyContext}>
             <div className={[
-                'notification__main',
+                'notification',
                 isNotifyOpen
-                    ? 'notification__main_open'
-                    : ''
+                    ? 'notification_open'
+                    : 'el_disable'
             ].join(' ')}>
-                <div className={'notification__header'}>
-                    <Tabber/>
-                    <Header/>
-                </div>
-                <div className={'notification__container'}
-                    style={{
-                        height: `${containerHeight}px`
-                    }}
-                >
-                    <div className={'notification__groups'}>
-                        <Groups/>
+                <div className={[
+                    'notification__main',
+                    isNotifyOpen
+                        ? 'notification__main_open'
+                        : ''
+                ].join(' ')}>
+                    <div className={'notification__header'}>
+                        <Tabber/>
+                        <Header/>
                     </div>
-                    <div className={'notification__notify'}>
-                        <Notify/>
-                    </div>
-                    <div className={'notification__note'}>
-                        <Note/>
+                    <div className={'notification__container'}
+                         style={{
+                             height: `${containerHeight}px`
+                         }}
+                    >
+                        <div className={'notification__groups'}>
+                            <Groups/>
+                        </div>
+                        <div className={'notification__notify'}>
+                            <Notify/>
+                        </div>
+                        <div className={'notification__note'}>
+                            <Note/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </NotifyContext.Provider>
     );
 };
 

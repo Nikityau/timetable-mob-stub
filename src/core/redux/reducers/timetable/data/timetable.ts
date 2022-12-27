@@ -125,7 +125,7 @@ export const timetableData = {
             "discipline": "Военная подготовка",
             "auditorium_id": "",
             "subgroup": null,
-            "teacher": " ..",
+            "teacher": "..",
             "lesson_type": "Учебное занятие"
         },
         {
@@ -136,7 +136,7 @@ export const timetableData = {
             "discipline": "Военная подготовка",
             "auditorium_id": "",
             "subgroup": null,
-            "teacher": " ..",
+            "teacher": "..",
             "lesson_type": "Учебное занятие"
         },
         {
@@ -847,6 +847,369 @@ export const timetableData_3 = {
             "subgroup": null,
             "teacher": "Черкасова М.Н.",
             "lesson_type": "Практика"
+        }
+    ]
+}
+export const timetableData_4 = {
+    "full_title": "АВБ-3-034",
+    "id": 25620,
+    "title": "АВБ",
+    "number": "034",
+    "course": 3,
+    "faculty_id": 1,
+    "update_date": "2022-12-27",
+    "lessons": [
+        {
+            "week_day": 1,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "обе недели",
+            "discipline": "Базы данных",
+            "auditorium_id": "Д404",
+            "subgroup": null,
+            "teacher": "Игнатьева О.В.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 1,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "обе недели",
+            "discipline": "Системное программное обеспечение вычислительных систем",
+            "auditorium_id": "Д406",
+            "subgroup": null,
+            "teacher": "Жуков В.В.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 1,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "над чертой",
+            "discipline": "Системное программное обеспечение вычислительных систем",
+            "auditorium_id": "Д406",
+            "subgroup": null,
+            "teacher": "Жуков В.В.",
+            "lesson_type": "Практика"
+        },
+        {
+            "week_day": 2,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "обе недели",
+            "discipline": "Военная подготовка",
+            "auditorium_id": "",
+            "subgroup": null,
+            "teacher": " ..",
+            "lesson_type": "Учебное занятие"
+        },
+        {
+            "week_day": 2,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "обе недели",
+            "discipline": "Военная подготовка",
+            "auditorium_id": "",
+            "subgroup": null,
+            "teacher": " ..",
+            "lesson_type": "Учебное занятие"
+        },
+        {
+            "week_day": 2,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "обе недели",
+            "discipline": "Военная подготовка",
+            "auditorium_id": "",
+            "subgroup": null,
+            "teacher": " ..",
+            "lesson_type": "Учебное занятие"
+        },
+        {
+            "week_day": 2,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "обе недели",
+            "discipline": "Военная подготовка",
+            "auditorium_id": "",
+            "subgroup": null,
+            "teacher": " ..",
+            "lesson_type": "Учебное занятие"
+        },
+        {
+            "week_day": 2,
+            "lesson_number": 5,
+            "time_period": "15.30-17.00",
+            "week_type": "обе недели",
+            "discipline": "Военная подготовка",
+            "auditorium_id": "",
+            "subgroup": null,
+            "teacher": " ..",
+            "lesson_type": "Учебное занятие"
+        },
+        {
+            "week_day": 3,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "обе недели",
+            "discipline": "Схемотехника и архитектура вычислительных систем",
+            "auditorium_id": "Г302",
+            "subgroup": "1",
+            "teacher": "Мирошников А.М. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 3,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "обе недели",
+            "discipline": "Схемотехника и архитектура вычислительных систем",
+            "auditorium_id": "Г303",
+            "subgroup": "2",
+            "teacher": "Хусаинов В.Р. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 3,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "обе недели",
+            "discipline": "Схемотехника и архитектура вычислительных систем",
+            "auditorium_id": "Д404",
+            "subgroup": null,
+            "teacher": "Ольгейзер И.А.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 3,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "под чертой",
+            "discipline": "Безопасность жизнедеятельности",
+            "auditorium_id": "М215",
+            "subgroup": null,
+            "teacher": "Переверзев И.Г.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 3,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "над чертой",
+            "discipline": "Операционные системы",
+            "auditorium_id": "Г305",
+            "subgroup": "1",
+            "teacher": "Ведерникова О.Г. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 3,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "над чертой",
+            "discipline": "Операционные системы",
+            "auditorium_id": "Г303",
+            "subgroup": "2",
+            "teacher": "Москат Н.А. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 3,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "над чертой",
+            "discipline": "Операционные системы",
+            "auditorium_id": "Г303",
+            "subgroup": "2",
+            "teacher": "Москат Н.А. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 3,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "над чертой",
+            "discipline": "Операционные системы",
+            "auditorium_id": "Г305",
+            "subgroup": "1",
+            "teacher": "Ведерникова О.Г. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 4,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "над чертой",
+            "discipline": "Безопасность жизнедеятельности",
+            "auditorium_id": "М231",
+            "subgroup": null,
+            "teacher": "Переверзев И.Г.",
+            "lesson_type": "Практика"
+        },
+        {
+            "week_day": 4,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "под чертой",
+            "discipline": "Безопасность жизнедеятельности",
+            "auditorium_id": "М156",
+            "subgroup": "2",
+            "teacher": "Чубарь Е.П. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 4,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "под чертой",
+            "discipline": "Безопасность жизнедеятельности",
+            "auditorium_id": "М153",
+            "subgroup": "1",
+            "teacher": "Переверзев И.Г. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 4,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "обе недели",
+            "discipline": "Операционные системы",
+            "auditorium_id": "Д404",
+            "subgroup": null,
+            "teacher": "Москат Н.А.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 4,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "под чертой",
+            "discipline": "Экономика и менеджмент",
+            "auditorium_id": "Б306",
+            "subgroup": null,
+            "teacher": "Калашников И.А.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 4,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "над чертой",
+            "discipline": "Системное программное обеспечение вычислительных систем",
+            "auditorium_id": "Д407",
+            "subgroup": "2",
+            "teacher": "Мизюков Г.С. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 4,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "над чертой",
+            "discipline": "Системное программное обеспечение вычислительных систем",
+            "auditorium_id": "Д406",
+            "subgroup": "1",
+            "teacher": "Никитченко С.Л. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 4,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "над чертой",
+            "discipline": "Экономика и менеджмент",
+            "auditorium_id": "Б313",
+            "subgroup": null,
+            "teacher": "Калашников И.А.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 5,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "обе недели",
+            "discipline": "Базы данных",
+            "auditorium_id": "Г315",
+            "subgroup": "1",
+            "teacher": "Муконина М.И. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 5,
+            "lesson_number": 1,
+            "time_period": "8.20-9.50",
+            "week_type": "обе недели",
+            "discipline": "Базы данных",
+            "auditorium_id": "Г315",
+            "subgroup": "2",
+            "teacher": "Голубенко Е.В. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 5,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "над чертой",
+            "discipline": "Разработка Интернет-приложений",
+            "auditorium_id": "Г315",
+            "subgroup": null,
+            "teacher": "Капкаев А.А.",
+            "lesson_type": "Лекция"
+        },
+        {
+            "week_day": 5,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "под чертой",
+            "discipline": "Разработка Интернет-приложений",
+            "auditorium_id": "Г315",
+            "subgroup": "2",
+            "teacher": "Хлопин К.В. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 5,
+            "lesson_number": 2,
+            "time_period": "10.05-11.35",
+            "week_type": "под чертой",
+            "discipline": "Разработка Интернет-приложений",
+            "auditorium_id": "Г315",
+            "subgroup": "1",
+            "teacher": "Капкаев А.А. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 5,
+            "lesson_number": 3,
+            "time_period": "12.05-13.35",
+            "week_type": "обе недели",
+            "discipline": "Экономика и менеджмент",
+            "auditorium_id": "А415",
+            "subgroup": null,
+            "teacher": "Радченко Е.В.",
+            "lesson_type": "Практика"
+        },
+        {
+            "week_day": 5,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "под чертой",
+            "discipline": "Разработка Интернет-приложений",
+            "auditorium_id": "Г303",
+            "subgroup": "2",
+            "teacher": "Хлопин К.В. ",
+            "lesson_type": "Лабораторная"
+        },
+        {
+            "week_day": 5,
+            "lesson_number": 4,
+            "time_period": "13.50-15.20",
+            "week_type": "под чертой",
+            "discipline": "Разработка Интернет-приложений",
+            "auditorium_id": "Д410",
+            "subgroup": "1",
+            "teacher": "Капкаев А.А. ",
+            "lesson_type": "Лабораторная"
         }
     ]
 }

@@ -10,34 +10,7 @@ import Button from "../../../ui/components/button/button";
 
 import './styles/common/calendar.scss'
 
-class CalendarObserver {
-    handlers: any[] = []
-
-    subscribe(ev) {
-        const handler_id = nanoid()
-        ev.handler_id = handler_id
-        this.handlers.push(ev)
-
-        return () => {
-            this.handlers = this.handlers.filter(el => el.handler_id != handler_id)
-        }
-    }
-
-    invoke() {
-        for (let ev of this.handlers) {
-            ev?.()
-        }
-    }
-
-}
-
-const calendarContext = {
-    co: new CalendarObserver(),
-}
-
 import {AppContext} from "../../app";
-
-export const CalendarContext = React.createContext(calendarContext)
 
 const Calendar = () => {
 
@@ -45,33 +18,29 @@ const Calendar = () => {
 
     const dispatch = useDispatch()
 
-    const context = useContext(CalendarContext)
-
     const onTodayClick = () => {
         dispatch(appContext.reduxApi.setDateCurrentByNow())
-        context.co.invoke()
+        appContext.calendar.invoke()
     }
 
     return (
-        <CalendarContext.Provider value={calendarContext}>
-            <header className={'calendar'}>
-                <div className={'calendar__container'}>
-                    <div className={'calendar__current-date el_side_offset_m'}>
-                        <CurrentDate/>
-                        <Button
-                            text={'сегодня'}
-                            onClickHandler={onTodayClick}
-                        />
-                    </div>
-                    <div className={'calendar__date-carousel'}>
-                        <DateCarousel/>
-                    </div>
-                    <div className={'calendar__info-columns el_side_offset_m'}>
-                        <InfoColumns/>
-                    </div>
+        <header className={'calendar'}>
+            <div className={'calendar__container'}>
+                <div className={'calendar__current-date el_side_offset_m'}>
+                    <CurrentDate/>
+                    <Button
+                        text={'сегодня'}
+                        onClickHandler={onTodayClick}
+                    />
                 </div>
-            </header>
-        </CalendarContext.Provider>
+                <div className={'calendar__date-carousel'}>
+                    <DateCarousel/>
+                </div>
+                <div className={'calendar__info-columns el_side_offset_m'}>
+                    <InfoColumns/>
+                </div>
+            </div>
+        </header>
     );
 };
 

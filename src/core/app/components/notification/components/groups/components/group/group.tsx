@@ -11,9 +11,13 @@ const Group = ({ group, teacher, auditorium }: IGroup) => {
                 <div className={'group__teacher'}>
                     <span>{ teacher }</span>
                 </div>
-                <div className={'group__group'}>
-                    <span> { group } </span>
-                </div>
+                {
+                    group
+                        ?  <div className={'group__group'}>
+                            <span>{ 'Подгруппа ' + group } </span>
+                        </div>
+                        : ''
+                }
                 <div className={'group__auditorium'}>
                     <div className={'group__icon'}/><span> { auditorium } </span>
                 </div>
