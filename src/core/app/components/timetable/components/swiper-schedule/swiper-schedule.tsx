@@ -16,6 +16,8 @@ import {AppContext} from "../../../../app";
 
 let isRapidly: boolean = false
 
+let isInitSwipe: boolean = true
+
 const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => {
 
     const appContext = useContext(AppContext)
@@ -33,6 +35,10 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
         }
     }, [currDate])
 
+    useEffect(() => {
+        initSlideChange()
+    }, [currDate, swiper])
+
     const changeSlide = () => {
         if (!swiper) return
 
@@ -40,8 +46,33 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
         console.log(weekType)
     }
 
+    const initSlideChange = () => {
+        if (!swiper) return;
+        if (!currDate.dateString) return;
+
+        if (!isInitSwipe) return
+
+        isInitSwipe = false
+
+        const weekType = Dates.getWeekType(new Date(currDate.dateString))
+
+        const swiperDOMEl = swiper.el
+        let slide = undefined;
+
+        if (weekType == 1) {
+            slide = swiperDOMEl.querySelector(`.swiper-slide[data-week-type-numeric="1"][data-day-type-string=\"${currDate.weekday}\"]`)
+        }
+
+        if (weekType == -1) {
+            slide = swiperDOMEl.querySelector(`.swiper-slide[data-week-type-numeric="-1"][data-day-type-string=\"${currDate.weekday}\"]`)
+        }
+
+        const index = slide.getAttribute('data-swiper-slide-index')
+        swiper.slideToLoop(Number.parseInt(index), 0)
+    }
+
     const swiperSlide = (index: number) => {
-        if(isRapidly) {
+        if (isRapidly) {
             isRapidly = false
             swiper.slideToLoop(index, 0)
             return

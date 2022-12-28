@@ -1,4 +1,4 @@
-import {differenceInWeeks, eachDayOfInterval} from "date-fns";
+import {differenceInDays, differenceInWeeks, eachDayOfInterval} from "date-fns";
 
 namespace Dates {
     export type WeekdayShort = 'вс' | 'сб' | 'пн' | 'вт' | 'ср' | 'чт' | 'пт'
@@ -164,15 +164,15 @@ namespace Dates {
 
     export function getWeekType(date: Date = new Date(Date.now())): 1 | -1 {
         const dateNow = new Date(Date.now())
-        console.log(getFirstDayInWeek(new Date(dateNow.getFullYear(), 8, 1)))
         const zeroDay = new Date(dateNow.getFullYear(), 8, 1)
 
-        let difference = Math.abs(differenceInWeeks(
+        let difference = Math.abs(differenceInDays(
             zeroDay,
             date,
         ))
+        const roundedWeekDifference = Math.round(difference / 7)
 
-        if(difference % 2 == 0) return 1
+        if(roundedWeekDifference % 2 == 0) return 1
 
         return -1
     }
