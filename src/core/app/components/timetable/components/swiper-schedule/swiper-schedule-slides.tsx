@@ -23,7 +23,7 @@ export const getDayType = (day: number): string => {
     }
 }
 
-export const getFullWeek = (week: any[], weekType: string): JSX.Element => {
+export const getFullWeek = (week: any[], weekType: string, attr: string): JSX.Element => {
     return (
         <>
             {
@@ -36,6 +36,7 @@ export const getFullWeek = (week: any[], weekType: string): JSX.Element => {
                             data-week-type-numeric={weekType == "above_week" ? 1 : -1}
                             data-day-type-string={getDayType(day[0]?.['week_day'])}
                             data-day-type-number={day[0]?.['week_day']}
+                            data-type-slide={attr}
                         >
                             <ScheduleDay scheduleDay={day}/>
                         </SwiperSlide>
@@ -43,8 +44,10 @@ export const getFullWeek = (week: any[], weekType: string): JSX.Element => {
                             key={nanoid()}
                             className={'swiper-schedule__slide'}
                             data-week-type={weekType}
+                            data-week-type-numeric={weekType == "above_week" ? 1 : -1}
                             data-day-type-string={getDayType(index + 1)}
                             data-day-type-number={index + 1}
+                            data-type-slide={attr}
                         >
                             <Weekend/>
                         </SwiperSlide>
