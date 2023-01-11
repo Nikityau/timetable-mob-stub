@@ -68,6 +68,7 @@ export class DateChangeController implements IDateChangeController {
         const day = this.getFirstDayInWeek(week)
 
         const weeks = this.createNewWeeks(day)
+
         return this.getWeeksStateFrom(direction,weeks, weeksDates.dateStart)
     }
 

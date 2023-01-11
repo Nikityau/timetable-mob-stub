@@ -3,9 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {getTheme} from "./utils/getTheme";
 
-import TimetablePage from "./pages/timetable/timetable.page";
-import RingsSchedule from "./components/rings-schedule/rings-schedule";
-import Notification from "./components/notification/notification";
+const TimetablePage = React.lazy(() => import('./pages/timetable/timetable.page'))
+const RingsSchedule = React.lazy(() => import('./components/rings-schedule/rings-schedule'))
+const Notification = React.lazy(() => import('./components/notification/notification'))
+
+//import TimetablePage from "./pages/timetable/timetable.page";
+//import RingsSchedule from "./components/rings-schedule/rings-schedule";
+//import Notification from "./components/notification/notification";
 
 import '../ui/styles/global/global.scss'
 import '../ui/styles/fonts/sf-pro-display/sf-pro-display.scss'
@@ -40,18 +44,20 @@ const App = () => {
 
     return (
        <AppContext.Provider value={appContextApi}>
-           <div className={['app', getTheme(theme)].join(' ')}>
-               <div className={[
-                   'app__container',
-                   notifPopUp
-                       ? 'el_disable'
-                       : 'el_enable'
-               ].join(' ')}>
-                   <TimetablePage/>
+           <React.Suspense fallback={"LOADING..."}>
+               <div className={['app', getTheme(theme)].join(' ')}>
+                   <div className={[
+                       'app__container',
+                       notifPopUp
+                           ? 'el_disable'
+                           : 'el_enable'
+                   ].join(' ')}>
+                       <TimetablePage/>
+                   </div>
+                   <RingsSchedule/>
+                   <Notification/>
                </div>
-               <RingsSchedule/>
-               <Notification/>
-           </div>
+           </React.Suspense>
        </AppContext.Provider>
     );
 };

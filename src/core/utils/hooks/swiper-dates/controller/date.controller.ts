@@ -115,6 +115,18 @@ export class DateController implements IDateController {
         if (!weeksState) return
 
         this.setWeeksDates(weeksState)
+
+        /* this._dateChangeController.onSlideChange(
+             this._swiper,
+             this._sliderActiveIndex,
+             this._slideDirection,
+             this._weeksDates,
+         ).then(async (weeksDates) => {
+             if(!weeksDates) return Promise.reject(`weeksDates ${weeksDates}`)
+             this.setWeeksDates(weeksDates)
+         }).catch((err) => {
+             console.log(err)
+         })*/
     }
 
     swiperSlideTo(index: number, isRapidly = false) {
