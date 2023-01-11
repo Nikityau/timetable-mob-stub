@@ -91,10 +91,6 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
             }, 200)
         }
 
-
-
-
-
        /* if(nowWeekType == weekType) {
             swiperSlide(index)
 

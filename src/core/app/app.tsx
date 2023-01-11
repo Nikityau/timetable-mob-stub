@@ -7,6 +7,8 @@ const TimetablePage = React.lazy(() => import('./pages/timetable/timetable.page'
 const RingsSchedule = React.lazy(() => import('./components/rings-schedule/rings-schedule'))
 const Notification = React.lazy(() => import('./components/notification/notification'))
 
+import Loader from "./components/loader/loader";
+
 //import TimetablePage from "./pages/timetable/timetable.page";
 //import RingsSchedule from "./components/rings-schedule/rings-schedule";
 //import Notification from "./components/notification/notification";
@@ -44,7 +46,7 @@ const App = () => {
 
     return (
        <AppContext.Provider value={appContextApi}>
-           <React.Suspense fallback={"LOADING..."}>
+           <React.Suspense fallback={<Loader/>}>
                <div className={['app', getTheme(theme)].join(' ')}>
                    <div className={[
                        'app__container',
