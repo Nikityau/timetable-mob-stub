@@ -7,79 +7,95 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const exclude_var = /node_modules/
 
 const srcPath = path.resolve(__dirname, 'src')
+const buildPath = path.resolve(__dirname, 'build')
 
-module.exports = {
-    entry: path.resolve(__dirname, 'src', 'index.tsx'),
-    resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        alias: {
-           // ЕБАЛ В РОТ, НИХУЯ НЕ РАБОТАЕТ
+function outputPathByDevice(device) {
+    if(device === "WEB") return path.join(buildPath, 'web')
+    if(device === "WEBVIEW") return path.join(buildPath, 'webview')
+}
+
+
+module.exports = (env) => {
+
+    const mode = env.MODE
+    const device = env.DEVICE
+
+    return {
+        entry: path.resolve(__dirname, 'src', 'index.tsx'),
+        resolve: {
+            extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            alias: {
+                // ЕБАЛ В РОТ, НИХУЯ НЕ РАБОТАЕТ
+            },
         },
-    },
-    output: {
-        filename: "[name].[contenthash].bundle.js",
-        assetModuleFilename: "assets/[name][ext]",
-        sourceMapFilename: "[name].js.map",
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: "/",
-        clean: true
-    },
-    optimization: {
-        minimize: true,
-        minimizer: [
-            new TerserPlugin()
-        ]
-    },
-    devServer: {
-        static: {
-            directory: path.resolve(__dirname, 'src')
+        output: {
+            filename: "[name].[contenthash].bundle.js",
+            assetModuleFilename: "assets/[name][ext]",
+            sourceMapFilename: "[name].js.map",
+            path: outputPathByDevice(device),
+            publicPath: device === "WEBVIEW" ? "./" : "/",
+            clean: true
         },
-        historyApiFallback: true,
-        compress: false,
-        port: 8080,
-        open: true,
-        hot: true,
-        client: {
-            reconnect: true
+        mode: mode === "PROD" ? "production" : "development",
+        optimization: {
+            minimize: mode === "PROD",
+            minimizer: mode === "PROD" ? [
+                new TerserPlugin({
+                    minify: TerserPlugin.uglifyJsMinify
+                })
+            ] : []
+        },
+        devServer: {
+            static: {
+                directory: path.resolve(__dirname, 'src')
+            },
+            historyApiFallback: true,
+            compress: false,
+            port: 8080,
+            open: true,
+            hot: true,
+            client: {
+                reconnect: true
+            }
+        },
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: path.resolve(__dirname, 'public', 'index.html'),
+                favicon: path.resolve(__dirname, 'src', 'core', 'assets', 'icons', 'favicon', 'logo.png'),
+                minify: false,
+            }),
+            new MiniCssExtractPlugin({
+                filename: '[name].[contenthash].bundle.css'
+            })
+        ],
+        module: {
+            rules: [
+                {
+                    test: /\.css$/,
+                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+                },
+                {
+                    test: /\.s[ac]ss$/,
+                    exclude: exclude_var,
+                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader','sass-loader']
+                },
+                {
+                    test: /\.[cm]js?x?$/,
+                    include: path.resolve(__dirname, 'src'),
+                    exclude: exclude_var,
+                    use: ['swc-loader']
+                },
+                {
+                    test: /\.tsx?/,
+                    include: path.resolve(__dirname, 'src'),
+                    exclude: exclude_var,
+                    use: ['swc-loader']
+                },
+                {
+                    test: /\.(png|jpg|jpeg|gif|svg)$/,
+                    type: 'asset/resource'
+                },
+            ]
         }
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'public', 'index.html'),
-            favicon: path.resolve(__dirname, 'src', 'core', 'assets', 'icons', 'favicon', 'logo.png'),
-            minify: false,
-        }),
-        new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].bundle.css'
-        })
-    ],
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
-            },
-            {
-                test: /\.s[ac]ss$/,
-                exclude: exclude_var,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader','sass-loader']
-            },
-            {
-                test: /\.[cm]js?x?$/,
-                include: path.resolve(__dirname, 'src'),
-                exclude: exclude_var,
-                use: ['babel-loader']
-            },
-            {
-                test: /\.tsx?/,
-                include: path.resolve(__dirname, 'src'),
-                exclude: exclude_var,
-                use: ['babel-loader']
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif|svg)$/,
-                type: 'asset/resource'
-            },
-        ]
     }
 }
