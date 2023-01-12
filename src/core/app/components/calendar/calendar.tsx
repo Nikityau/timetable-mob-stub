@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import {useDispatch} from "react-redux";
-import {nanoid} from "nanoid";
 
 import CurrentDate from "./components/current-date/current-date";
 import DateCarousel from "./components/date-carousel/date-carousel";
@@ -20,7 +19,7 @@ const Calendar = () => {
 
     const onTodayClick = () => {
         dispatch(appContext.reduxApi.setDateCurrentByNow())
-        appContext.calendar.invoke()
+        appContext.calendar.invoke('toCurrentDate')
     }
 
     return (

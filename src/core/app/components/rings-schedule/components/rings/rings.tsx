@@ -62,12 +62,12 @@ const Rings = ({isOpen}: IRings) => {
                         key={nanoid()}
                     >
                         {
-                            rings.map(data => (
+                            rings.map((data, index) => (
                                 <React.Fragment
-                                    key={nanoid()}
+                                    key={data.id + data.breakTimeId}
                                 >
                                     <Ring
-                                        key={nanoid()}
+                                        key={data.id}
                                         lessonNumber={data.lessonNumber}
                                         timeStart={data.lessonTimeStart}
                                         timeEnd={data.lessonTimeEnd}
@@ -75,7 +75,7 @@ const Rings = ({isOpen}: IRings) => {
                                     {
                                         data.breakTime
                                             ? <BreakTime
-                                                key={nanoid()}
+                                                key={data.breakTimeId}
                                                 breakTime={data.breakTime}
                                             />
                                             : <></>

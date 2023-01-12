@@ -54,6 +54,21 @@ export const useSwiperDates = (
     useEffect(() => {
         dateController.weeksDates = weeksDates
     }, [weeksDates])
+    useEffect(() => {
+        appContext.calendar.invoke('toCurrentDay', currentDate)
+    }, [currentDate])
+    useEffect(() => {
+        const unsub = appContext.calendar.pullSubscribe('currentDate', currentDate)
+        return () => {
+            unsub()
+        }
+    }, [currentDate])
+    useEffect(() => {
+        const unsub = appContext.calendar.pullSubscribe('nowDate', dateNow)
+        return () => {
+            unsub()
+        }
+    }, [dateNow])
 
     useEffect(() => {
         (() => {
@@ -71,7 +86,7 @@ export const useSwiperDates = (
         })()
     }, [dateNow])
     useEffect(() => {
-        const unsub = appContext.calendar.subscribe(toCurrentDate)
+        const unsub = appContext.calendar.subscribe('toCurrentDate',toCurrentDate)
 
         return () => {
             unsub()
@@ -103,7 +118,7 @@ export const useSwiperDates = (
 
         const cDate = new Date(year, month, date)
 
-        dispatch(dateCurrentAction(Dates.getDateObj(cDate)))
+        dispatch(dateCurrentAction(Dates.createDateObj(cDate)))
     }
 
     return [

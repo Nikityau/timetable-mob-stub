@@ -12,7 +12,6 @@ const LessonCardTypeOne = ({lessonType, discipline, offices, teachers, onCardCli
     onCardClick: () => void
 }) => {
 
-
     const getTeachersJsx = (teachers: any[]): JSX.Element => {
         if (teachers.length > 2) {
             return <>
@@ -31,7 +30,7 @@ const LessonCardTypeOne = ({lessonType, discipline, offices, teachers, onCardCli
         </>
     }
     const getOfficesJsx = (offices: any[]): JSX.Element => {
-        if(offices[0] == 'unk') {
+        if (offices[0] == 'unk') {
             return <>
             </>
         }
@@ -47,7 +46,6 @@ const LessonCardTypeOne = ({lessonType, discipline, offices, teachers, onCardCli
             return (
                 <LessonLocation offices={[offices[0], offices[1]]}/>
             )
-
         }
 
         return (
@@ -61,7 +59,7 @@ const LessonCardTypeOne = ({lessonType, discipline, offices, teachers, onCardCli
                 <span> {lessonType || 'unk'} </span>
             </div>
             <div className={'lesson-card__main-info'}
-                onClick={() => onCardClick()}
+                 onClick={() => onCardClick()}
             >
                 <div className={'lesson-card__lesson'}>
                     <div className={'lesson-card__lesson-title'}>
