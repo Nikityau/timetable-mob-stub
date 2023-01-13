@@ -9,8 +9,6 @@ import {SlidePos} from "../interface/slide-pos.type";
 import {DateSpecState} from "../interface/date-spec-state.interface";
 import {DateWeeks} from "../interface/date-weeks.interface";
 
-type Week = { week: Date[] }
-
 export class DateChangeController implements IDateChangeController {
     getIsCanChange: () => boolean
     getIsChangeRapidly: () => boolean

@@ -26,6 +26,7 @@ export class DateController implements IDateController {
 
     private _isCanChangeDate: boolean = true
     private _isChangeRapidly = false
+    public _isDayChange:boolean = false
 
     private _dateCurrentController: IDateCurrentController
     private _dateChangeController: IDateChangeController
@@ -115,18 +116,30 @@ export class DateController implements IDateController {
         if (!weeksState) return
 
         this.setWeeksDates(weeksState)
+    }
 
-        /* this._dateChangeController.onSlideChange(
-             this._swiper,
-             this._sliderActiveIndex,
-             this._slideDirection,
-             this._weeksDates,
-         ).then(async (weeksDates) => {
-             if(!weeksDates) return Promise.reject(`weeksDates ${weeksDates}`)
-             this.setWeeksDates(weeksDates)
-         }).catch((err) => {
-             console.log(err)
-         })*/
+    onDayChange(date: DateObj) {
+        if(!this._isDayChange) return
+
+        this._isDayChange = false
+
+        const dateNormal = new Date(date.timestamp)
+
+        const swiperDOM = this._swiper.el
+        const activeSlide = swiperDOM.querySelector('.swiper-slide-active')
+        const prevSlide = swiperDOM.querySelector('.swiper-slide-prev')
+        const nextSlide = swiperDOM.querySelector('.swiper-slide-next')
+
+        if(activeSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
+            return
+        }
+        if(prevSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
+            this._swiper.slidePrev()
+            return;
+        }
+        if(nextSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
+            this._swiper.slideNext()
+        }
     }
 
     swiperSlideTo(index: number, isRapidly = false) {

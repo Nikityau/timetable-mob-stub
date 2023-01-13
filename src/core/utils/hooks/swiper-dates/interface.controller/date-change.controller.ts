@@ -7,7 +7,7 @@ import {SlideDirection} from "../interface/slide-direction.type";
 import {DateWeeks} from "../interface/date-weeks.interface";
 import {SlidePos} from "../interface/slide-pos.type";
 
-export interface IDateChangeController extends IControllerBase{
+export interface IDateChangeController extends IControllerBase {
     onSlideChange(
         swiper: SwiperType,
         sliderActiveIndex: number,
@@ -58,5 +58,5 @@ export interface IDateChangeController extends IControllerBase{
         setSlideDirection: (direction: SlideDirection) => void,
         getIsCanChange: () => boolean,
         getIsChangeRapidly: () => boolean
-    ):void
+    ): void
 }

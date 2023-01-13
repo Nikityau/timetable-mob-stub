@@ -11,6 +11,7 @@ export class CalendarObserver {
         this.events = new Map<string, Handler[]>()
         this.events.set('toCurrentDate', [])
         this.events.set('toCurrentDay', [])
+        this.events.set('changeDay', [])
 
         this.eventsPull = new Map<string, Params>()
         this.eventsPull.set('currentDate', [])
@@ -37,20 +38,21 @@ export class CalendarObserver {
         }
     }
 
-    invoke(eventName, ...params:any[]) {
+    async invoke(eventName, ...params: any[]) {
         const handlers = this.events.get(eventName)
         for (let handler of Array.from(handlers)) {
-            handler(...params)
+            await handler(...params)
         }
     }
 
-    pull(eventName, handler) {
-        handler(...this.eventsPull.get(eventName))
+    async pull(eventName, handler) {
+        await handler(...this.eventsPull.get(eventName))
     }
-    pullSubscribe(eventName, ...params:any[]) {
-        if(this.eventsPull.has(eventName)) {
+
+    pullSubscribe(eventName, ...params: any[]) {
+        if (this.eventsPull.has(eventName)) {
             const ev = this.eventsPull.get(eventName)
-            for(let param of params) {
+            for (let param of params) {
                 ev.push(param)
             }
         } else {

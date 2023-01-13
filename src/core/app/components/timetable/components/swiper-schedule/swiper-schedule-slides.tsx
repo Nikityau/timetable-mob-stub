@@ -30,7 +30,7 @@ export const getFullWeek = (week: any[], weekType: string, attr: string): JSX.El
                 week?.map((day, index) => (
                     day
                         ? <SwiperSlide
-                            key={nanoid()}
+                            key={nanoid(25)}
                             className={'swiper-schedule__slide'}
                             data-week-type-string={weekType}
                             data-week-type-numeric={weekType == "above_week" ? 1 : -1}
@@ -41,7 +41,7 @@ export const getFullWeek = (week: any[], weekType: string, attr: string): JSX.El
                             <ScheduleDay scheduleDay={day}/>
                         </SwiperSlide>
                         : <SwiperSlide
-                            key={nanoid()}
+                            key={nanoid(25)}
                             className={'swiper-schedule__slide'}
                             data-week-type={weekType}
                             data-week-type-numeric={weekType == "above_week" ? 1 : -1}

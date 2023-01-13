@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Swiper as SwiperType} from "swiper";
+import {hoursToMilliseconds} from "date-fns";
 
 import Dates from "../../namespaces/dates";
 
@@ -54,6 +55,20 @@ export const useSwiperDates = (
     useEffect(() => {
         dateController.weeksDates = weeksDates
     }, [weeksDates])
+
+
+    useEffect(() => {
+        dateController.onDayChange(currentDate)
+    }, [currentDate])
+
+    useEffect(() => {
+        const unsub = appContext.calendar.subscribe('changeDay', onDayChange)
+
+        return () => {
+            unsub()
+        }
+    }, [currentDate])
+
     useEffect(() => {
         appContext.calendar.invoke('toCurrentDay', currentDate)
     }, [currentDate])
@@ -86,7 +101,7 @@ export const useSwiperDates = (
         })()
     }, [dateNow])
     useEffect(() => {
-        const unsub = appContext.calendar.subscribe('toCurrentDate',toCurrentDate)
+        const unsub = appContext.calendar.subscribe('toCurrentDate', toCurrentDate)
 
         return () => {
             unsub()
@@ -119,6 +134,22 @@ export const useSwiperDates = (
         const cDate = new Date(year, month, date)
 
         dispatch(dateCurrentAction(Dates.createDateObj(cDate)))
+    }
+
+    const onDayChange = (dateIncrease: "next" | "prev") => {
+        let timestamp = currentDate.timestamp
+
+        if (dateIncrease === "next") {
+            timestamp = timestamp + hoursToMilliseconds(24)
+        } else {
+            timestamp = timestamp - hoursToMilliseconds(24)
+        }
+
+        let newDate: Date = new Date(timestamp)
+
+        dateController._isDayChange = true
+
+        dispatch(dateCurrentAction(Dates.createDateObj(newDate)))
     }
 
     return [

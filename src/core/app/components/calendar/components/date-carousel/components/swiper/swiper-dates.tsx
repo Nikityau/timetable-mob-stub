@@ -51,7 +51,7 @@ const SwiperDates = ({}: ISwiperDates) => {
                                         key={nanoid()}
                                         weekday={Dates.castToWeekdayShort(Dates.Day[date.getDay()])}
                                         date={date.getDate()}
-                                        isCurrent={Dates.isDatesCompare(new Date(currentDate.year, Dates.getMonthNum(currentDate.month), currentDate.date), date)}
+                                        isCurrent={Dates.isDatesCompare(new Date(currentDate.timestamp), date)}
                                         isWeekend={Dates.isWeekend(date.getDay())}
                                         fullDate={date}
                                     />

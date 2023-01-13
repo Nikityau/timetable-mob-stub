@@ -47,6 +47,10 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
         slideChangeController.initSlideChange()
     }
 
+    const onSlideChange = (swiper) => {
+        slideChangeController.onSlideChange(swiper, appContext)
+    }
+
     return (
         <div className={'swiper-schedule'}>
             <div className={'swiper-schedule__container'}>
@@ -59,8 +63,9 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
                         loop={true}
                         navigation={false}
                         slidesPerGroup={1}
-                        onInit={slideChangeController.onSwiperInit}
                         initialSlide={2}
+                        onInit={slideChangeController.onSwiperInit}
+                        onSlideChange={onSlideChange}
                     >
                         {
                             getFullWeek(below_week, 'below_week', 'below_week_copy')
