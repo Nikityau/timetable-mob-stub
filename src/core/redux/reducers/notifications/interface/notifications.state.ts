@@ -2,25 +2,34 @@ import {ILesson} from "../../timetable/interface/lesson";
 
 export interface INotificationsState {
     isNotifyOpen: boolean,
-    inputData: ILesson | null
-    notificationData: INote
-    unsaved: INote
+    inputData: ILesson
+    notifications: INote[]
 }
 
-//"dotw:wt:ln"
+export interface INotifNoteInput {
+    id: number | string,
+    dateRu: string
+    dateEn: string
+    lesson: ILesson,
+}
 
-interface INote {
-    [format: string]: {
-        notify: {
-            isNotify: boolean
-            type?: "date" | "time" | "before",
-            value?: string,
-            isRepeat?: boolean
-        },
-        note: {
-            isNote: boolean,
-            text?: string,
-            isRemind?: boolean
-        }
-    }
+export interface INote {
+    id: number | string,
+    dateRu: string
+    dateEn: string
+    lesson: ILesson,
+    notify: INotifyNotification | null
+    note: INoteNotification | null
+}
+
+ interface IRepeat {
+    isRepeat: boolean
+}
+
+export interface INotifyNotification extends IRepeat {
+    time: string | null | "nothing"
+}
+
+export interface INoteNotification extends IRepeat {
+    text: string | null | "nothing"
 }

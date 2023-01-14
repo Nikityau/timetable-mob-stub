@@ -1,20 +1,4 @@
 {
-  "dowt:ln:wt": {
-    "week_day": 1,
-    "lesson_number": 1,
-    "week_type": 0,
-    "notify": {
-      "isNotify": "true || false",
-      "type": "date || time || before",
-      "value": "date:22.10.2022 || time: 22:05 || before: 5m",
-      "isRepeat": "true || false"
-    },
-    "note": {
-      "isNote": "true || false",
-      "text": "some text...",
-      "isRemind": "true || false"
-    }
-  },
   "lessons": [
     {
       "id": 25507,

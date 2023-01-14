@@ -6,6 +6,10 @@ namespace ReduxTimeTableSelector {
     export const getParsedData = (state) => {
         return state['timetable']['lessons']['parsed']
     }
+
+    export const getId = (state) => {
+        return state['timetable']['id']
+    }
 }
 
 export default ReduxTimeTableSelector

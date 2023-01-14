@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import LessonCardTypeOne from "./components/lesson-card-type-one/lesson-card-type-one";
 import LessonCardTypeTwo from "./components/lesson-card-type-two/lesson-card-type-two";
@@ -11,16 +11,25 @@ import './style/common/lesson-card.scss'
 import {AppContext} from "../../../../app";
 import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
 import setInputData = ReduxNotificationsAction.setInputData;
+import ReduxTimeTableSelector from "../../../../../redux/reducers/timetable/selector/timetable.selector";
 
 const LessonCard = ({lesson}: ILessonMainCard) => {
 
     const appContext = useContext(AppContext)
+
+    const currDate = useSelector(appContext.reduxApi.getDateCurrent())
+    const groupId = useSelector(ReduxTimeTableSelector.getId)
 
     const dispatch = useDispatch()
 
     const onCardClick = () => {
         dispatch(setInputData(lesson))
         dispatch(appContext.reduxApi.setNotificationState(true))
+        dispatch(ReduxNotificationsAction.addNotification({
+            lesson: lesson,
+            date: new Date(currDate.timestamp),
+            id: groupId
+        }))
     }
 
     const getLessonsBySubGroup = () => {

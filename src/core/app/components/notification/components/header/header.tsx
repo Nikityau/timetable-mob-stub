@@ -2,15 +2,12 @@ import React, {useContext, useEffect} from 'react';
 import {useSelector} from "react-redux";
 
 import {ReduxNotificationSelector} from "../../../../../redux/reducers/notifications/selector/notification.selector";
+import Button from "../../../../../ui/components/button/button";
 
 import './style/common/header.scss'
 
 const Header = () => {
     const headData = useSelector(ReduxNotificationSelector.getLessonTypeNDiscipline)
-
-    /*useEffect(() => {
-        console.log(headData)
-    }, [headData])*/
 
     return (
         <div className={'notify-header'}>
@@ -22,6 +19,12 @@ const Header = () => {
                     <div className={'notify-header__lesson-title'}>
                         <span>{ headData.discipline }</span>
                     </div>
+                </div>
+                <div className={'notify-header__btn'}>
+                    <Button
+                        text={'Сохранить'}
+                        onClickHandler={() => {}}
+                    />
                 </div>
             </div>
         </div>

@@ -1,18 +1,33 @@
 import {ILesson} from "../../timetable/interface/lesson";
+import {INoteNotification, INotificationsState, INotifyNotification} from "../interface/notifications.state";
 
 export namespace ReduxNotificationsAction {
     export enum NotificationAction {
         OPEN = "notify/open",
         CLOSE = "notify/close",
         SET_INPUT_DATA = "notify/setInputData",
-        DELETE_INPUT_DATA = "notify/deleteInputData"
+        DELETE_INPUT_DATA = "notify/deleteInputData",
+        ADD_NOTIFICATION = "notify/addNotification",
+        CHANGE_NOTIFICATION_NOTE = "notify/changeNotificationNote",
+        CHANGE_NOTIFICATION_NOTIFY = "notify/changeNotificationNotify",
+        ADD_NOTIFICATION_LIST = "notify/addNotificationList"
+    }
+
+    export interface INotificationData {
+        id: string,
+        date: Date,
+        lesson: ILesson,
     }
 
     export interface INotifyAction {
         type: NotificationAction,
         payload: {
             isNotifyOpen?: boolean,
-            lesson?: ILesson
+            lesson?: ILesson,
+            data?: INotificationData | null,
+            notify?: INotifyNotification | null
+            note?: INoteNotification | null,
+            list?: any[]
         }
     }
 
@@ -48,6 +63,42 @@ export namespace ReduxNotificationsAction {
             type: NotificationAction.DELETE_INPUT_DATA,
             payload: {
                 lesson: null
+            }
+        }
+    }
+
+
+    export const addNotification = (payload: INotificationData):INotifyAction => {
+        return {
+            type: NotificationAction.ADD_NOTIFICATION,
+            payload: {
+                data: payload
+            }
+        }
+    }
+
+    export const changeNotificationNotify = (payload: INotifyNotification):INotifyAction => {
+        return {
+            type: NotificationAction.CHANGE_NOTIFICATION_NOTIFY,
+            payload: {
+                notify: payload
+            }
+        }
+    }
+    export const changeNotificationNote = (payload: INoteNotification):INotifyAction => {
+        return {
+            type: NotificationAction.CHANGE_NOTIFICATION_NOTE,
+            payload: {
+                note: payload
+            }
+        }
+    }
+
+    export const addNotificationList = (payload: any[]):INotifyAction => {
+        return {
+            type: NotificationAction.ADD_NOTIFICATION_LIST,
+            payload: {
+                list: payload
             }
         }
     }
