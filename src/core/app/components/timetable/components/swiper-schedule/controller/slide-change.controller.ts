@@ -174,6 +174,19 @@ export class SlideChangeController {
                 this._canChangeDay = true
             })
         }
+
+        if(swiper.isEnd) {
+            setTimeout(() => {
+                this._isRapidly = true
+                this.swiperSlideTo(14)
+            }, 200)
+        }
+        if(swiper.isBeginning) {
+            setTimeout(() => {
+                this._isRapidly = true
+                this.swiperSlideTo(13)
+            }, 200)
+        }
     }
 
     public onSwiperInit(swiper: SwiperType) {
