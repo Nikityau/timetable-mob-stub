@@ -23,7 +23,11 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
     const dispatch = useDispatch()
 
     const onCardClick = () => {
-        dispatch(setInputData(lesson))
+        dispatch(setInputData({
+            lesson: lesson,
+            id: groupId,
+            date: currDate
+        }))
         dispatch(appContext.reduxApi.setNotificationState(true))
         dispatch(ReduxNotificationsAction.addNotification({
             lesson: lesson,

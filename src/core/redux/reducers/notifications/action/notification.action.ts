@@ -1,7 +1,10 @@
 import {ILesson} from "../../timetable/interface/lesson";
 import {INoteNotification, INotificationsState, INotifyNotification} from "../interface/notifications.state";
+import Dates from "../../../../utils/namespaces/dates";
 
 export namespace ReduxNotificationsAction {
+    import DateObj = Dates.DateObj;
+
     export enum NotificationAction {
         OPEN = "notify/open",
         CLOSE = "notify/close",
@@ -23,7 +26,11 @@ export namespace ReduxNotificationsAction {
         type: NotificationAction,
         payload: {
             isNotifyOpen?: boolean,
-            lesson?: ILesson,
+            inputData?: {
+                id: string | number
+                date: DateObj,
+                lesson: ILesson,
+            } | null,
             data?: INotificationData | null,
             notify?: INotifyNotification | null
             note?: INoteNotification | null,
@@ -49,11 +56,19 @@ export namespace ReduxNotificationsAction {
         }
     }
 
-    export const setInputData = (payload:ILesson):INotifyAction => {
+    export const setInputData = (payload: {
+        id: string | number,
+        date: DateObj
+        lesson: ILesson
+    }):INotifyAction => {
         return {
             type: NotificationAction.SET_INPUT_DATA,
             payload: {
-                lesson: payload
+                inputData: {
+                    lesson: payload.lesson,
+                    date: payload.date,
+                    id: payload.id
+                }
             }
         }
     }
@@ -62,7 +77,7 @@ export namespace ReduxNotificationsAction {
         return {
             type: NotificationAction.DELETE_INPUT_DATA,
             payload: {
-                lesson: null
+                inputData: null
             }
         }
     }

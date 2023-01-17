@@ -8,7 +8,7 @@ export namespace ReduxNotificationSelector {
 
     export const getGroups = (state):ILessonSubgroup[] => {
         const notify = (state['notifications'] as INotificationsState)
-        const lesson = notify.inputData
+        const lesson = notify.inputData?.lesson
 
         if(!lesson) {
             return []
@@ -32,7 +32,7 @@ export namespace ReduxNotificationSelector {
 
     export const getLessonTypeNDiscipline = (state): { lessonType: string, discipline: string } => {
         const notify = (state['notifications'] as INotificationsState)
-        const lesson = notify.inputData
+        const lesson = notify.inputData?.lesson
 
         if(!lesson) {
             return {

@@ -7,6 +7,9 @@ import './style/common/notify.scss'
 
 import {notifyTime} from "./data/notify-time";
 import Repeat from "../repeat/repeat";
+import {useDispatch} from "react-redux";
+import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
+import {ca} from "date-fns/locale";
 
 type TimeBefore =
     '5m' | '15m' |
@@ -19,12 +22,36 @@ const Notify = () => {
 
     const [timeActive, setTime] = useState<TimeBefore>('unk')
 
+    const dispatch = useDispatch()
+
     const onChange = (value: boolean) => {
         setIsActive(value)
+        dispatch(ReduxNotificationsAction.changeNotificationNotify({
+            isRepeat: value,
+            time: timeActive
+        }))
+    }
+
+    const parseTime = (time: TimeBefore): string => {
+        switch (time) {
+            case "5m": return "00:05"
+            case "15m": return "00:15"
+            case "30m": return "00:30"
+            case "1h": return "01:00"
+            case "1d": return "24:00"
+            default: return "unk"
+        }
     }
 
     const onTimeClick = (time: TimeBefore) => {
         setTime(time)
+
+        const timeStr = parseTime(time)
+
+        dispatch(ReduxNotificationsAction.changeNotificationNotify({
+            isRepeat: isActive,
+            time: timeStr
+        }))
     }
 
     const onRepeatChange = (value: boolean) => {

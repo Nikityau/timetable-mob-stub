@@ -2,7 +2,7 @@ import {ILesson} from "../../timetable/interface/lesson";
 
 export interface INotificationsState {
     isNotifyOpen: boolean,
-    inputData: ILesson
+    inputData: INotifNoteInput
     notifications: INote[]
 }
 

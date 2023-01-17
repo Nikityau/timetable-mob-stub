@@ -4,6 +4,7 @@ import {ReduxNotificationsAction} from "../action/notification.action";
 import INotifyAction = ReduxNotificationsAction.INotifyAction;
 
 import {INote, INoteNotification, INotificationsState} from "../interface/notifications.state";
+import {act} from "react-dom/test-utils";
 
 export class NotificationsReducer {
     setNotifyState(state: INotificationsState, action: INotifyAction) {
@@ -14,13 +15,34 @@ export class NotificationsReducer {
 
     setInputData(state: INotificationsState, action: INotifyAction) {
         return produce(state, draft => {
-            draft.inputData = action.payload.lesson
+            const date = new Date(action.payload.inputData.date.timestamp)
+
+            const dateRu = Intl.DateTimeFormat('ru', {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric"
+            }).format(date)
+
+            const dateEn = Intl.DateTimeFormat('en', {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric"
+            }).format(date)
+
+            console.log(action)
+
+            draft.inputData = {
+                id: action.payload.inputData.id,
+                lesson: action.payload.inputData.lesson,
+                dateRu,
+                dateEn
+            }
         })
     }
 
     deleteInputData(state: INotificationsState, action: INotifyAction) {
         return produce(state, draft => {
-            draft.inputData = action.payload.lesson
+            draft.inputData = null
         })
     }
 
@@ -62,18 +84,20 @@ export class NotificationsReducer {
                     return lesson
             })
 
-            if(coincidence) {
+            if (coincidence) {
 
             } else {
                 draft.notifications.push(notification)
             }
         })
     }
+
     changeNotificationNotify(state: INotificationsState, action: INotifyAction) {
         return produce(state, draft => {
 
         })
     }
+
     changeNotificationNote(state: INotificationsState, action: INotifyAction) {
         return produce(state, draft => {
 
