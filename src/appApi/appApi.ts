@@ -2,6 +2,8 @@ import store from "../core/redux/store/store";
 
 import ReduxTimeTableAction from "../core/redux/reducers/timetable/action/timetable.action";
 import {ReduxAddonPage} from "../core/redux/reducers/addonPage/action/addonPage.action";
+import {ReduxNotificationsAction} from "../core/redux/reducers/notifications/action/notification.action";
+
 
 class AppApi {
     setTimetable(timetable) {
@@ -18,7 +20,31 @@ class AppApi {
             store.dispatch(ReduxTimeTableAction.setParsedTimetable())
         }, 500)
 
-        return "XOCHU_PIZZA"
+        return "OK"
+    }
+
+    setNotifications(notifications: any) {
+        let notifs = undefined
+
+        try {
+            notifs = JSON.parse(notifications)
+        } catch (e) {
+            notifs = notifications
+        }
+
+        store.dispatch(ReduxNotificationsAction.addNotificationList(notifs))
+
+        return "OK"
+    }
+
+    getNotifications() {
+        const notifs = {
+            lessons: []
+        }
+
+        notifs.lessons = store.getState().notifications.notifications
+
+        return JSON.stringify(notifs)
     }
 
     addonPage() {

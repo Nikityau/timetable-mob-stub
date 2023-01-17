@@ -35,7 +35,6 @@ const App = () => {
     const dispatch = useDispatch()
 
     const theme = useSelector(appContext.reduxApi.getTheme())
-    const notifPopUp = useSelector(appContext.reduxApi.getNotifPopUpState())
 
     useEffect(() => {
         dispatch(appContext.reduxApi.setTimeTableInit())
@@ -50,9 +49,6 @@ const App = () => {
                <div className={['app', getTheme(theme)].join(' ')}>
                    <div className={[
                        'app__container',
-                       notifPopUp
-                           ? 'el_disable'
-                           : 'el_enable'
                    ].join(' ')}>
                        <TimetablePage/>
                    </div>

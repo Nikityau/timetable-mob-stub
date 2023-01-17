@@ -92,7 +92,7 @@ export namespace ReduxNotificationsAction {
         }
     }
 
-    export const changeNotificationNotify = (payload: INotifyNotification):INotifyAction => {
+    export const changeNotificationNotify = (payload: INotifyNotification | null):INotifyAction => {
         return {
             type: NotificationAction.CHANGE_NOTIFICATION_NOTIFY,
             payload: {
@@ -100,7 +100,7 @@ export namespace ReduxNotificationsAction {
             }
         }
     }
-    export const changeNotificationNote = (payload: INoteNotification):INotifyAction => {
+    export const changeNotificationNote = (payload: INoteNotification | null):INotifyAction => {
         return {
             type: NotificationAction.CHANGE_NOTIFICATION_NOTE,
             payload: {

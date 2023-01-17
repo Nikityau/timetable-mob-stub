@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import LessonCardTypeOne from "./components/lesson-card-type-one/lesson-card-type-one";
@@ -12,6 +12,7 @@ import {AppContext} from "../../../../app";
 import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
 import setInputData = ReduxNotificationsAction.setInputData;
 import ReduxTimeTableSelector from "../../../../../redux/reducers/timetable/selector/timetable.selector";
+import {ReduxNotificationSelector} from "../../../../../redux/reducers/notifications/selector/notification.selector";
 
 const LessonCard = ({lesson}: ILessonMainCard) => {
 
@@ -19,6 +20,7 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
 
     const currDate = useSelector(appContext.reduxApi.getDateCurrent())
     const groupId = useSelector(ReduxTimeTableSelector.getId)
+    const hasNotification = useSelector(ReduxNotificationSelector.isNotify(lesson))
 
     const dispatch = useDispatch()
 
@@ -101,7 +103,12 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
                 }
             </div>
             <div className={'lesson-card__notification'}>
-                <div className={'lesson-card__notification-icon'}></div>
+                <div className={[
+                    'lesson-card__notification-icon',
+                    hasNotification
+                        ? 'lesson-card__notification-icon_notify'
+                        : ''
+                ].join(' ')}></div>
             </div>
         </div>
     );

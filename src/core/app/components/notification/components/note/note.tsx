@@ -1,19 +1,51 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 import './style/common/note.scss'
 import Tumbler from "../tumbler/tumbler";
 import Repeat from "../repeat/repeat";
+import {useDispatch} from "react-redux";
+import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
 
 const Note = () => {
 
     const [isActive, setIsActive] = useState<boolean>(false)
+    const [isRepeat, setIsRepeat] = useState<boolean>(false)
+
+    const [text, setText] = useState<string>("")
+
+    const dispatch = useDispatch()
 
     const onChangeActive = (value: boolean) => {
         setIsActive(value)
+
+        if(value) {
+            dispatch(ReduxNotificationsAction.changeNotificationNote({
+                isRepeat,
+                text
+            }))
+        } else {
+            dispatch(ReduxNotificationsAction.changeNotificationNote(null))
+        }
     }
 
     const onChangeRemind = (value:boolean) => {
+        setIsRepeat(value)
 
+        dispatch(ReduxNotificationsAction.changeNotificationNote({
+            isRepeat: value,
+            text
+        }))
+    }
+
+    const onTextChange = (e) => {
+        setText(e.target.value)
+    }
+
+    const onBlur = () => {
+        dispatch(ReduxNotificationsAction.changeNotificationNote({
+            isRepeat,
+            text
+        }))
     }
 
     return (
@@ -32,7 +64,11 @@ const Note = () => {
                     : ''
             ].join(' ')}>
                 <div className={'notify-note__note'}>
-                    <textarea></textarea>
+                    <textarea
+                        value={text}
+                        onChange={onTextChange}
+                        onBlur={onBlur}
+                    ></textarea>
                 </div>
                 <Repeat
                     text={'Напоминать мкаждый раз'}

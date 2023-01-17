@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {useDispatch} from "react-redux";
 import {nanoid} from "nanoid";
 
 import Tumbler from "../tumbler/tumbler";
@@ -7,9 +8,9 @@ import './style/common/notify.scss'
 
 import {notifyTime} from "./data/notify-time";
 import Repeat from "../repeat/repeat";
-import {useDispatch} from "react-redux";
 import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
-import {ca} from "date-fns/locale";
+import {NotifyContext} from "../../notification";
+
 
 type TimeBefore =
     '5m' | '15m' |
@@ -19,17 +20,36 @@ type TimeBefore =
 const Notify = () => {
 
     const [isActive, setIsActive] = useState<boolean>(false)
-
+    const [isRepeat, setIsRepeat] = useState<boolean>(false)
     const [timeActive, setTime] = useState<TimeBefore>('unk')
 
     const dispatch = useDispatch()
 
+    const notifyContext = useContext(NotifyContext)
+
+    useEffect(() => {
+        notifyContext.notify.addClearHandler(clearAll)
+    }, [])
+
+    const clearAll = () => {
+        /*setTime('unk')
+        setIsRepeat(false)
+        setIsActive(false)*/
+    }
+
     const onChange = (value: boolean) => {
+        const timeStr = parseTime(timeActive)
+
         setIsActive(value)
-        dispatch(ReduxNotificationsAction.changeNotificationNotify({
-            isRepeat: value,
-            time: timeActive
-        }))
+
+        if(value) {
+            dispatch(ReduxNotificationsAction.changeNotificationNotify({
+                isRepeat,
+                time: timeStr
+            }))
+        } else {
+            dispatch(ReduxNotificationsAction.changeNotificationNotify(null))
+        }
     }
 
     const parseTime = (time: TimeBefore): string => {
@@ -55,7 +75,13 @@ const Notify = () => {
     }
 
     const onRepeatChange = (value: boolean) => {
+        const timeStr = parseTime(timeActive)
 
+        setIsRepeat(value)
+        dispatch(ReduxNotificationsAction.changeNotificationNotify({
+            isRepeat: value,
+            time: timeStr
+        }))
     }
 
     return (
