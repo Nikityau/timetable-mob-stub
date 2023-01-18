@@ -6,7 +6,7 @@ import TumblerUI from "../../../../../ui/components/tumbler/tumbler";
 
 import './style/common/tumbler.scss'
 
-const Tumbler = ({ text, type, onChange }:ITumbler) => {
+const Tumbler = ({value, text, type, onChange}: ITumbler) => {
     return (
         <div className={'tumbler'}>
             <div className={[
@@ -17,10 +17,11 @@ const Tumbler = ({ text, type, onChange }:ITumbler) => {
             ].join(' ')}>
             </div>
             <div className={'tumbler__text'}>
-                <span>{ text }</span>
+                <span>{text}</span>
             </div>
             <div className={'tumbler__toggler'}>
                 <TumblerUI
+                    value={value}
                     onChange={onChange}
                 />
             </div>

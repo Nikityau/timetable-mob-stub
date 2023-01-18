@@ -1,57 +1,43 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext} from 'react';
 
-import './style/common/note.scss'
 import Tumbler from "../tumbler/tumbler";
 import Repeat from "../repeat/repeat";
-import {useDispatch} from "react-redux";
-import {ReduxNotificationsAction} from "../../../../../redux/reducers/notifications/action/notification.action";
+
+import {NotifyContext} from "../../notification";
+import {NotifActionsType} from "../../reducer/interface/notif.state";
+
+import './style/common/note.scss'
 
 const Note = () => {
 
-    const [isActive, setIsActive] = useState<boolean>(false)
-    const [isRepeat, setIsRepeat] = useState<boolean>(false)
-
-    const [text, setText] = useState<string>("")
-
-    const dispatch = useDispatch()
+    const notifyContext =  useContext(NotifyContext)
 
     const onChangeActive = (value: boolean) => {
-        setIsActive(value)
-
-        if(value) {
-            dispatch(ReduxNotificationsAction.changeNotificationNote({
-                isRepeat,
-                text
-            }))
-        } else {
-            dispatch(ReduxNotificationsAction.changeNotificationNote(null))
-        }
+        notifyContext.dispatch({
+            type: NotifActionsType.IS_NOTE_ACTIVE,
+            payload: value
+        })
     }
 
     const onChangeRemind = (value:boolean) => {
-        setIsRepeat(value)
-
-        dispatch(ReduxNotificationsAction.changeNotificationNote({
-            isRepeat: value,
-            text
-        }))
+        notifyContext.dispatch({
+            type: NotifActionsType.IS_NOTE_REPEAT,
+            payload: value
+        })
     }
 
     const onTextChange = (e) => {
-        setText(e.target.value)
-    }
-
-    const onBlur = () => {
-        dispatch(ReduxNotificationsAction.changeNotificationNote({
-            isRepeat,
-            text
-        }))
+        notifyContext.dispatch({
+            type: NotifActionsType.NOTE_TEXT,
+            payload: e.target.value
+        })
     }
 
     return (
         <div className={'notify-note'}>
             <div className={'notify-note__tumbler-wrapper'}>
                 <Tumbler
+                    value={notifyContext.notif.isNoteActive}
                     type={'note'}
                     text={'Добавить заметку:'}
                     onChange={onChangeActive}
@@ -59,18 +45,18 @@ const Note = () => {
             </div>
             <div className={[
                 'notify-note__container el_side_offset_m',
-                !isActive
+                !notifyContext.notif.isNoteActive
                     ? 'el_disable el_disable_visual'
                     : ''
             ].join(' ')}>
                 <div className={'notify-note__note'}>
                     <textarea
-                        value={text}
+                        value={notifyContext.notif.noteText}
                         onChange={onTextChange}
-                        onBlur={onBlur}
                     ></textarea>
                 </div>
                 <Repeat
+                    value={notifyContext.notif.isNoteRepeat}
                     text={'Напоминать мкаждый раз'}
                     onChange={onChangeRemind}
                 />

@@ -1,31 +1,23 @@
-import React, {useEffect} from 'react';
-import {useToggler} from "../../../utils/hooks/useToggler";
+import React from 'react';
 
 import './style/common/tumbler.scss'
 
-const TumblerUI = ({ onChange }:{ onChange(value: boolean):void }) => {
-
-    const [toggler, setToggler] = useToggler(false)
-
-    useEffect(() => {
-        onChange(toggler)
-    }, [toggler])
-
+const TumblerUI = ({ value,onChange }:{ value:boolean ,onChange(value: boolean):void }) => {
     const toggle = () => {
-        setToggler.toggle()
+        onChange(!value)
     }
 
     return (
         <div className={'tumbler-ui'} onClick={toggle}>
             <div className={[
                 'tumbler-ui__tumbler',
-                toggler
+                value
                     ? 'tumbler-ui__tumbler_active'
                     : ''
             ].join(' ')}>
                 <div className={[
                     'tumbler-ui__circle',
-                    toggler
+                    value
                         ? 'tumbler-ui__circle_active'
                         : ''
                 ].join(' ')}>

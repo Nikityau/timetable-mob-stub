@@ -4,7 +4,7 @@ import TumblerUI from "../../../../../ui/components/tumbler/tumbler";
 
 import './style/common/repeat.scss'
 
-const Repeat = ({ onChange, text }: { text: string ,onChange(value: boolean):void }) => {
+const Repeat = ({ value ,onChange, text }: {  value: boolean ,text: string ,onChange(value: boolean):void }) => {
     return (
         <div className={'repeat'}>
             <div className={'repeat__wrapper'}>
@@ -15,7 +15,7 @@ const Repeat = ({ onChange, text }: { text: string ,onChange(value: boolean):voi
                 </div>
             </div>
             <div className={'repeat__tumbler'}>
-                <TumblerUI onChange={onChange}/>
+                <TumblerUI value={value} onChange={onChange}/>
             </div>
         </div>
     );
