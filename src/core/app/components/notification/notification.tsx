@@ -15,6 +15,7 @@ import {NotifActionsType} from "./reducer/interface/notif.state";
 import {ReduxNotificationsAction} from "../../../redux/reducers/notifications/action/notification.action";
 
 import {notifReducer} from "./reducer/notif.reducer";
+import {ReduxNotificationSelector} from "../../../redux/reducers/notifications/selector/notification.selector";
 
 export const NotifyContext = React.createContext(null)
 
@@ -36,8 +37,6 @@ const parseTime = (time: TimeBefore): string => {
 }
 
 
-
-
 const Notification = () => {
 
     const appContext = useContext(AppContext)
@@ -56,7 +55,6 @@ const Notification = () => {
         const winHeight = window.screen.availHeight
         setContainerHeight(winHeight - headerHeight)
     }, [])
-
 
     const onClose = () => {
         if (notification.isNotifyActive) {

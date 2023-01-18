@@ -1,5 +1,6 @@
 import {INotificationsState} from "../interface/notifications.state";
 import {ILesson, ILessonSubgroup} from "../../timetable/interface/lesson";
+import {notifs} from "../data/notifs";
 
 export namespace ReduxNotificationSelector {
     export const getNotifPopUpState = (state): boolean => {
@@ -50,9 +51,11 @@ export namespace ReduxNotificationSelector {
     export const isNotify = (lesson: ILesson) => {
         return (state): boolean => {
             const groupId = state['timetable']?.['id']
-            if(!groupId) {
+            if (!groupId) {
                 return false
             }
+
+            const nowDate = new Date(state['date']['now'].timestamp)
 
             const currDate = state['date']['current']
             const currentDate = new Date(currDate.timestamp)
@@ -66,7 +69,7 @@ export namespace ReduxNotificationSelector {
             const notify = (state['notifications'] as INotificationsState)
             const notifs = notify.notifications
 
-            if(notifs.length == 0) return false
+            if (notifs.length == 0) return false
 
             const isFind = notifs.find(note => {
                 if (
@@ -79,9 +82,27 @@ export namespace ReduxNotificationSelector {
                     return note
             })
 
-            if(isFind) {
+            if (isFind) {
                 return isFind.note != null || isFind.notify != null
             } else {
+                for (let note of notifs) {
+                    if (
+                        note.id == groupId &&
+                        note.lesson.week_day == lesson.week_day &&
+                        note.lesson.lesson_number == lesson.lesson_number &&
+                        note.lesson.week_type == lesson.week_type
+                    ) {
+                        if (
+                            note.notify != null &&
+                            note.notify?.isRepeat &&
+                            currentDate >= nowDate
+                        ) {
+                            return true
+                        }
+                    }
+                }
+
+
                 return false
             }
         }
