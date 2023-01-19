@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useReducer, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
+import store from "../../../redux/store/store";
+
 import Tabber from "./components/tabber/tabber";
 import Header from "./components/header/header";
 import Groups from "./components/groups/groups";
@@ -15,7 +17,6 @@ import {NotifActionsType} from "./reducer/interface/notif.state";
 import {ReduxNotificationsAction} from "../../../redux/reducers/notifications/action/notification.action";
 
 import {notifReducer} from "./reducer/notif.reducer";
-import {ReduxNotificationSelector} from "../../../redux/reducers/notifications/selector/notification.selector";
 
 export const NotifyContext = React.createContext(null)
 
@@ -35,7 +36,16 @@ const parseTime = (time: TimeBefore): string => {
             return "unk"
     }
 }
-
+const parseTimeBack = (time: string):TimeBefore => {
+    switch (time) {
+        case "00:05": return '5m'
+        case "00:15": return '15m'
+        case "00:30": return '30m'
+        case "01:00": return '1h'
+        case "24:00": return '1d'
+        default: return 'unk'
+    }
+}
 
 const Notification = () => {
 
@@ -55,6 +65,109 @@ const Notification = () => {
         const winHeight = window.screen.availHeight
         setContainerHeight(winHeight - headerHeight)
     }, [])
+
+
+    useEffect(() => {
+        checkNotification()
+    }, [isNotifyOpen])
+
+    const checkNotification = () => {
+        if(!isNotifyOpen) return
+
+        const notif = store.getState().notifications
+        const notifs = notif.notifications
+        const inputData = notif.inputData
+
+        const isFind = notifs.find(note => {
+            if (
+                note.id == inputData.id &&
+                note.dateRu == inputData.dateRu &&
+                note.lesson.week_day == inputData.lesson.week_day &&
+                note.lesson.lesson_number == inputData.lesson.lesson_number &&
+                note.lesson.week_type == inputData.lesson.week_type
+            )
+                return note
+        })
+
+        if(isFind.notify != null || isFind.note != null) {
+            if(isFind.notify) {
+                dispatchNotification({
+                    type: NotifActionsType.IS_NOTIFY_ACTIVE,
+                    payload: true
+                })
+                dispatchNotification({
+                    type: NotifActionsType.IS_NOTIFY_REPEAT,
+                    payload: isFind.notify.isRepeat
+                })
+                dispatchNotification({
+                    type: NotifActionsType.TIME_BEFORE,
+                    payload: parseTimeBack(isFind.notify.time)
+                })
+            }
+            if(isFind.note) {
+                dispatchNotification({
+                    type: NotifActionsType.IS_NOTE_ACTIVE,
+                    payload: true
+                })
+                dispatchNotification({
+                    type: NotifActionsType.IS_NOTE_REPEAT,
+                    payload: isFind.note.isRepeat
+                })
+                dispatchNotification({
+                    type: NotifActionsType.NOTE_TEXT,
+                    payload: isFind.note.text
+                })
+            }
+        } else {
+            const nowDate = new Date(store.getState().date['now']['timestamp'])
+            const currentDate = new Date(store.getState().date['current']['timestamp'])
+
+            for(let note of notifs) {
+                if (
+                    note.id == inputData.id &&
+                    note.lesson.week_day == inputData.lesson.week_day &&
+                    note.lesson.lesson_number == inputData.lesson.lesson_number &&
+                    note.lesson.week_type == inputData.lesson.week_type
+                ) {
+                    if (
+                        note.notify != null &&
+                        currentDate >= nowDate
+                    ) {
+                        dispatchNotification({
+                            type: NotifActionsType.IS_NOTIFY_ACTIVE,
+                            payload: true
+                        })
+                        dispatchNotification({
+                            type: NotifActionsType.IS_NOTIFY_REPEAT,
+                            payload: note.notify.isRepeat
+                        })
+                        dispatchNotification({
+                            type: NotifActionsType.TIME_BEFORE,
+                            payload: parseTimeBack(note.notify.time)
+                        })
+
+                        if(note.note != null) {
+                            dispatchNotification({
+                                type: NotifActionsType.IS_NOTE_ACTIVE,
+                                payload: true
+                            })
+                            dispatchNotification({
+                                type: NotifActionsType.IS_NOTE_REPEAT,
+                                payload: note.note.isRepeat
+                            })
+                            dispatchNotification({
+                                type: NotifActionsType.NOTE_TEXT,
+                                payload: note.note.text
+                            })
+                        }
+
+                        return
+                    }
+                }
+            }
+        }
+
+    }
 
     const onClose = () => {
         if (notification.isNotifyActive) {
