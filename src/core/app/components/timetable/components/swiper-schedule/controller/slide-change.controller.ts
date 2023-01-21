@@ -1,4 +1,5 @@
 import type {Swiper as SwiperType} from 'swiper'
+
 import Dates from "../../../../../../utils/namespaces/dates";
 import DateObj = Dates.DateObj;
 
@@ -165,12 +166,11 @@ export class SlideChangeController {
         this._canChangeDay = false
 
         if(swiper.activeIndex > swiper.previousIndex) {
-            context.calendar.invoke('changeDay', "next").then(() => {
+            context.calendar.emit('changeDay', "next").then(() => {
                 this._canChangeDay = true
-
             })
         } else {
-            context.calendar.invoke('changeDay', "prev").then(() => {
+            context.calendar.emit('changeDay', "prev").then(() => {
                 this._canChangeDay = true
             })
         }

@@ -1,66 +1,64 @@
-import {nanoid} from "nanoid";
+import {Observable, Subject, Subscription} from 'rxjs'
 
 type Handler = (...args: any[]) => any
 type Params = any[]
 
 export class CalendarObserver {
-    private events!: Map<string, Handler[]>
     private eventsPull!: Map<string, Params>
+    private subject!: Map<string, Subject<any>>
+    private observable!: Map<string, Observable<any>>
 
     constructor() {
-        this.events = new Map<string, Handler[]>()
-        this.events.set('toCurrentDate', [])
-        this.events.set('toCurrentDay', [])
-        this.events.set('changeDay', [])
+        this.subject = new Map<string, Subject<any>>()
+        this.subject.set('toCurrentDate', new Subject())
+        this.subject.set('toCurrentDay', new Subject())
+        this.subject.set('changeDay', new Subject())
 
         this.eventsPull = new Map<string, Params>()
         this.eventsPull.set('currentDate', [])
         this.eventsPull.set('nowDate', [])
+
+        this.observable = new Map<string, Observable<any>>()
     }
 
-    subscribe(eventName, handler: Handler) {
-        const handler_id = nanoid()
-        Object.defineProperty(handler, 'handler_id', {
-            value: handler_id
-        })
+    on(eventName, handler: Handler) {
+        let observer: Subscription = null
 
-        if (this.events.has(eventName)) {
-            this.events.get(eventName).push(handler)
+        if (this.subject.has(eventName)) {
+            observer = this.subject.get(eventName).subscribe(handler)
         } else {
-            this.events.set(eventName, [])
-            this.events.get(eventName).push(handler)
+            this.subject.set(eventName, new Subject())
+            observer = this.subject.get(eventName).subscribe(handler)
+
         }
 
         return () => {
-            let handlers = this.events.get(eventName)
-            handlers = handlers.filter(el => el['handler_id'] != handler_id)
-            this.events.set(eventName, handlers)
+            observer.unsubscribe()
         }
     }
 
-    async invoke(eventName, ...params: any[]) {
-        const handlers = this.events.get(eventName)
-        for (let handler of Array.from(handlers)) {
-            await handler(...params)
-        }
+    async emit(eventName, ...params: any[]) {
+        await this.subject.get(eventName).next(params[0])
     }
 
-    async pull(eventName, handler) {
-        await handler(...this.eventsPull.get(eventName))
+    async pullEmit(eventName, handler) {
+        await this.observable.get(eventName).subscribe(handler)
     }
 
-    pullSubscribe(eventName, ...params: any[]) {
-        if (this.eventsPull.has(eventName)) {
-            const ev = this.eventsPull.get(eventName)
-            for (let param of params) {
-                ev.push(param)
-            }
+    pullOn(eventName, ...params: any[]) {
+        if (this.observable.has(eventName)) {
+            //const observable = this.observable.get(eventName)
         } else {
-            console.log('no pull event with this name', eventName)
+            this.observable.set(eventName, new Observable((subscriber) => {
+                for (let param of params) {
+                    subscriber.next(param)
+                }
+
+                subscriber.complete()
+            }))
         }
 
         return () => {
-            this.events.set(eventName, [])
         }
     }
 }

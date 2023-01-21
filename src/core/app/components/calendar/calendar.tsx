@@ -19,7 +19,7 @@ const Calendar = () => {
 
     const onTodayClick = () => {
         dispatch(appContext.reduxApi.setDateCurrentByNow())
-        appContext.calendar.invoke('toCurrentDate')
+        appContext.calendar.emit('toCurrentDate')
     }
 
     return (

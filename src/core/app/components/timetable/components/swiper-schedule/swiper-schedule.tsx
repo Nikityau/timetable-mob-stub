@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Swiper} from "swiper/react";
 
 import Dates from "../../../../../utils/namespaces/dates";
@@ -21,7 +21,7 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
     const appContext = useContext(AppContext)
 
     useEffect(() => {
-        const unsub = appContext.calendar.subscribe('toCurrentDay', toCurr)
+        const unsub = appContext.calendar.on('toCurrentDay', toCurr)
 
         return () => {
             unsub()
@@ -29,8 +29,8 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
     }, [])
 
     useEffect(() => {
-        appContext.calendar.pull('nowDate', dateNow)
-        appContext.calendar.pull('currentDate', currentDate)
+        appContext.calendar.pullEmit('nowDate', dateNow)
+        appContext.calendar.pullEmit('currentDate', currentDate)
     }, [])
 
     const toCurr = (currDate: DateObj) => {

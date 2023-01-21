@@ -62,7 +62,7 @@ export const useSwiperDates = (
     }, [currentDate])
 
     useEffect(() => {
-        const unsub = appContext.calendar.subscribe('changeDay', onDayChange)
+        const unsub = appContext.calendar.on('changeDay', onDayChange)
 
         return () => {
             unsub()
@@ -70,16 +70,16 @@ export const useSwiperDates = (
     }, [currentDate])
 
     useEffect(() => {
-        appContext.calendar.invoke('toCurrentDay', currentDate)
+        appContext.calendar.emit('toCurrentDay', currentDate)
     }, [currentDate])
     useEffect(() => {
-        const unsub = appContext.calendar.pullSubscribe('currentDate', currentDate)
+        const unsub = appContext.calendar.pullOn('currentDate', currentDate)
         return () => {
             unsub()
         }
     }, [currentDate])
     useEffect(() => {
-        const unsub = appContext.calendar.pullSubscribe('nowDate', dateNow)
+        const unsub = appContext.calendar.pullOn('nowDate', dateNow)
         return () => {
             unsub()
         }
@@ -101,7 +101,7 @@ export const useSwiperDates = (
         })()
     }, [dateNow])
     useEffect(() => {
-        const unsub = appContext.calendar.subscribe('toCurrentDate', toCurrentDate)
+        const unsub = appContext.calendar.on('toCurrentDate', toCurrentDate)
 
         return () => {
             unsub()
