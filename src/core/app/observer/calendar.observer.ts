@@ -4,7 +4,6 @@ type Handler = (...args: any[]) => any
 type Params = any[]
 
 export class CalendarObserver {
-    private eventsPull!: Map<string, Params>
     private subject!: Map<string, Subject<any>>
     private observable!: Map<string, Observable<any>>
 
@@ -13,10 +12,6 @@ export class CalendarObserver {
         this.subject.set('toCurrentDate', new Subject())
         this.subject.set('toCurrentDay', new Subject())
         this.subject.set('changeDay', new Subject())
-
-        this.eventsPull = new Map<string, Params>()
-        this.eventsPull.set('currentDate', [])
-        this.eventsPull.set('nowDate', [])
 
         this.observable = new Map<string, Observable<any>>()
     }
@@ -47,7 +42,7 @@ export class CalendarObserver {
 
     pullOn(eventName, ...params: any[]) {
         if (this.observable.has(eventName)) {
-            //const observable = this.observable.get(eventName)
+
         } else {
             this.observable.set(eventName, new Observable((subscriber) => {
                 for (let param of params) {

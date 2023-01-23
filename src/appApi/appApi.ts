@@ -49,9 +49,20 @@ class AppApi {
 
     addonPage() {
         store.dispatch(ReduxAddonPage.addonPageYes())
+
+        return "OK"
     }
     mainPage() {
         store.dispatch(ReduxAddonPage.addonPageNo())
+
+        return "OK"
+    }
+
+    themeDark() {
+        return "OK"
+    }
+    themeWhite() {
+        return "OK"
     }
 }
 

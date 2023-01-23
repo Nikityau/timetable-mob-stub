@@ -26,7 +26,7 @@ export class DateController implements IDateController {
 
     private _isCanChangeDate: boolean = true
     private _isChangeRapidly = false
-    public _isDayChange:boolean = false
+    public _isDayChange: boolean = false
 
     private _dateCurrentController: IDateCurrentController
     private _dateChangeController: IDateChangeController
@@ -98,11 +98,42 @@ export class DateController implements IDateController {
 
         this.setIsCanChangeDate(false)
 
-        this.setWeeksDates(translateData.from)
-        this.swiperSlideTo(translateData.slideTo)
-        this.setWeeksDates(translateData.to)
+        new Promise((res) => {
+             this.setWeeksDates(translateData.from)
 
-        this.setIsCanChangeDate(true)
+            if (!translateData.isActiveIndexCurrent) {
+                this.swiperSlideTo(translateData.slideTo )
+                this.setWeeksDates(translateData.to)
+
+                res(true)
+
+                return
+            } else {
+                if (translateData.translateFrom == 'past') {
+                    this.swiperSlideTo(translateData.slideTo + 1)
+
+                    setTimeout(() => {
+                        this.setWeeksDates(translateData.to)
+                        this.swiperSlideTo(translateData.slideTo, true)
+                        res(true)
+                    }, 300)
+
+                    return;
+                }
+                if (translateData.translateFrom == 'future') {
+                    this.swiperSlideTo(translateData.slideTo - 1)
+
+                    setTimeout(() => {
+                        this.setWeeksDates(translateData.to)
+                        this.swiperSlideTo(translateData.slideTo, true)
+                        res(true)
+                    }, 300)
+
+                    return;
+                }
+            }
+
+        }).then(r => this.setIsCanChangeDate(true))
     }
 
     onSlideChange() {
@@ -119,7 +150,7 @@ export class DateController implements IDateController {
     }
 
     onDayChange(date: DateObj) {
-        if(!this._isDayChange) return
+        if (!this._isDayChange) return
 
         this._isDayChange = false
 
@@ -130,14 +161,14 @@ export class DateController implements IDateController {
         const prevSlide = swiperDOM.querySelector('.swiper-slide-prev')
         const nextSlide = swiperDOM.querySelector('.swiper-slide-next')
 
-        if(activeSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
+        if (activeSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
             return
         }
-        if(prevSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
+        if (prevSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
             this._swiper.slidePrev()
             return;
         }
-        if(nextSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
+        if (nextSlide.querySelector(`[data-date="${dateNormal.getDate()}"][data-month="${dateNormal.getMonth()}"][data-year="${dateNormal.getFullYear()}"]`)) {
             this._swiper.slideNext()
         }
     }

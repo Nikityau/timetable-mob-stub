@@ -10,7 +10,9 @@ import {IDateCurrentController} from "../interface.controller/date-current.contr
 export type TranslateData = {
     from: DateSpecState
     to: DateSpecState,
-    slideTo: number
+    slideTo: number,
+    isActiveIndexCurrent: boolean,
+    translateFrom: TranslateFrom
 }
 
 export type TranslateFrom = 'future' | 'past' | 'unk'
@@ -73,10 +75,14 @@ export class DateCurrentController implements IDateCurrentController {
             prevWeek,
             nextWeek
         }: DateWeeks): TranslateData {
+        console.log(activeIndex)
+
         const translateData: TranslateData = {
             from: undefined,
             to: undefined,
-            slideTo: 1
+            slideTo: 1,
+            isActiveIndexCurrent: activeIndex == 2,
+            translateFrom: from
         }
 
         if (from == 'future') {
