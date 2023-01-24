@@ -27,7 +27,7 @@ export class SlideChangeController {
     toCurrentDay() {
         if (!this._swiper) return
         if (this._isInitSwipe) return
-        if(!this._canChangeDay) return;
+        if (!this._canChangeDay) return;
 
         this._canChangeDay = false
 
@@ -71,6 +71,12 @@ export class SlideChangeController {
             `[data-type-slide="${slideType}_main"]`
         ])
 
+        const indexCopy = this.getElIndexByAttributes([
+            `[data-week-type-numeric="${weekType}"]`,
+            `[data-day-type-string="${this._currDate.weekday}"]`,
+            `[data-type-slide="${slideType}_copy"]`
+        ])
+
         const prevDateObj = Dates.createDateObj(this._prevDate)
 
         const copyReverseIndex = this.getElIndexByAttributes([
@@ -80,34 +86,40 @@ export class SlideChangeController {
         ])
 
         if (date > this._prevDate) {
-            if (weekTypePrev == 1) {
-                this.swiperSlideTo(index)
-            } else {
-                this._isRapidly = true
-                this.swiperSlideTo(copyReverseIndex)
+            this.actionOrder(1, weekTypePrev, index, indexCopy, copyReverseIndex)
 
-                setTimeout(() => {
-                    this.swiperSlideTo(index)
-                }, 0)
-            }
-        } else {
-            if (weekTypePrev == -1) {
-                this.swiperSlideTo(index)
-            } else {
-                this._isRapidly = true
-                this.swiperSlideTo(copyReverseIndex)
-
-                setTimeout(() => {
-                    this.swiperSlideTo(index)
-                }, 0)
-            }
+            return
+        }
+        if (date < this._prevDate) {
+            this.actionOrder(-1, weekTypePrev, index, indexCopy, copyReverseIndex)
         }
     }
+
+    actionOrder(condition, weekTypePrev, index, indexCopy, copyReverseIndex) {
+        if (weekTypePrev == condition) {
+            this.swiperSlideTo(indexCopy)
+
+            setTimeout(() => {
+                this._isRapidly = true
+                this.swiperSlideTo(index)
+            }, 300)
+
+            return
+        } else {
+            this._isRapidly = true
+            this.swiperSlideTo(copyReverseIndex)
+
+            setTimeout(() => {
+                this.swiperSlideTo(index)
+            }, 0)
+        }
+    }
+
 
     swiperSlideTo(index: Index) {
         if (this._isRapidly) {
             this._isRapidly = false
-            if(this._isFirstRapid) {
+            if (this._isFirstRapid) {
                 this._isFirstRapid = false
             } else {
                 this._isAfterRapidly = true
@@ -154,10 +166,10 @@ export class SlideChangeController {
     }
 
     onSlideChange(swiper: SwiperType, context: any) {
-        if(!this._canChangeDay) {
+        if (!this._canChangeDay) {
             return
         }
-        if(this._isAfterRapidly) {
+        if (this._isAfterRapidly) {
             this._isAfterRapidly = false
             return;
         }
@@ -165,7 +177,7 @@ export class SlideChangeController {
 
         this._canChangeDay = false
 
-        if(swiper.activeIndex > swiper.previousIndex) {
+        if (swiper.activeIndex > swiper.previousIndex) {
             context.calendar.emit('changeDay', "next").then(() => {
                 this._canChangeDay = true
             })
@@ -175,13 +187,13 @@ export class SlideChangeController {
             })
         }
 
-        if(swiper.isEnd) {
+        if (swiper.isEnd) {
             setTimeout(() => {
                 this._isRapidly = true
                 this.swiperSlideTo(14)
             }, 200)
         }
-        if(swiper.isBeginning) {
+        if (swiper.isBeginning) {
             setTimeout(() => {
                 this._isRapidly = true
                 this.swiperSlideTo(13)

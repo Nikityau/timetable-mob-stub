@@ -30,7 +30,7 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
 
     useEffect(() => {
         appContext.calendar.pullEmit('nowDate', dateNow)
-        appContext.calendar.pullEmit('currentDate', currentDate)
+        appContext.calendar.pullEmit('currentDate', initSlideChange)
     }, [])
 
     const toCurr = (currDate: DateObj) => {
@@ -42,7 +42,7 @@ const SwiperSchedule = ({schedule, below_week, above_week}: ISwiperSchedule) => 
         slideChangeController.nowDate = nowDate
     }
 
-    const currentDate = (currentDate: DateObj) => {
+    const initSlideChange = (currentDate: DateObj) => {
         slideChangeController.currDate = currentDate
         slideChangeController.initSlideChange()
     }

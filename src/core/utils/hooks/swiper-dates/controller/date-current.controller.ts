@@ -75,7 +75,6 @@ export class DateCurrentController implements IDateCurrentController {
             prevWeek,
             nextWeek
         }: DateWeeks): TranslateData {
-        console.log(activeIndex)
 
         const translateData: TranslateData = {
             from: undefined,
