@@ -24,13 +24,13 @@
   line-height: 100.34%;
   letter-spacing: -0.3px;
 
-  color: #F3F3F3;
+  color: var(--text-color);
 }
 .notify-header__lesson-title {
   font-weight: 400;
   font-size: 14px;
 
-  color: #5E6173;
+  color: var(--text-color-additional);
 }
 .notify-header__btn {
 

@@ -45,7 +45,7 @@
   line-height: 19px;
   letter-spacing: -0.3px;
 
-  color: var(--text-color-another);
+  color: var(--text-color-additional);
 }
 
 .current-date__weekday {
@@ -72,9 +72,6 @@
 
   transform: translate(0, 10px);
 
-  //height: 0 !important;
-  //overflow: hidden;
-
   pointer-events: none;
 
   .ant-picker {
@@ -84,8 +81,6 @@
     height: 0;
     overflow: hidden;
     opacity: 0;
-    //backface-visibility: hidden;
     pointer-events: none;
-    //font-size: 0 !important;
   }
 }

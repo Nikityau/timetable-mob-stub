@@ -40,8 +40,8 @@ namespace RAPI {
             return ReduxDateAction.dateCurrentByNow()
         }
 
-        getTheme(state: any): ThemeState {
-            return ReduxThemeSelector.getTheme(state).state
+        getTheme(state: any): any {
+            return ReduxThemeSelector.getTheme(state)
         }
         setThemeDefault(): IThemeAction {
             return ReduxThemeAction.setDefault()

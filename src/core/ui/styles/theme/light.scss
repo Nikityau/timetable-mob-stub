@@ -1,17 +1,26 @@
 .theme_light {
-  --bg-color: #F6FAFF;
   --bg-header: #FFFFFF;
-  --bg-schecdule-card: #FFFFFF;
-  --bg-schecdule-card-active: #6B95FF;
-  --bg-schecdule-card-tab-active: #4F6193;
-  --bg-schecdule-card-field: #D2D4D8;
-  --bg-schecdule-card-field-active: #D2D4D8;
+  --bg-schecdule-slider: #F6FAFF;
+  --bg-rings-schedule: #F6FAFF;
+  --bg-rings: #fff;
+  --bg-ring: #fff;
+  --bg-schecdule-card: #fff;
+  --bg-notif-header: #fff;
+  --bg-notif: #F6FAFF;
+  --bg-tumbler-cirlce: #fff;
+  --bg-note: #fff;
 
-  --color-purple: #5C4EFE;
-  --color-green: #4DCF79;
-  --color-red: #FF5353;
-  --color-grey: #5E6173;
+  --border-note: #D3D3D3;
+
+  --time-stripe: #F3F3F3;
 
   --text-color: #14161A;
-  --text-color-another: #5E6173;
+
+  --btn-text-color: #FFFFFF;
+
+  --color-green: #4DCF79;
+
+  --bg-info-columns: "";
+
+  --stripe-color: #F3F3F3;
 }

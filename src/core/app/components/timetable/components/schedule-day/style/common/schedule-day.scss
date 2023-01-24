@@ -15,7 +15,7 @@
   width: 2px;
   height: calc(100% - 200px - 20px);
 
-  background: #262A35;
+  background: var(--stripe-color);
 
   border-radius: 10px;
 }

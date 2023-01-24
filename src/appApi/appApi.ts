@@ -3,6 +3,7 @@ import store from "../core/redux/store/store";
 import ReduxTimeTableAction from "../core/redux/reducers/timetable/action/timetable.action";
 import {ReduxAddonPage} from "../core/redux/reducers/addonPage/action/addonPage.action";
 import {ReduxNotificationsAction} from "../core/redux/reducers/notifications/action/notification.action";
+import ReduxThemeAction from "../core/redux/reducers/theme/action/theme.action";
 
 
 class AppApi {
@@ -59,9 +60,13 @@ class AppApi {
     }
 
     themeDark() {
+        store.dispatch(ReduxThemeAction.setDark())
+
         return "OK"
     }
     themeWhite() {
+        store.dispatch(ReduxThemeAction.setLight())
+
         return "OK"
     }
 }

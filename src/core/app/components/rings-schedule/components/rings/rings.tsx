@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
 
 import Ring from "./components/ring/ring";
@@ -9,7 +9,8 @@ import {IRings} from "./interface/rings";
 
 import './style/common/rings.scss'
 
-import btn_img from '../../../../../assets/icons/btn-back.png'
+import btn_img_dark from '../../../../../assets/icons/btn-back-dark.png'
+import btn_img_light from '../../../../../assets/icons/btn-back-light.png'
 
 import {rings} from './data/rings'
 import {AppContext} from "../../../../app";
@@ -19,6 +20,8 @@ const Rings = ({isOpen}: IRings) => {
     const appContext = useContext(AppContext)
 
     const dispatch = useDispatch()
+
+    const theme = useSelector(appContext.reduxApi.getTheme())
 
     const [scheduleHeight, setScheduleHeight] = useState<number>(0)
 
@@ -45,7 +48,11 @@ const Rings = ({isOpen}: IRings) => {
                     <div className={'rings__btn'}
                          onClick={onCloseClick}
                     >
-                        <img src={btn_img} alt={'btn'}/>
+                        <img src={
+                            theme == "DARK"
+                                ? btn_img_dark
+                                : btn_img_light
+                        } alt={'btn'}/>
                     </div>
                     <div className={'rings__text'}>
                         <span>Расписание звонков</span>

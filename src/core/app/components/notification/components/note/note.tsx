@@ -57,7 +57,7 @@ const Note = () => {
                 </div>
                 <Repeat
                     value={notifyContext.notif.isNoteRepeat}
-                    text={'Напоминать мкаждый раз'}
+                    text={'Напоминать каждый раз'}
                     onChange={onChangeRemind}
                 />
             </div>

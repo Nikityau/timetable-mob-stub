@@ -3,7 +3,7 @@
 
   padding: 17px 25px;
 
-  background: #262A35;
+  background: var(--bg-notif-header);
 
   border-radius: 6px;
 
@@ -22,7 +22,7 @@
     transform: translate(0, -50%);
 
     font-family: 'Custom';
-    color: #fff;
+    color: var(--text-color);
     font-size: 18px;
   }
 }
@@ -45,7 +45,7 @@
   line-height: 100.34%;
   letter-spacing: -0.3px;
 
-  color: #F3F3F3;
+  color: var(--text-color);
 }
 .tumbler__toggler {
 

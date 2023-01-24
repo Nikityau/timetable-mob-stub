@@ -1,35 +1,61 @@
 :root {
-  --bg-color: #14161A;
   --bg-header: #181A1F;
+  --bg-schecdule-slider: #14161A;
+  --bg-rings-schedule: #14161A;
+  --bg-rings: #181A1F;
+  --bg-ring: #1F222A;
   --bg-schecdule-card: #1F222A;
-  --bg-schecdule-card-active: #9CB5F5;
-  --bg-schecdule-card-tab-active: #697EB7;
-  --bg-schecdule-card-field: #262A35;
-  --bg-schecdule-card-field-active: #5C4EFE;
+  --bg-notif-header: #262A35;
+  --bg-notif: #1F222A;
+  --bg-tumbler-cirlce: #1F222A;
+  --bg-note: #181A1F;
 
-  --color-purple: #5C4EFE;
-  --color-green: #A5F59C;
-  --color-red: #FF5353;
-  --color-grey: #5E6173;
+  --border-note: #262A35;
+
+  --time-stripe: #31353F;
 
   --text-color: #F3F3F3;
-  --text-color-another: #5E6173;
+  --text-color-additional: #5E6173;
+
+  --btn-text-color: #181A1F;
+
+  --color-purple: #5C4EFE;
+  --color-red: #FF5353;
+
+  --color-green: #A5F59C;
+
+  --bg-info-columns: radial-gradient(circle, #262A35 0%, rgba(24, 26, 31, 0)90%);
+
+  --stripe-color: #262A35;
 }
 
 .theme_dark {
-  --bg-color: #14161A;
   --bg-header: #181A1F;
+  --bg-schecdule-slider: #14161A;
+  --bg-rings-schedule: #14161A;
+  --bg-rings: #181A1F;
+  --bg-ring: #1F222A;
   --bg-schecdule-card: #1F222A;
-  --bg-schecdule-card-active: #9CB5F5;
-  --bg-schecdule-card-tab-active: #697EB7;
-  --bg-schecdule-card-field: #262A35;
-  --bg-schecdule-card-field-active: #5C4EFE;
+  --bg-notif-header: #262A35;
+  --bg-notif: #1F222A;
+  --bg-tumbler-cirlce: #1F222A;
+  --bg-note: #181A1F;
 
-  --color-purple: #5C4EFE;
-  --color-green: #A5F59C;
-  --color-red: #FF5353;
-  --color-grey: #5E6173;
+  --border-note: #262A35;
+
+  --time-stripe: #31353F;
 
   --text-color: #F3F3F3;
-  --text-color-another: #5E6173;
+  --text-color-additional: #5E6173;
+
+  --btn-text-color: #181A1F;
+
+  --color-purple: #5C4EFE;
+  --color-red: #FF5353;
+
+  --color-green: #A5F59C;
+
+  --bg-info-columns: radial-gradient(circle, #262A35 0%, rgba(24, 26, 31, 0)90%);
+
+  --stripe-color: #262A35;
 }

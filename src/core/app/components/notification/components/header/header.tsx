@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {useSelector} from "react-redux";
 
 import {ReduxNotificationSelector} from "../../../../../redux/reducers/notifications/selector/notification.selector";

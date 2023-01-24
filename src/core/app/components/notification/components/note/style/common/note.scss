@@ -20,9 +20,9 @@
 
     resize: none;
 
-    background: #181A1F;
+    background: var(--bg-note);
 
-    border: 2px solid #262A35;
+    border: 2px solid var(--border-note);
 
     border-radius: 8px;
 
@@ -35,7 +35,7 @@
     line-height: 100.34%;
     letter-spacing: -0.3px;
 
-    color: #F3F3F3;
+    color: var(--text-color);
 
     padding: 10px;
 

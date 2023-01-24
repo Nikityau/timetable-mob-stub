@@ -9,10 +9,6 @@ const Notification = React.lazy(() => import('./components/notification/notifica
 
 import Loader from "./components/loader/loader";
 
-//import TimetablePage from "./pages/timetable/timetable.page";
-//import RingsSchedule from "./components/rings-schedule/rings-schedule";
-//import Notification from "./components/notification/notification";
-
 import '../ui/styles/global/global.scss'
 import '../ui/styles/fonts/sf-pro-display/sf-pro-display.scss'
 import '../ui/styles/fonts/custom/custom.scss'

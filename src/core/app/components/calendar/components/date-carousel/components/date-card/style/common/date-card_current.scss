@@ -1,3 +1,8 @@
 .date-card_current {
   background: var(--color-purple);
+
+  .date-card__weekday,
+  .date-card__day {
+    color: #fff;
+  }
 }

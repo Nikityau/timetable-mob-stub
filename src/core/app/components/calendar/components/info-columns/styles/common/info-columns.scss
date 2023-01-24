@@ -22,7 +22,7 @@
   left: 0;
 }
 .info-columns_gradient_grey {
-  background: radial-gradient(circle, #262A35 0%, rgba(24, 26, 31, 0)90%);
+  background: var(--bg-info-columns);
 }
 
 .info-columns__container {
@@ -39,7 +39,7 @@
   line-height: 19px;
   letter-spacing: -0.3px;
 
-  color: #F3F3F3;
+  color: var(--text-color);
 }
 .info-columns__group {
   font-weight: 600;

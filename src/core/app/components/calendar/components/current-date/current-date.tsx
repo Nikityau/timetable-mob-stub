@@ -5,12 +5,26 @@ import {AppContext} from "../../../../app";
 
 import './styles/common/current-date.scss'
 
+import store from "../../../../../redux/store/store";
+import ReduxThemeAction from "../../../../../redux/reducers/theme/action/theme.action";
+
 const CurrentDate = () => {
 
     const appContext = useContext(AppContext)
 
     const dateNow = useSelector(appContext.reduxApi.getDateNow())
     const isAddonPage = useSelector(appContext.reduxApi.getIsAddonPage())
+
+    const switchTheme = () => {
+        const theme = store.getState().theme
+
+        if(theme['state'] == 'DARK') {
+            store.dispatch(ReduxThemeAction.setLight())
+        }
+        if(theme['state'] == 'LIGHT') {
+            store.dispatch(ReduxThemeAction.setDark())
+        }
+    }
 
     return (
         <div className={[
@@ -19,7 +33,7 @@ const CurrentDate = () => {
                 ? 'current-date__container_left_offset'
                 : ''
         ].join(' ')}>
-            <div className={'current-date__container'}>
+            <div className={'current-date__container'} onClick={switchTheme}>
                 <div className={'current-date__day'}>
                     <span>{dateNow?.date || '00'}</span>
                 </div>
