@@ -19,6 +19,7 @@ import {ReduxNotificationsAction} from "../../../redux/reducers/notifications/ac
 import {notifReducer} from "./reducer/notif.reducer";
 
 import ISwipe from "./controller/interface/swipe.interface";
+
 import SwipeController from "./controller/swipe.controller";
 
 export const NotifyContext = React.createContext(null)
@@ -86,7 +87,7 @@ const Notification = () => {
     useEffect(() => {
         checkNotification()
 
-        if(isNotifyOpen) {
+        if (isNotifyOpen) {
             swipeController.open()
         }
 
@@ -245,7 +246,7 @@ const Notification = () => {
                      onTouchEnd={swipeController.onTouchEnd}
                 >
                     <div className={'notification__header'}>
-                        <Tabber onClose={onClose}/>
+                        <Tabber/>
                         <Header/>
                     </div>
                     <div className={'notification__container'}

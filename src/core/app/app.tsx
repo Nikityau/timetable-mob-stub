@@ -9,6 +9,7 @@ const Notification = React.lazy(() => import('./components/notification/notifica
 
 import Loader from "./components/loader/loader";
 
+import '../ui/styles/root/root.scss'
 import '../ui/styles/global/global.scss'
 import '../ui/styles/fonts/sf-pro-display/sf-pro-display.scss'
 import '../ui/styles/fonts/custom/custom.scss'

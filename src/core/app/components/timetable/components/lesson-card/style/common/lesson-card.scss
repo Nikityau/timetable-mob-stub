@@ -116,7 +116,7 @@
 
   z-index: 5;
 
-  background: var(--color-purple);
+  background: var(--bg-notif-icon);
 
   border-radius: 21.5px 0px 20px;
 
@@ -124,9 +124,12 @@
   justify-content: center;
   align-items: center;
 }
+.lesson-card__notification_active {
+  background: var(--color-purple);
+}
 .lesson-card__notification-icon {
   font-family: 'Custom';
-  color: var(--bg-header);
+  color: var(--notif-icon);
   font-size: 20px;
 
 
@@ -136,6 +139,10 @@
 }
 .lesson-card__notification-icon_notify {
   color: #fff;
+
+  &:before {
+    content: '\e900';
+  }
 }
 
 .lesson-card__lesson-locations {

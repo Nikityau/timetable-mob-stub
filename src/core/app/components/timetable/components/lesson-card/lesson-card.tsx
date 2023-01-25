@@ -102,7 +102,12 @@ const LessonCard = ({lesson}: ILessonMainCard) => {
                     getLessonsBySubGroup()
                 }
             </div>
-            <div className={'lesson-card__notification'}>
+            <div className={[
+                'lesson-card__notification',
+                hasNotification
+                    ? 'lesson-card__notification_active'
+                    : ''
+            ].join(' ')}>
                 <div className={[
                     'lesson-card__notification-icon',
                     hasNotification
