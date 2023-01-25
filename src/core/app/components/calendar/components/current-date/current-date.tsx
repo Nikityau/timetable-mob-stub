@@ -33,7 +33,7 @@ const CurrentDate = () => {
                 ? 'current-date__container_left_offset'
                 : ''
         ].join(' ')}>
-            <div className={'current-date__container'} onClick={switchTheme}>
+            <div className={'current-date__container'} >
                 <div className={'current-date__day'}>
                     <span>{dateNow?.date || '00'}</span>
                 </div>

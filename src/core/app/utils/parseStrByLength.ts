@@ -3,5 +3,5 @@ export const parseStrByLength = (str:string):string => {
     if(!str) return "unk"
     if(str.length < maxSymbols) return str
 
-    return str
+    return str.substring(0, 28) + '...'
 }
