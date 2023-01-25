@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useReducer, useState} from 'react';
+import React, {useContext, useEffect, useReducer, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import store from "../../../redux/store/store";
@@ -18,6 +18,9 @@ import {ReduxNotificationsAction} from "../../../redux/reducers/notifications/ac
 
 import {notifReducer} from "./reducer/notif.reducer";
 
+import ISwipe from "./controller/interface/swipe.interface";
+import SwipeController from "./controller/swipe.controller";
+
 export const NotifyContext = React.createContext(null)
 
 const parseTime = (time: TimeBefore): string => {
@@ -36,18 +39,28 @@ const parseTime = (time: TimeBefore): string => {
             return "unk"
     }
 }
-const parseTimeBack = (time: string):TimeBefore => {
+const parseTimeBack = (time: string): TimeBefore => {
     switch (time) {
-        case "00:05": return '5m'
-        case "00:15": return '15m'
-        case "00:30": return '30m'
-        case "01:00": return '1h'
-        case "24:00": return '1d'
-        default: return 'unk'
+        case "00:05":
+            return '5m'
+        case "00:15":
+            return '15m'
+        case "00:30":
+            return '30m'
+        case "01:00":
+            return '1h'
+        case "24:00":
+            return '1d'
+        default:
+            return 'unk'
     }
 }
 
+const swipeController: ISwipe = new SwipeController()
+
 const Notification = () => {
+
+    const el = useRef<HTMLDivElement>(undefined)
 
     const appContext = useContext(AppContext)
 
@@ -60,19 +73,31 @@ const Notification = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        swipeController.setElement(el.current)
+    }, [])
+
+    useEffect(() => {
         const header = document.querySelector('.notification__header')
         const headerHeight = header.clientHeight
         const winHeight = window.screen.availHeight
         setContainerHeight(winHeight - headerHeight)
     }, [])
 
-
     useEffect(() => {
         checkNotification()
+
+        if(isNotifyOpen) {
+            swipeController.open()
+        }
+
     }, [isNotifyOpen])
 
+    useEffect(() => {
+        swipeController.closeHandler = onClose
+    }, [notification])
+
     const checkNotification = () => {
-        if(!isNotifyOpen) return
+        if (!isNotifyOpen) return
 
         const notif = store.getState().notifications
         const notifs = notif.notifications
@@ -89,8 +114,8 @@ const Notification = () => {
                 return note
         })
 
-        if(isFind.notify != null || isFind.note != null) {
-            if(isFind.notify) {
+        if (isFind.notify != null || isFind.note != null) {
+            if (isFind.notify) {
                 dispatchNotification({
                     type: NotifActionsType.IS_NOTIFY_ACTIVE,
                     payload: true
@@ -104,7 +129,7 @@ const Notification = () => {
                     payload: parseTimeBack(isFind.notify.time)
                 })
             }
-            if(isFind.note) {
+            if (isFind.note) {
                 dispatchNotification({
                     type: NotifActionsType.IS_NOTE_ACTIVE,
                     payload: true
@@ -122,7 +147,7 @@ const Notification = () => {
             const nowDate = new Date(store.getState().date['now']['timestamp'])
             const currentDate = new Date(store.getState().date['current']['timestamp'])
 
-            for(let note of notifs) {
+            for (let note of notifs) {
                 if (
                     note.id == inputData.id &&
                     note.lesson.week_day == inputData.lesson.week_day &&
@@ -146,7 +171,7 @@ const Notification = () => {
                             payload: parseTimeBack(note.notify.time)
                         })
 
-                        if(note.note != null) {
+                        if (note.note != null) {
                             dispatchNotification({
                                 type: NotifActionsType.IS_NOTE_ACTIVE,
                                 payload: true
@@ -169,7 +194,7 @@ const Notification = () => {
 
     }
 
-    const onClose = () => {
+    function onClose() {
         if (notification.isNotifyActive) {
             dispatch(ReduxNotificationsAction.changeNotificationNotify({
                 isRepeat: notification.isNotifyRepeat,
@@ -212,7 +237,13 @@ const Notification = () => {
                     isNotifyOpen
                         ? 'notification__main_open'
                         : ''
-                ].join(' ')}>
+                ].join(' ')}
+                     ref={el}
+
+                     onTouchStart={swipeController.onTouchStart}
+                     onTouchMove={swipeController.onTouchMove}
+                     onTouchEnd={swipeController.onTouchEnd}
+                >
                     <div className={'notification__header'}>
                         <Tabber onClose={onClose}/>
                         <Header/>
@@ -221,6 +252,7 @@ const Notification = () => {
                          style={{
                              height: `${containerHeight}px`
                          }}
+                         onScroll={swipeController.scrollController.onScroll}
                     >
                         <div className={'notification__groups'}>
                             <Groups/>

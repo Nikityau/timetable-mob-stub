@@ -4,7 +4,7 @@ import './style/common/tabber.scss'
 
 const Tabber = ({ onClose }: { onClose: () => void }) => {
     const onClick = () => {
-        onClose()
+        //onClose()
     }
 
     return (
