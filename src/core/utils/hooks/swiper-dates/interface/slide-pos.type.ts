@@ -1,1 +1,0 @@
-export type SlidePos = 'prev' | 'curr' | 'next'

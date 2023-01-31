@@ -1,0 +1,23 @@
+.button-ui {
+  height: fit-content;
+
+  width: auto;
+
+  padding: 10px 20px;
+
+  background: var(--color-green);
+
+  border-radius: 6px;
+  border: none;
+}
+
+.button-ui span {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: .5px;
+
+  color: var(--btn-text-color);
+}

@@ -1,0 +1,28 @@
+.date-ui {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.date-ui__current-date {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 48px;
+
+  color: var(--text-color);
+}
+.date-ui__remain-date-info span {
+  font-family: "SF Pro Display", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.3px;
+
+  color: var(--text-color-additional);
+}
+.date-ui__month-year {
+  display: flex;
+  gap: 5px
+}
