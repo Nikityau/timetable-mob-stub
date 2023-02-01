@@ -3,13 +3,10 @@ import { Swiper as SwiperType } from 'swiper'
 import Dates from "../../../helpers/date/date";
 import DateObj = Dates.DateObj;
 
-export type SlideDirection = 'left' | 'right'
-export type SlidePos = 'prev' | 'curr' | 'next'
+import {DateChangeController} from "./interface/date-change.controller";
 
-export type DateSpecState = {
-    dates: Date[][],
-    dateStart: SlidePos,
-}
+import {SlideDirection, DateSpecState} from "./type/controll.type";
+import {DateCurrentController} from "./interface/date-current.controller";
 
 class DateController {
     private _swiper: SwiperType
@@ -28,23 +25,23 @@ class DateController {
     private _isChangeRapidly = false
     public _isDayChange: boolean = false
 
-    //private _dateCurrentController: IDateCurrentController
-    //private _dateChangeController: IDateChangeController
+    private _dateCurrentController: DateCurrentController
+    private _dateChangeController: DateChangeController
 
     constructor(
-        //dateChangeController: IDateChangeController,
-        //dateCurrentController: IDateCurrentController
+        dateChangeController: DateChangeController,
+        dateCurrentController: DateCurrentController
     ) {
-        //this._dateChangeController = dateChangeController
-        //this._dateCurrentController = dateCurrentController
+        this._dateChangeController = dateChangeController
+        this._dateCurrentController = dateCurrentController
 
-       /* this._dateChangeController.onInit(
+        this._dateChangeController.onInit(
             this.setSliderActiveIndex.bind(this),
             this.setSlideDirection.bind(this),
             this.getIsCanChangeDate.bind(this),
             this.getIsChangeRapidly.bind(this)
         )
-        this._dateCurrentController.onInit()*/
+        this._dateCurrentController.onInit()
     }
 
     setIsCanChangeDate(value: boolean): boolean {
@@ -88,7 +85,7 @@ class DateController {
     toCurrentDate(currentDate: DateObj, dateNow: DateObj) {
         if (!this._setSwiper) return
 
-        /*const translateData = this._dateCurrentController.toCurrentDate(
+        const translateData = this._dateCurrentController.toCurrentDate(
             currentDate,
             dateNow,
             this._swiper
@@ -133,11 +130,11 @@ class DateController {
                 }
             }
 
-        }).then(r => this.setIsCanChangeDate(true))*/
+        }).then(r => this.setIsCanChangeDate(true))
     }
 
     onSlideChange() {
-        /*const weeksState = this._dateChangeController.onSlideChange(
+        const weeksState = this._dateChangeController.onSlideChange(
             this._swiper,
             this._sliderActiveIndex,
             this._slideDirection,
@@ -146,7 +143,7 @@ class DateController {
 
         if (!weeksState) return
 
-        this.setWeeksDates(weeksState)*/
+        this.setWeeksDates(weeksState)
     }
 
     onDayChange(date: DateObj) {

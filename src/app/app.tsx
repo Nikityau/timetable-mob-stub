@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import Main from "../pages/main/main";
 
@@ -8,6 +8,8 @@ import '../ui/styles/fonts/custom/custom.scss'
 import '../ui/styles/fonts/inter/inter.scss'
 
 import './style/app.scss'
+
+
 const App = () => {
     return (
         <div className={'app'}>

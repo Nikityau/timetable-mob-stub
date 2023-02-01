@@ -5,16 +5,25 @@ import {useSelector, useDispatch} from "react-redux";
 import Dates from "../../../../helpers/date/date";
 
 import {getDateCurrent, getDateNow} from "../../store/selector/getDate";
-import { changeCurrentDate } from '../../store/action/action'
+import {changeCurrentDate} from '../../store/action/action'
 
-import DateController, { DateSpecState, SlideDirection, SlidePos } from "../../controllers/date.controller";
+import DateController from "../../controllers/date.controller";
+import {DateChangeController} from "../../controllers/date-change.controller";
+import {DateCurrentController} from "../../controllers/date-current.controller";
 
-const dateController = new DateController()
+import Event from "../../../../helpers/event/event";
+
+import {SlideDirection, DateSpecState} from "../../controllers/type/controll.type";
+
+const dateController = new DateController(
+    new DateChangeController(),
+    new DateCurrentController()
+)
 
 const useSwiperDates = () => {
 
     const dateNow = useSelector(getDateNow)
-    const currentDate = useSelector(getDateCurrent)
+    //const currentDate = useSelector(getDateCurrent)
 
     const dispatch = useDispatch()
 
@@ -60,17 +69,20 @@ const useSwiperDates = () => {
     }, [dateNow])
 
     const toCurrentDate = () => {
-        //ateController.toCurrentDate(currentDate, dateNow)
+        dateController.toCurrentDate(dateNow, dateNow)
     }
 
     const onSlideChange = (swiper: SwiperType) => {
-        //dateController.swiper = swiper
+        dateController.swiper = swiper
 
-        //dateController.onSlideChange()
+        dateController.onSlideChange()
     }
 
     const onSwiperInit = (swiper: SwiperType) => {
         setSwiper(swiper)
+
+        const date = new Date(dateNow.timestamp)
+        Event.emitBehavior('changeDate', date)
     }
 
     const onSlideClick = (e: React.MouseEvent) => {
@@ -85,6 +97,7 @@ const useSwiperDates = () => {
         const cDate = new Date(year, month, date)
 
         dispatch(changeCurrentDate(cDate))
+        Event.emit('checkDate', cDate)
     }
 
     const onDayChange = (dateIncrease: "next" | "prev") => {
@@ -108,7 +121,7 @@ const useSwiperDates = () => {
             swiper: swiper,
             weeksDates: weeksDates.dates,
             dateNow,
-            currentDate
+            currentDate: dateNow
         },
         {
             onSwiperInit,

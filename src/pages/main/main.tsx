@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {HeightHoc} from "../../helpers/height-hoc/height-hoc";
 
@@ -11,7 +11,6 @@ import InfoColumns from "./components/info-columns/info-columns";
 import './style/main.scss'
 
 const Main = () => {
-
     return (
         <div className={'main'}>
             <div className={'main__header'}>

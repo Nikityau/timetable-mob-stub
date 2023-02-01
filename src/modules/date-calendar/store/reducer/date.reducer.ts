@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import {default as Dates} from "../../../../helpers/date/date";
+import Dates from "../../../../helpers/date/date";
 
 import {DateAction, DateActionTypes} from '../action/action'
 

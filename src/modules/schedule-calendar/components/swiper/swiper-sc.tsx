@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Swiper} from "swiper/react";
 
 import './style/swiper-sc.scss'
