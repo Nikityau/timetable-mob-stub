@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import {useSelector} from "react-redux";
 
 import Dates from "../../../../helpers/date/date";
-import Event from "../../../../helpers/event/event";
+
+import {checkDate} from "../../store/selector/checkDate";
 
 import './style/date-card.scss'
 import './style/date-card_current.scss'
@@ -14,42 +16,7 @@ type DateCardProps = {
 }
 
 const DateCard = React.memo(({fullDate, date, weekday}: DateCardProps) => {
-
-    const [isCurrent, setIsCurrent] = useState<boolean>(false)
-
-    useEffect(() => {
-        /*const unsub = Event.onBehavior('changeDate', (date: Date) => {
-            if (Dates.isDatesCompare(fullDate, date)) {
-                setIsCurrent(true)
-                return
-            }
-        })
-
-        return () => {
-            unsub()
-        }*/
-
-        console.log('rerender')
-    }, [])
-
-    useEffect(() => {
-        /*const unsub = Event.on('checkDate', (date: Date) => {
-            if (Dates.isDatesCompare(fullDate, date)) {
-                setIsCurrent(true)
-                return
-            }
-
-            if (!isCurrent) {
-                return;
-            }
-
-            setIsCurrent(false)
-        })
-
-        return () => {
-            unsub()
-        }*/
-    }, [isCurrent, fullDate])
+    const isCurrent = useSelector(checkDate(fullDate))
 
     return (
         <div className={[

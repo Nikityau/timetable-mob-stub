@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {nanoid} from "nanoid";
 
-import { default as Dates } from "../../../../helpers/date/date";
+import Dates from "../../../../helpers/date/date";
 
 import useSwiperDates from "../../helpers/hooks/useSwiperDates";
 

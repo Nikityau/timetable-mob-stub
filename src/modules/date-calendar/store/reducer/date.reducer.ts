@@ -18,6 +18,10 @@ const initState: DateState = {
 
 export const dateReducer = (state = initState, action:DateAction) => {
     switch (action.type) {
+        case DateActionTypes.SET_DATE_CURRENT_EQ_NOW:
+            return produce(state, draft => {
+                draft.current = draft.now
+            })
         case DateActionTypes.SET_DATE_CURRENT:
             return produce(state, draft => {
                 draft.current = Dates.createDateObj(action.payload)
