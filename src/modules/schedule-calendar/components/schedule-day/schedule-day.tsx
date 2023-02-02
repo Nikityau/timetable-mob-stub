@@ -17,7 +17,7 @@ const ScheduleDay = ({ scheduleDay }: ScheduleDayProps) => {
                 {
                     scheduleDay && scheduleDay.length > 0 &&
                     scheduleDay.map((lesson) => (
-                        <Lesson lesson={lesson} key={nanoid()}/>
+                        <Lesson lesson={lesson} key={lesson?.unique_id}/>
                     ))
                 }
             </div>

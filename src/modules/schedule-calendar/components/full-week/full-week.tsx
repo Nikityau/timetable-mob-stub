@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {SwiperSlide} from "swiper/react";
 import {nanoid} from "nanoid";
 

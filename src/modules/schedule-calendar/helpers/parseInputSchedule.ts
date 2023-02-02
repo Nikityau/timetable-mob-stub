@@ -1,3 +1,5 @@
+import {nanoid} from "nanoid";
+
 import {Lesson} from "../store/interface/lesson";
 import {LessonsParsed} from "../store/interface/lesson-parsed";
 
@@ -47,6 +49,7 @@ const parseByDays = (week: Lesson[]): Lesson[][] => {
     let dayLessons = []
 
     for (let day of week) {
+        day['unique_id'] = nanoid()
         if (prevDay != day.week_day) {
             weekParsed.push(dayLessons)
             dayLessons = []
