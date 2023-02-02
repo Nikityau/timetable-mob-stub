@@ -51,6 +51,23 @@ namespace Dates {
         timestamp: number | string
     }
 
+    export const getDayType = (day: number): string => {
+        switch (day) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                return Day[day]
+            case 7:
+                return Day[0]
+            default:
+                return "undef"
+        }
+    }
+
+
     export function castToWeekdayShort(weekday: Day | WeekdayShort | string): WeekdayShort {
         return weekday as WeekdayShort
     }

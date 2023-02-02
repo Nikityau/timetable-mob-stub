@@ -1,5 +1,8 @@
 import React from 'react';
+
 import SwiperSc from "../swiper/swiper-sc";
+
+import './style/schedule-calendar.css'
 
 type ScheduleCalendarProps = {
     height: number

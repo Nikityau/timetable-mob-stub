@@ -1,0 +1,156 @@
+.lesson-card {
+  position: relative;
+
+  width: 256px;
+  height: 138px;
+
+  background: var(--bg-schecdule-card);
+
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.lesson-card__container {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+
+.lesson-card__tab-header {
+  width: auto;
+  padding: 13px 19px 0;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100.34%;
+
+  letter-spacing: -0.3px;
+
+  color: var(--text-color);
+}
+
+.lesson-card__main-info {
+  height: calc(100% - 19px - 38px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 13px 19px 0;
+}
+
+.lesson-card__lesson {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.lesson-card__lesson-title,
+.lesson-card__lesson-teacher {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100.34%;
+
+  letter-spacing: -0.3px;
+
+  color: var(--text-color-additional);
+}
+
+.lesson-card__lesson-title {
+  text-transform: lowercase;
+}
+
+.lesson-card__lesson-title::first-letter {
+  text-transform: uppercase;
+}
+
+.lesson-card__lesson-teacher {
+  display: flex;
+  gap: 10px;
+}
+
+.lesson-card__lesson-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lesson-card__location-icon,
+.lesson-card__location {
+  color: var(--text-color-additional);
+}
+
+.lesson-card__location-icon {
+  font-family: 'Custom';
+  font-size: 17px;
+
+  &:before {
+    content: '\e90a';
+  }
+}
+
+.lesson-card__location {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100.34%;
+
+  letter-spacing: -0.3px;
+
+}
+
+.lesson-card__notification {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  width: 45px;
+  height: 45px;
+
+  z-index: 5;
+
+  background: var(--bg-notif-icon);
+
+  border-radius: 21.5px 0px 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lesson-card__notification_active {
+  background: var(--color-purple);
+}
+
+.lesson-card__notification-icon {
+  font-family: 'Custom';
+  color: var(--notif-icon);
+  font-size: 20px;
+
+
+  &:before {
+    content: '\e90d';
+  }
+}
+
+.lesson-card__notification-icon_notify {
+  color: #fff;
+
+  &:before {
+    content: '\e900';
+  }
+}
+
+.lesson-card__lesson-locations {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}

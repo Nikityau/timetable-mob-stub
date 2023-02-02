@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from "react-redux";
 import Dates from "../../../../helpers/date/date";
 
 import {getDateNow} from "../../store/selector/getDate";
-import {changeCurrentDate, changeCurrentDateEqNow} from '../../store/action/action'
+import {changeCurrentDate, changeCurrentDateEqNow} from '../../store/action/date.action'
 
 import DateController from "../../controllers/date.controller";
 import {DateChangeController} from "../../controllers/date-change.controller";

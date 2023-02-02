@@ -1,0 +1,26 @@
+.tabpen__tab_left {
+  left: 0;
+
+  background: var(--bg-schecdule-card);
+}
+
+.tabpen__tab_right {
+  right: 0;
+
+  background: #262A35;
+}
+
+.tabpen__tab_lower {
+  z-index: 0;
+}
+
+.tabpen__tab_upper {
+  z-index: 1;
+}
+
+.tabpen__tab-header_left {
+  background: var(--bg-schecdule-card);
+}
+.tabpen__tab-header_right {
+  background: #262A35;
+}

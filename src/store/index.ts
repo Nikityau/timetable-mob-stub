@@ -1,2 +1,2 @@
-export  { default as store } from './store/store'
-export { WithRedux } from './helpers/withRedux/withRedux'
+export {default as store} from './store/store'
+export {WithRedux} from './helpers/withRedux/withRedux'
