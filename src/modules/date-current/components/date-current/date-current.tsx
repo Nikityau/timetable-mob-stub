@@ -1,12 +1,11 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 
-import Date from "../../ui/components/date/date";
+import {getDateNow} from "../../../date-calendar";
 
-import {getDateNow} from "../../modules/date-calendar";
+import Date from "../../../../ui/components/date/date";
 
 const DateCurrent = () => {
-
     const date = useSelector(getDateNow)
 
     return (

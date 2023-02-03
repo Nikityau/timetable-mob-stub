@@ -2,7 +2,7 @@ import {ScheduleParsed} from "../interface/schedule";
 import {LessonsParsed} from "../interface/lesson-parsed";
 
 export const getGroupFullTitle = (state: any): string => {
-    return (state['schedule'] as ScheduleParsed).full_title
+    return (state['schedule'] as ScheduleParsed)?.full_title || 'UNK'
 }
 
 export const getParsedSchedule = (state: any): LessonsParsed => {

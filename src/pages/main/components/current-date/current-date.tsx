@@ -1,6 +1,7 @@
 import React from 'react';
 
-import DateCurrent from "../../../../components/date-current/date-current";
+import {DateCurrent} from "../../../../modules/date-current";
+
 import CurrentDateButton from "../../../../components/current-date-button/current-date-button";
 
 import './style/current-date.scss'

@@ -105,6 +105,6 @@
   .lesson-card__location-icon,
   .tabpen__tab-content-discipline,
   .tabpen__tab-content-teachers {
-    color: rgb(172, 173, 185);
+    color: var(--card-t-r-text-color);
   }
 }

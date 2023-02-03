@@ -1,14 +1,18 @@
 import React, { PropsWithChildren } from 'react';
 
+import Event from "../../helpers/event/event";
+
 type RingScheduleProps = {
 
 } & PropsWithChildren
 
 const RingScheduleIcon = ({children}: RingScheduleProps) => {
-    return (
-        <div onClick={() => {
+    const onClick = () => {
+        Event.emit('openRingsSchedule')
+    }
 
-        }}>
+    return (
+        <div onClick={onClick}>
             { children }
         </div>
     );
