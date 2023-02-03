@@ -22,7 +22,7 @@ type RingsProps = {
     isOpen: boolean
 }
 
-const Rings = ({ isOpen }:RingsProps) => {
+const Rings = React.memo(({ isOpen }:RingsProps) => {
     const dispatch = useDispatch()
 
     const theme = useSelector(getTheme)
@@ -111,6 +111,6 @@ const Rings = ({ isOpen }:RingsProps) => {
             </div>
         </div>
     );
-};
+});
 
 export default Rings;

@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames'
 
 import './style/date.scss'
 
@@ -6,12 +7,13 @@ type DateProps = {
     date: string | number,
     day: string,
     month: string,
-    year: string | number
+    year: string | number,
+    classnames: string
 }
 
-const Date = React.memo(({date, day,year, month}: DateProps) => {
+const Date = React.memo(({date, day,year, month, classnames}: DateProps) => {
     return (
-        <div className={'date-ui'}>
+        <div className={cn('date-ui', classnames)}>
             <div className={'date-ui__current-date'}>
                 <span>{ date }</span>
             </div>
