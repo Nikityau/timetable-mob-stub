@@ -42,6 +42,8 @@ class DateController {
             this.getIsChangeRapidly.bind(this)
         )
         this._dateCurrentController.onInit()
+
+        this.onDayChange = this.onDayChange.bind(this)
     }
 
     setIsCanChangeDate(value: boolean): boolean {

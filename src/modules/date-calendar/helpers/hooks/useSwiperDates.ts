@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from "react-redux";
 import Dates from "../../../../helpers/date/date";
 
 import {getDateNow} from "../../store/selector/getDate";
-import {changeCurrentDate, changeCurrentDateEqNow} from '../../store/action/date.action'
+import {changeCurrentDate, changeCurrentDateEqNow, nextDay, prevDay} from '../../store/action/date.action'
 
 import DateController from "../../controllers/date.controller";
 import {DateChangeController} from "../../controllers/date-change.controller";
@@ -32,9 +32,13 @@ const useSwiperDates = () => {
 
     useEffect(() => {
         const unsub = Event.on('currentDate', toCurrentDate)
+        const unsub2 = Event.on('changeDay', onDayChange)
+        const unsub3 = Event.on('changeCurrentDate', dateController.onDayChange)
 
         return () => {
             unsub()
+            unsub2()
+            unsub3()
         }
     }, [])
 
@@ -58,6 +62,15 @@ const useSwiperDates = () => {
     }, [weeksDates])
 
     useEffect(() => {
+        const unsub2 = Event.pullOn('nowDate', dateNow)
+        const unsub = Event.pullOn('currentDate', dateNow)
+        return () => {
+            unsub2()
+            unsub()
+        }
+    }, [dateNow])
+
+    useEffect(() => {
         (() => {
             const week = Dates.getDatesOfWeek(dateNow.year, Dates.getMonthNum(dateNow.month), dateNow.date)
             const prevWeek = Dates.getDatesOfPrevWeek(week[0].getFullYear(), week[0].getMonth(), week[0].getDate())
@@ -76,6 +89,7 @@ const useSwiperDates = () => {
     const toCurrentDate = (date: Dates.DateObj) => {
         dispatch(changeCurrentDateEqNow())
         dateController.toCurrentDate(date, dateNow)
+        Event.emit('toCurrentDay', dateNow)
     }
 
     const onSlideChange = (swiper: SwiperType) => {
@@ -100,22 +114,16 @@ const useSwiperDates = () => {
         const cDate = new Date(year, month, date)
 
         dispatch(changeCurrentDate(cDate))
+        Event.emit('toCurrentDay', Dates.createDateObj(cDate))
     }
 
     const onDayChange = (dateIncrease: "next" | "prev") => {
-        /*let timestamp = currentDate.timestamp
-
         if (dateIncrease === "next") {
-            timestamp = timestamp + hoursToMilliseconds(24)
+            dispatch(nextDay())
         } else {
-            timestamp = timestamp - hoursToMilliseconds(24)
+            dispatch(prevDay())
         }
-
-        let newDate: Date = new Date(timestamp)
-
         dateController._isDayChange = true
-
-        dispatch(dateCurrentAction(Dates.createDateObj(newDate)))*/
     }
 
     return [

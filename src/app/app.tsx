@@ -9,7 +9,6 @@ import '../ui/styles/fonts/inter/inter.scss'
 
 import './style/app.scss'
 
-
 const App = () => {
     return (
         <div className={'app'}>

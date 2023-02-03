@@ -2,14 +2,25 @@ import React, {useEffect} from 'react';
 import {Swiper} from "swiper/react";
 import {useDispatch, useSelector} from "react-redux";
 
+import {store} from "../../../../store";
+
+import Dates from "../../../../helpers/date/date";
+import DateObj = Dates.DateObj;
+
 import {ScheduleInput} from "../../store/interface/schedule";
 import {parseSchedule, setSchedule} from "../../store/action/schedule.action";
 import {getParsedSchedule} from "../../store/selector/schedule.selector";
 
+import fullWeek from "../full-week/full-week";
+
 import {timetableData} from '../../store/data/schedule'
+import {DayChangeController} from "../../controllers/day-change.controller";
 
 import './style/swiper-sc.scss'
-import fullWeek from "../full-week/full-week";
+
+import Event from "../../../../helpers/event/event";
+
+const dayChangeController = new DayChangeController()
 
 const SwiperSc = () => {
 
@@ -21,6 +32,33 @@ const SwiperSc = () => {
         dispatch(setSchedule(timetableData as ScheduleInput))
         dispatch(parseSchedule())
     }, [])
+
+    useEffect(() => {
+        const unsub = Event.on('toCurrentDay', toCurr)
+
+        return () => {
+            unsub()
+        }
+    }, [schedule])
+
+    useEffect(() => {
+        Event.pullEmit('nowDate', dateNow)
+        Event.pullEmit('currentDate', initSlideChange)
+    }, [schedule])
+
+    const toCurr = () => {
+        dayChangeController.currDate = store.getState().date.current
+        dayChangeController.toCurrentDay()
+    }
+
+    const dateNow = (nowDate: DateObj) => {
+        dayChangeController.nowDate = store.getState().date.now
+    }
+
+    const initSlideChange = () => {
+        dayChangeController.currDate = store.getState().date.current
+        dayChangeController.initSlideChange()
+    }
 
     return (
         <>
@@ -35,8 +73,9 @@ const SwiperSc = () => {
                     navigation={false}
                     slidesPerGroup={1}
                     initialSlide={2}
-                    onInit={() => {}}
-                    onSlideChange={() => {}}
+                    onInit={dayChangeController.onSwiperInit}
+                    onSlideChange={dayChangeController.onSlideChange}
+                    id={'schedule-calendar'}
                 >
                     {
                         fullWeek({

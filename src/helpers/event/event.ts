@@ -1,65 +1,56 @@
 import {BehaviorSubject, Observable, Subject, Subscription} from 'rxjs'
 type Unsubscribe = () => void
+type Handler = (...args: any[]) => any
 
 class Event {
-    private event: Map<string, Subject<any>>
-    private eventBehavior: Map<string, BehaviorSubject<any>>
-    private eventObserver: Map<string, Observable<any>>
+    private subject!: Map<string, Subject<any>>
+    private observable!: Map<string, BehaviorSubject<any>>
 
     constructor() {
-        this.event = new Map<string, Subject<any>>()
-        this.eventBehavior = new Map<string, BehaviorSubject<any>>()
-        this.eventObserver = new Map<string, Observable<any>>()
+        this.subject = new Map<string, Subject<any>>()
+        this.subject.set('toCurrentDate', new Subject())
+        this.subject.set('toCurrentDay', new Subject())
+        this.subject.set('changeDay', new Subject())
 
-        this.on = this.on.bind(this)
-        this.emit = this.emit.bind(this)
+        this.observable = new Map<string, BehaviorSubject<any>>()
     }
 
-    private createEvent(eventName) {
-        this.event.set(eventName, new Subject())
-    }
+    on(eventName, handler: Handler): Unsubscribe {
+        let observer: Subscription = null
 
-    on(eventName: string, callback: (...args: any[]) => any): Unsubscribe {
-        let subscription: Subscription = null
+        if (this.subject.has(eventName)) {
+            observer = this.subject.get(eventName).subscribe(handler)
+        } else {
+            this.subject.set(eventName, new Subject())
+            observer = this.subject.get(eventName).subscribe(handler)
 
-        if (!this.event.has(eventName)) {
-            this.createEvent(eventName)
-        }
-
-        subscription = this.event.get(eventName).subscribe(callback)
-
-        return () => {
-            subscription.unsubscribe()
-        }
-    }
-
-    async emit(eventName, ...args: any[]) {
-        if(!this.event.has(eventName)) {
-            throw new Error(`event with name ${eventName} does not exist`)
-        }
-
-        // @ts-ignore
-        await this.event.get(eventName).next(...args)
-    }
-
-    onBehavior(eventName, callback): Unsubscribe {
-        let subscriber:Subscription = null
-        if(this.eventBehavior.has(eventName)) {
-            subscriber = this.eventBehavior.get(eventName).subscribe(callback)
         }
 
         return () => {
-            subscriber.unsubscribe()
+            observer.unsubscribe()
         }
     }
 
-    async emitBehavior(eventName: string, ...args:any[]) {
-        if(!this.eventBehavior.has(eventName)) {
-            this.eventBehavior.set(eventName, new BehaviorSubject(null))
+    async emit(eventName, ...params: any[]) {
+        await this.subject.get(eventName).next(params[0])
+    }
+
+    async pullEmit(eventName, handler) {
+        await this.observable.get(eventName).subscribe(handler)
+    }
+
+    pullOn(eventName, ...params: any[]) {
+        if (this.observable.has(eventName)) {
+            // @ts-ignore
+            this.observable.get(eventName).next(...params)
+        } else {
+            this.observable.set(eventName, new BehaviorSubject((subscriber) => {
+                subscriber.next(...params)
+            }))
         }
 
-        //@ts-ignore
-        this.eventBehavior.get(eventName).next(...args)
+        return () => {
+        }
     }
 }
 
