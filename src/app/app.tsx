@@ -2,10 +2,11 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import cn from 'classnames'
 
-import {getTheme} from "../modules/theme";
+import {getTheme} from "../features/theme";
 
 import Main from "../pages/main/main";
 import ScheduleRings from "../pages/schedule-rings/schedule-rings";
+import Notification from "../pages/notification/notification";
 
 import '../ui/styles/global/global.scss'
 import '../ui/styles/fonts/sf-pro-display/sf-pro-display.scss'
@@ -14,6 +15,7 @@ import '../ui/styles/fonts/inter/inter.scss'
 import '../ui/styles/theme/dark.scss'
 import '../ui/styles/theme/light.scss'
 import '../ui/styles/able/able.scss'
+import '../ui/styles/side-offset/side-offset.scss'
 
 import './style/app.scss'
 
@@ -31,6 +33,7 @@ const App = () => {
             <div className={'app__container'}>
                 <Main/>
                 <ScheduleRings/>
+                <Notification/>
             </div>
         </div>
     );

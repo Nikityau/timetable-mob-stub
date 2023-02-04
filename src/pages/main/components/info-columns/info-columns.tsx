@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames'
 
-import {CurrentGroup} from "../../../../modules/current-group";
+import {CurrentGroup} from "../../../../micro-modules/current-group";
 
 import RingScheduleIcon from "../../../../components/ring-schedule-icon/ring-schedule-icon";
 

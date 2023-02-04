@@ -3,6 +3,8 @@
 
   .date-card__weekday,
   .date-card__day {
-    color: #fff;
+    span {
+      color: #fff;
+    }
   }
 }

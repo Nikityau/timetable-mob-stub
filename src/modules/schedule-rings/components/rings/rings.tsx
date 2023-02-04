@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
 import cn from 'classnames'
 
-import {getTheme} from "../../../theme";
+import {getTheme} from "../../../../features/theme";
+
 import {closeRingsSchedule, openRingsSchedule} from "../../store/action/rings.action";
 
 import Ring from "../ring/ring";

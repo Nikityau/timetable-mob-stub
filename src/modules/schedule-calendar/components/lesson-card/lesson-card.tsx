@@ -4,9 +4,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {Lesson} from "../../store/interface/lesson";
 
 import LessonCardTOne from "../lesson-card-t-one/lesson-card-t-one";
+import LessonCardTTwo from "../lesson-card-t-two/lesson-card-t-two";
+
+import {getDateCurrent} from "../../../date-calendar";
+
+import {getGroupId} from "../../store/selector/schedule.selector";
+
+import {isNotify} from "../../../notifications/store/selector/isNotify";
 
 import './style/lesson-card.scss'
-import LessonCardTTwo from "../lesson-card-t-two/lesson-card-t-two";
+
+import Event from "../../../../helpers/event/event";
 
 type LessonCardProps = {
     lesson: Lesson
@@ -14,26 +22,14 @@ type LessonCardProps = {
 
 const LessonCard = ({lesson}: LessonCardProps) => {
 
-    const [hasNotification] = useState<boolean>(false)
+    const currDate = useSelector(getDateCurrent)
+    const groupId = useSelector(getGroupId)
+    const hasNotification = useSelector(isNotify(lesson))
 
-    //const currDate = useSelector(appContext.reduxApi.getDateCurrent())
-    //const groupId = useSelector(ReduxTimeTableSelector.getId)
-    //const hasNotification = useSelector(ReduxNotificationSelector.isNotify(lesson))
-
-    //const dispatch = useDispatch()
 
     const onCardClick = () => {
-        /*dispatch(setInputData({
-            lesson: lesson,
-            id: groupId,
-            date: currDate
-        }))
-        dispatch(appContext.reduxApi.setNotificationState(true))
-        dispatch(ReduxNotificationsAction.addNotification({
-            lesson: lesson,
-            date: new Date(currDate.timestamp),
-            id: groupId
-        }))*/
+        Event.emit('notificationInputData', { lesson: lesson, id: groupId, date: currDate })
+        Event.emit('openNotification')
     }
 
     const getLessonsBySubGroup = () => {
@@ -49,9 +45,8 @@ const LessonCard = ({lesson}: LessonCardProps) => {
             />
         }
 
-        let isLessonTypeEvery = true
+        const isLessonTypeEvery = subgroups.every(lesson => lesson['lesson_type'] == lessonType)
         const lessonType = subgroups[0]['lesson_type']
-        isLessonTypeEvery = subgroups.every(lesson => lesson['lesson_type'] == lessonType)
 
         if (isLessonTypeEvery) {
             const teachers = []
