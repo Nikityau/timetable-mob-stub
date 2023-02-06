@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import {Lesson} from "../../store/interface/lesson";
@@ -6,15 +6,9 @@ import {Lesson} from "../../store/interface/lesson";
 import LessonCardTOne from "../lesson-card-t-one/lesson-card-t-one";
 import LessonCardTTwo from "../lesson-card-t-two/lesson-card-t-two";
 
-import {getDateCurrent} from "../../../date-calendar";
-
-import {getGroupId} from "../../store/selector/schedule.selector";
-
-import {isNotify} from "../../../notifications/store/selector/isNotify";
-
 import './style/lesson-card.scss'
 
-import Event from "../../../../helpers/event/event";
+import {useNotify} from "../../helpers/hooks/useNotify";
 
 type LessonCardProps = {
     lesson: Lesson
@@ -22,15 +16,7 @@ type LessonCardProps = {
 
 const LessonCard = ({lesson}: LessonCardProps) => {
 
-    const currDate = useSelector(getDateCurrent)
-    const groupId = useSelector(getGroupId)
-    const hasNotification = useSelector(isNotify(lesson))
-
-
-    const onCardClick = () => {
-        Event.emit('notificationInputData', { lesson: lesson, id: groupId, date: currDate })
-        Event.emit('openNotification')
-    }
+    const { is, onCardClick } = useNotify(lesson)
 
     const getLessonsBySubGroup = () => {
         const subgroups = lesson?.subgroups
@@ -96,13 +82,13 @@ const LessonCard = ({lesson}: LessonCardProps) => {
             </div>
             <div className={[
                 'lesson-card__notification',
-                hasNotification
+                is
                     ? 'lesson-card__notification_active'
                     : ''
             ].join(' ')}>
                 <div className={[
                     'lesson-card__notification-icon',
-                    hasNotification
+                    is
                         ? 'lesson-card__notification-icon_notify'
                         : ''
                 ].join(' ')}></div>

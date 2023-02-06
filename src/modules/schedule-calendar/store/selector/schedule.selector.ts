@@ -9,10 +9,7 @@ export const getParsedSchedule = (state: any): LessonsParsed => {
     const schedule = (state['schedule'] as ScheduleParsed)
 
     if (!schedule || !schedule.lessons.parsed) {
-        return {
-            below_week: [],
-            above_week: []
-        }
+        return null
     }
 
     return schedule.lessons.parsed

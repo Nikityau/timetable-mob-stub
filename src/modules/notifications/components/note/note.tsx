@@ -28,7 +28,6 @@ const Note = () => {
     }
 
     const onTextChange = (e) => {
-        console.log('request')
         notifyContext.dispatch({
             type: NotifyActionsType.NOTE_TEXT,
             payload: e.target.value

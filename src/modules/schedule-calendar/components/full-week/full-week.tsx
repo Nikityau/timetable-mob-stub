@@ -13,35 +13,40 @@ type FullWeekProps = {
     attr: string
 }
 
-const FullWeek = ({weekType, week, attr}: FullWeekProps): JSX.Element => {
+const FullWeek = ({weekType, week, attr}: FullWeekProps) => {
     return (
         <>
             {
-                week?.map((day, index) => (
-                    day
-                        ? <SwiperSlide
-                            key={nanoid(25)}
-                            className={'swiper-schedule__slide'}
-                            data-week-type-string={weekType}
-                            data-week-type-numeric={weekType == "above_week" ? 1 : -1}
-                            data-day-type-string={Dates.getDayType(day[0]?.['week_day'])}
-                            data-day-type-number={day[0]?.['week_day']}
-                            data-type-slide={attr}
-                        >
-                            <ScheduleDay scheduleDay={day}/>
-                        </SwiperSlide>
-                        : <SwiperSlide
-                            key={nanoid(25)}
-                            className={'swiper-schedule__slide'}
-                            data-week-type={weekType}
-                            data-week-type-numeric={weekType == "above_week" ? 1 : -1}
-                            data-day-type-string={Dates.getDayType(index + 1)}
-                            data-day-type-number={index + 1}
-                            data-type-slide={attr}
-                        >
-                            <Weekend/>
-                        </SwiperSlide>
-                ))
+                week?.map((day, index) => {
+                        const id = nanoid(25)
+                        return (
+                            day
+                                ? <SwiperSlide
+                                    key={id}
+                                    className={'swiper-schedule__slide'}
+                                    data-week-type-string={weekType}
+                                    data-week-type-numeric={weekType == "above_week" ? 1 : -1}
+                                    data-day-type-string={Dates.getDayType(day[0]?.['week_day'])}
+                                    data-day-type-number={day[0]?.['week_day']}
+                                    data-type-slide={attr}
+                                >
+                                    <ScheduleDay scheduleDay={day}/>
+                                </SwiperSlide>
+                                : <SwiperSlide
+                                    key={id}
+                                    className={'swiper-schedule__slide'}
+                                    data-week-type={weekType}
+                                    data-week-type-numeric={weekType == "above_week" ? 1 : -1}
+                                    data-day-type-string={Dates.getDayType(index + 1)}
+                                    data-day-type-number={index + 1}
+                                    data-type-slide={attr}
+                                >
+                                    <Weekend/>
+                                </SwiperSlide>
+                        )
+                    }
+                )
+
             }
         </>
     );

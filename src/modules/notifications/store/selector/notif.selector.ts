@@ -9,7 +9,7 @@ export const getGroups = (state): LessonSubgroup[] => {
     const lesson = notify.inputData?.lesson
 
     if (!lesson) {
-        return []
+        return null
     }
 
     if (!lesson.subgroups) {
@@ -33,10 +33,7 @@ export const getLessonTypeNDiscipline = (state): { lessonType: string, disciplin
     const lesson = notify.inputData?.lesson
 
     if (!lesson) {
-        return {
-            lessonType: 'empty',
-            discipline: 'empty'
-        }
+        return null
     }
 
     return {

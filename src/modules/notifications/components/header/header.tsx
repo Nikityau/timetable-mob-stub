@@ -16,10 +16,10 @@ const Header = () => {
             <div className={'notify-header__container el_side_offset_m'}>
                 <div className={'notify-header__lesson-info'}>
                     <div className={'notify-header__lesson-type'}>
-                        <span>{ headData.lessonType }</span>
+                        <span>{ headData ? headData.lessonType : 'null' }</span>
                     </div>
                     <div className={'notify-header__lesson-title'}>
-                        <span>{ headData.discipline }</span>
+                        <span>{ headData ? headData.discipline : 'null' }</span>
                     </div>
                 </div>
                 <div className={'notify-header__btn'}>

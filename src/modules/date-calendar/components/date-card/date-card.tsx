@@ -1,14 +1,12 @@
 import React, {useEffect} from 'react';
-import {useSelector} from "react-redux";
 
 import Dates from "../../../../helpers/date/date";
 
-import {checkDate} from "../../store/selector/checkDate";
+import {useCheckDate} from "../../helpers/hooks/useCheckDate";
 
 import './style/date-card.scss'
 import './style/date-card_current.scss'
 import './style/date-card_weekend.scss'
-import {useCheckDate} from "../../helpers/hooks/useCheckDate";
 
 type DateCardProps = {
     weekday: Dates.WeekdayShort,
@@ -16,7 +14,7 @@ type DateCardProps = {
     fullDate: Date
 }
 
-const DateCard = React.memo(({fullDate, date, weekday}: DateCardProps) => {
+const DateCard =({fullDate, date, weekday}: DateCardProps) => {
     const isCurrent = useCheckDate(fullDate)
 
     return (
@@ -39,6 +37,6 @@ const DateCard = React.memo(({fullDate, date, weekday}: DateCardProps) => {
             </div>
         </div>
     );
-})
+}
 
 export default DateCard;

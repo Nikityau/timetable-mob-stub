@@ -15,7 +15,7 @@ const Groups = () => {
     return (
         <div className={'notify-groups el_side_offset_m'}>
             {
-                groups?.map(group => (
+                groups && groups?.map(group => (
                     <Group
                         key={nanoid()}
                         teacher={group.teacher}

@@ -1,17 +1,21 @@
 import {Lesson} from "../../../schedule-calendar";
 import {Notification} from "../interface/notification";
 
+import {ScheduleParsed} from "../../../schedule-calendar/store/interface/schedule";
+import type {DateState} from "../../../date-calendar";
+
 export const isNotify = (lesson: Lesson) => {
     return (state): boolean => {
-        const groupId = state['timetable']?.['id']
+        const date = (state['date'] as DateState)
+        const timetable = (state['schedule'] as ScheduleParsed)
+
+        const groupId = timetable.id
         if (!groupId) {
             return false
         }
 
-        const nowDate = new Date(state['date']['now'].timestamp)
-
-        const currDate = state['date']['current']
-        const currentDate = new Date(currDate.timestamp)
+        const nowDate = new Date(date.now.timestamp)
+        const currentDate = new Date(date.current.timestamp)
 
         const ruLocale = Intl.DateTimeFormat('ru', {
             day: "numeric",
