@@ -4,6 +4,7 @@ import ReduxTimeTableAction from "../core/redux/reducers/timetable/action/timeta
 import {ReduxAddonPage} from "../core/redux/reducers/addonPage/action/addonPage.action";
 import {ReduxNotificationsAction} from "../core/redux/reducers/notifications/action/notification.action";
 import ReduxThemeAction from "../core/redux/reducers/theme/action/theme.action";
+import {ReduxRingsAction} from "../core/redux/reducers/rings/action/rings.slice";
 
 
 class AppApi {
@@ -55,6 +56,16 @@ class AppApi {
     }
     mainPage() {
         store.dispatch(ReduxAddonPage.addonPageNo())
+
+        return "OK"
+    }
+    openRings() {
+        store.dispatch(ReduxRingsAction.ringsScheduleOpen())
+
+        return "OK"
+    }
+    closeRings() {
+        store.dispatch(ReduxRingsAction.ringsScheduleClose())
 
         return "OK"
     }

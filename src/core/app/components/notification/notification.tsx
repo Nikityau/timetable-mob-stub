@@ -98,6 +98,7 @@ const Notification = () => {
     }, [notification])
 
     const checkNotification = () => {
+        console.log(isNotifyOpen)
         if (!isNotifyOpen) return
 
         const notif = store.getState().notifications
@@ -237,13 +238,16 @@ const Notification = () => {
                     'notification__main',
                     isNotifyOpen
                         ? 'notification__main_open'
-                        : ''
+                        : 'notification__main_close'
                 ].join(' ')}
                      ref={el}
 
                      onTouchStart={swipeController.onTouchStart}
                      onTouchMove={swipeController.onTouchMove}
                      onTouchEnd={swipeController.onTouchEnd}
+                     style={{
+                         transform: `translate(0px, ${isNotifyOpen ? 0 : 100}%)`
+                     }}
                 >
                     <div className={'notification__header'}>
                         <Tabber/>

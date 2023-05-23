@@ -33,6 +33,14 @@ const Note = () => {
         })
     }
 
+    const onFocus = () => {
+
+    }
+
+    const onBlur = () => {
+
+    }
+
     return (
         <div className={'notify-note'}>
             <div className={'notify-note__tumbler-wrapper'}>
@@ -53,6 +61,8 @@ const Note = () => {
                     <textarea
                         value={notifyContext.notif.noteText}
                         onChange={onTextChange}
+                        onFocus={onFocus}
+                        onBlur={onBlur}
                     ></textarea>
                 </div>
                 <Repeat

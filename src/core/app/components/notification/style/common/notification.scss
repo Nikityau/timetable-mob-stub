@@ -30,6 +30,9 @@
 .notification__main_open {
   transform: translate(0, 0);
 }
+.notification__main_close {
+  transform: translate(0, 100%);
+}
 .notification__header {
   display: flex;
   flex-direction: column;
